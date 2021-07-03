@@ -1,4 +1,4 @@
-package com.athensoft.prototype.rest.server.controller;
+package com.athensoft.prototype.rest.controller;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.prototype.rest.entity.User;
-import com.athensoft.prototype.rest.server.dao.UserRepository;
-import com.athensoft.prototype.rest.server.service.UserService;
+import com.athensoft.prototype.rest.dao.UserRepository;
+import com.athensoft.prototype.rest.service.UserService;
 
 
 
@@ -38,38 +38,36 @@ public class UserController {
 	}
 	
 	@GetMapping("/users")
-	public ResponseEntity<List<User>> getUserListAll() {
-		LOGGER.debug("entering /users");
+	public ResponseEntity<CollectionModel<EntityModel<User>>> getUserListAll() {
 		return userService.getUserListAll();
 	}
 	
 	@GetMapping("/users/{userId}")
-	public ResponseEntity<User> getUserById(@PathVariable int userId) {
-		LOGGER.debug("entering /users/" + userId);
+	public ResponseEntity<EntityModel<User>> getUserById(@PathVariable int userId) {
 		return userService.getUserById(userId);
 	}
 	
 	@PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-		LOGGER.debug("entering /users");
-        return userService.createUser(user);
+		LOGGER.info("create user:" + user);
+        return userService.saveUser(user);
     }
 	
 	@PutMapping("/users")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-		LOGGER.debug("entering /users");
-        return userService.updateUser(user);
+		LOGGER.info("update user:" + user);
+        return userService.saveUser(user);
     }
 	
 	@DeleteMapping("/users/{userId}")
     public ResponseEntity<User> deleteUserById(@PathVariable int userId) {
-		LOGGER.debug("entering /users/" + userId);
+		LOGGER.info("delete user by user id " + userId);
         return userService.deleteUserById(userId);
     }
 	
 	@DeleteMapping("/users")
     public ResponseEntity<User> deleteUser(@RequestBody User user) {
-		LOGGER.debug("entering /users");
+		LOGGER.info("delete user:" + user);
         return userService.deleteUser(user);
     }
 	

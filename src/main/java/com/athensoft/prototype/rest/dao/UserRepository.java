@@ -1,4 +1,4 @@
-package com.athensoft.prototype.rest.server.dao;
+package com.athensoft.prototype.rest.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
