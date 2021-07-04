@@ -50,23 +50,23 @@ public class UserController {
 	@PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
 		LOGGER.info("create user:" + user);
-        return userService.saveUser(user);
+        return userService.createUser(user);
     }
 	
 	@PutMapping("/users")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
 		LOGGER.info("update user:" + user);
-        return userService.saveUser(user);
+        return userService.updateUser(user);
     }
 	
 	@DeleteMapping("/users/{userId}")
-    public ResponseEntity<User> deleteUserById(@PathVariable int userId) {
+    public ResponseEntity<?> deleteUserById(@PathVariable int userId) {
 		LOGGER.info("delete user by user id " + userId);
         return userService.deleteUserById(userId);
     }
 	
 	@DeleteMapping("/users")
-    public ResponseEntity<User> deleteUser(@RequestBody User user) {
+    public ResponseEntity<?> deleteUser(@RequestBody User user) {
 		LOGGER.info("delete user:" + user);
         return userService.deleteUser(user);
     }

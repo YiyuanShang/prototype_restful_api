@@ -6,6 +6,7 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import com.athensoft.prototype.rest.entity.User;
+import com.athensoft.prototype.rest.entity.UserStatus;
 import com.athensoft.prototype.rest.controller.UserController;
 
 @Component
@@ -14,9 +15,24 @@ public class UserModelAssembler implements RepresentationModelAssembler<User, En
 	@Override
 	public EntityModel<User> toModel(User user) {
 
-		return EntityModel.of(user, 
+		EntityModel<User> userModel = EntityModel.of(user,
 				linkTo(methodOn(UserController.class).getUserById(user.getUserId())).withSelfRel(),
 				linkTo(methodOn(UserController.class).getUserListAll()).withRel("users"));
+		
+		// user in active status
+		if (user.getUserStatus() == UserStatus.ACTIVE) {
+			userModel.add(linkTo(methodOn(UserController.class).updateUser(user)).withRel("update"));
+		} 
+		// user in inactive status
+		else if (user.getUserStatus() == UserStatus.INACTIVE) {
+			userModel.add(linkTo(methodOn(UserController.class).updateUser(user)).withRel("update"),
+					linkTo(methodOn(UserController.class).deleteUser(user)).withRel("delete"),
+					linkTo(methodOn(UserController.class).deleteUserById(user.getUserId())).withRel("delete by id"));
+		} 
+		// user in deleted status
+		else {
+			userModel.add(linkTo(methodOn(UserController.class).updateUser(user)).withRel("update"));
+		}
+		return userModel;
 	}
 }
-
