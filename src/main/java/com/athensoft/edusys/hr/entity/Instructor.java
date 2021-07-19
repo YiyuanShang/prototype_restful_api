@@ -1,4 +1,6 @@
-package com.athensoft.edusys.product;
+package com.athensoft.edusys.hr.entity;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,19 +8,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.athensoft.edusys.admin.entity.EmpType;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "prod_question")
+@Table(name = "hr_instructor")
 @Getter @Setter @NoArgsConstructor @ToString
-public class Question {
+public class Instructor extends Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int questionId;
-	private QuestionType questionType;
-	private float points;
-	private String questionDesc;
+	private int instructorId;
 }

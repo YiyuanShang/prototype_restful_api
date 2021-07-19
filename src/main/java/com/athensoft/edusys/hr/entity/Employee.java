@@ -1,4 +1,4 @@
-package com.athensoft.edusys.client;
+package com.athensoft.edusys.hr.entity;
 
 import java.util.Date;
 
@@ -14,18 +14,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "client_member")
+@Table(name = "hr_employee")
 @Getter @Setter @NoArgsConstructor @ToString
-public class Member {
+public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int memId;
-	private MemberType memType;
+	private int empId;
+	private String empCode;
+	private String empFirstName;
+	private String empLastName;
 	private String email;
-	private String memFirstName;
-	private String memLastName;
-	private Date regDate;
+	private EmployeeType empType;
+	private Date hireDate;
 	private Date expiryDate;
-	private float discountRate;
-	private int creditLevel;
 }

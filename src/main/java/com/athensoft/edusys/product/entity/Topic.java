@@ -1,6 +1,6 @@
-package com.athensoft.edusys.hr;
+package com.athensoft.edusys.product.entity;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,17 +14,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "hr_employee")
+@Table(name = "prod_topic")
 @Getter @Setter @NoArgsConstructor @ToString
-public class Employee {
+public class Topic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int empId;
-	private String empCode;
-	private String empFirstName;
-	private String empLastName;
-	private String email;
-	private EmployeeType empType;
-	private Date hireDate;
-	private Date expiryDate;
+	private int topicId;
+	private String subject;
+	private String module;
+	private String topicDesc;
+	private List<Question> questions;
 }

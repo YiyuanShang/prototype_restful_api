@@ -1,4 +1,6 @@
-package com.athensoft.edusys.academic;
+package com.athensoft.edusys.client.entity;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,16 +14,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "acd_asgmt_result")
+@Table(name = "client_member")
 @Getter @Setter @NoArgsConstructor @ToString
-public class AssignmentResult {
+public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int assgmtRecordId;
-	private String stuNo;
-	private int instructorId;
-	private float resultScore;
-	private String resultGrade;
-	private int assgmtResultId;
-	private AssignmentResultStatus assgmtResultStatus;
+	private int memId;
+	private MemberType memType;
+	private String email;
+	private String memFirstName;
+	private String memLastName;
+	private Date regDate;
+	private Date expiryDate;
+	private float discountRate;
+	private int creditLevel;
 }

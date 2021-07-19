@@ -1,5 +1,6 @@
-package com.athensoft.edusys.academic;
+package com.athensoft.edusys.admin.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,9 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.athensoft.edusys.admin.AttendanceRecord;
-import com.athensoft.edusys.admin.DeliveryRecord;
-import com.athensoft.edusys.product.Topic;
+import com.athensoft.edusys.client.entity.Student;
+import com.athensoft.edusys.hr.entity.Instructor;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,17 +18,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "acd_session")
+@Table(name = "admin_group")
 @Getter @Setter @NoArgsConstructor @ToString
-public class AcademicSession {
+public class AcademicGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int sessionId;
+	private int groupId;
 	private String groupNo;
+	private List<Student> regStudents;
+	private List<Instructor> regInstructors;
+	private GroupStatus groupStatus;
+	private Date startDate;
+	private Date endDate;
 	private int courseId;
-	private int sessionSeqNo;
-	private AssignmentRecord assignment;
-	private DeliveryRecord deliveryRecord;
-	private AttendanceRecord attendanceRecord;
-	private List<Topic> topics;
+	private int sessionNum;
+	private GroupType groupType;
 }

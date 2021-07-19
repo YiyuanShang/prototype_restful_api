@@ -1,4 +1,4 @@
-package com.athensoft.edusys.client;
+package com.athensoft.edusys.client.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

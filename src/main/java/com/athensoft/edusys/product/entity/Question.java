@@ -1,4 +1,4 @@
-package com.athensoft.edusys.product;
+package com.athensoft.edusys.product.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,21 +12,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "prod_course")
+@Table(name = "prod_question")
 @Getter @Setter @NoArgsConstructor @ToString
-public class Course {
+public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int courseId;
-	private String courseCode;
-	private int coursePhaseNo;
-	private String termNo;
-	private String courseShortName;
-	private String courseName;
-	private String courseDesc;
-	
-	
-	
-	
-
+	private int questionId;
+	private QuestionType questionType;
+	private float points;
+	private String questionDesc;
 }
