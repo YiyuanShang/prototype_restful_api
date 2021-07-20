@@ -1,4 +1,4 @@
-package com.athensoft.prototype.error.exceptions;
+package com.athensoft.edusys.error.exceptions;
 
 import com.athensoft.edusys.product.entity.Course;
 
@@ -14,7 +14,7 @@ public class CourseNotFoundException extends RuntimeException {
 	}
 	
 	public CourseNotFoundException(Course course) {
-//		super("Course " + course.get)
+		super("Course " + course.getCourseName() + " is not found!");
 	}
 	public CourseNotFoundException(String message) {
 		super(message);

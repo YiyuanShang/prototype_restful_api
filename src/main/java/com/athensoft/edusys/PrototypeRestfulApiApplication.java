@@ -1,4 +1,4 @@
-package com.athensoft.prototype;
+package com.athensoft.edusys;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

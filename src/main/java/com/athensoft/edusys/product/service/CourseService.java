@@ -2,9 +2,9 @@ package com.athensoft.edusys.product.service;
 
 import java.util.List;
 
+import com.athensoft.edusys.error.exceptions.CourseNotFoundException;
 import com.athensoft.edusys.product.dao.CourseRepository;
 import com.athensoft.edusys.product.entity.Course;
-import com.athensoft.prototype.error.exceptions.CourseNotFoundException;
 
 public class CourseService {
 	private CourseRepository courseRepo;

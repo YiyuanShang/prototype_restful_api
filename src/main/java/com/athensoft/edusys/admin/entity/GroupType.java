@@ -1,5 +1,5 @@
 package com.athensoft.edusys.admin.entity;
 
 public enum GroupType {
-	GROUPTYPE_1, GROUPTYPE_2;
+	GENERAL, ONE_TO_ONE, SMALL_CLASS, MEDIUM_CLASS, LARGE_CLASS;
 }

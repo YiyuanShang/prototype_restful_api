@@ -1,4 +1,4 @@
-package com.athensoft.prototype.error.exceptions;
+package com.athensoft.edusys.error.exceptions;
 
 public class UserAlreadyExistsException extends RuntimeException {
 	private static final long serialVersionUID = -694504633335055824L;

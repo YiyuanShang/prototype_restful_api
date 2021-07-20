@@ -20,6 +20,5 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @ToString
 public class Instructor extends Employee {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int instructorId;
 }

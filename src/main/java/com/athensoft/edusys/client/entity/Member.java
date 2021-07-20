@@ -3,6 +3,8 @@ package com.athensoft.edusys.client.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +22,10 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int memId;
+	
+	@Enumerated(EnumType.STRING)
 	private MemberType memType;
+	
 	private String email;
 	private String memFirstName;
 	private String memLastName;
