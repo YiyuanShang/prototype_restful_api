@@ -15,10 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "hr_instructor")
-@Getter @Setter @NoArgsConstructor @ToString
 public class Instructor extends Employee {
-	@Id
-	private int instructorId;
+
 }

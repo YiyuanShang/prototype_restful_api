@@ -36,4 +36,7 @@ public class Employee {
 	
 	private Date hireDate;
 	private Date expiryDate;
+	
+	@Enumerated(EnumType.STRING)
+	private RoleType roleType;
 }
