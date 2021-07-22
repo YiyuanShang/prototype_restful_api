@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.error.exceptions.EmployeeNotFoundException;
 import com.athensoft.edusys.hr.dao.EmployeeRepository;
@@ -20,6 +21,7 @@ import com.athensoft.edusys.hr.entity.EmployeeType;
 import com.athensoft.edusys.hr.entity.RoleType;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 
+@Service
 public class EmployeeService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
 	private final EmployeeRepository empRepo;
@@ -149,14 +151,14 @@ public class EmployeeService {
 		if (GlobalValidationUtils.isEmptyStr(hireDateStr)) {
 			ignoredProperties.add("hireDate");
 		}else {
-			Date hireDate = new SimpleDateFormat("yyyy-mm-dd").parse(hireDateStr);
+			Date hireDate = new SimpleDateFormat("yyyy-MM-dd").parse(hireDateStr);
 			employee.setHireDate(hireDate);
 		}
 		
 		if (GlobalValidationUtils.isEmptyStr(expiryDateStr)) {
 			ignoredProperties.add("expiryDate");
 		}else {
-			Date expiryDate = new SimpleDateFormat("yyyy-mm-dd").parse(expiryDateStr);
+			Date expiryDate = new SimpleDateFormat("yyyy-MM-dd").parse(expiryDateStr);
 			employee.setExpiryDate(expiryDate);
 		}
 		

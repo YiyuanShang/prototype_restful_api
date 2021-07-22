@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,22 +26,27 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int empId;
 	
-	@Column(unique = true, nullable = false)
+	@Column(name = "emp_code", unique = true, nullable = false)
 	private String empCode;
 	
-	@Column(nullable = false)
+	@Column(name = "emp_firstname", nullable = false)
 	private String empFirstName;
 	
-	@Column(nullable = false)
+	@Column(name = "emp_lastname", nullable = false)
 	private String empLastName;
 	
+	@Column(name = "email")
 	private String email;
 	
 	@Enumerated(EnumType.ORDINAL)
 	private EmployeeType empType;
 	
+	@Column(name = "hiredate")
+	@Temporal(TemporalType.DATE)
 	private Date hireDate;
 	
+	@Column(name = "expirydate")
+	@Temporal(TemporalType.DATE)
 	private Date expiryDate;
 	
 	@Enumerated(EnumType.ORDINAL)

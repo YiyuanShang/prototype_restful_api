@@ -65,8 +65,8 @@ public class StudentService {
 			String stuLastName, 
 			String email, 
 			Optional<Boolean> isMember, 
-			Date regDate,
-			Optional<Integer> stuType) {
+			Optional<String> regDateStr,
+			Optional<Integer> stuType) throws ParseException {
 		List<String> ignoredProperties = new ArrayList<>();
 		Student student = new Student();
 		if(stuId.isEmpty()) {
@@ -84,12 +84,19 @@ public class StudentService {
 		}else {
 			student.setStuType(StudentType.values()[stuType.get()]);
 		}
+		if(regDateStr.isEmpty()) {
+			ignoredProperties.add("regDate");
+		}else {
+			Date regDate = new SimpleDateFormat("yyyy-MM-dd").parse(regDateStr.get());
+			LOGGER.debug("regDate:" + regDate.toString());
+			student.setRegDate(regDate);
+		}
 		
 		student.setStuNo(stuNo);
 		student.setStuFirstName(stuFirstName);
 		student.setStuLastName(stuLastName);
 		student.setEmail(email);
-		student.setRegDate(regDate);
+		
 		
 		LOGGER.debug("searched student:" + student);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
@@ -109,7 +116,7 @@ public class StudentService {
 		obj.put("stuLastName", "Zhang");
 		obj.put("email", "peter@gmail.com");
 		obj.put("isMember", "true");
-		obj.put("regDate", "2020-06-24T04:00:00.000+00:00");
+		obj.put("regDate", "2020-06-24");
 		obj.put("stuType", "3");
 		String filterStr = obj.toString();
 		JSONObject jobj = new JSONObject(filterStr);
@@ -170,7 +177,7 @@ public class StudentService {
 		if (GlobalValidationUtils.isEmptyStr(regDateStr)) {
 			ignoredProperties.add("regDate");
 		}else {
-			Date regDate = new SimpleDateFormat("yyyy-mm-dd").parse(regDateStr);
+			Date regDate = new SimpleDateFormat("yyyy-MM-dd").parse(regDateStr);
 			student.setRegDate(regDate);
 		}
 		

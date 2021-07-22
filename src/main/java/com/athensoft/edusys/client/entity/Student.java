@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +42,7 @@ public class Student {
 	private boolean isMember;
 	
 	@Column(name = "regdate", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date regDate;
 	
 	@Enumerated(EnumType.ORDINAL)

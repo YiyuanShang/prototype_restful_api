@@ -50,8 +50,8 @@ public class StudentController {
 			@RequestParam(name = "stuLastName", required = false) String stuLastName,
 			@RequestParam(name = "email", required = false) String email,
 			@RequestParam(name = "isMember") Optional<Boolean> isMember,
-			@RequestParam(name = "regDate", required = false) Date regDate,
-			@RequestParam(name = "studentType") Optional<Integer> stuType){
+			@RequestParam(name = "regDate") Optional<String> regDate,
+			@RequestParam(name = "studentType") Optional<Integer> stuType) throws ParseException{
 		return ResponseEntity.ok(studentService.getStudentListByFilters(stuId, stuNo, stuFirstName, stuLastName, email, isMember, regDate, stuType));
 	}
 	
