@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.athensoft.edusys.product.entity.Course;
 import com.athensoft.edusys.product.service.CourseService;
 
-@RestController
+//@RestController
 public class CourseController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
-	
-	private final CourseService courseService;
-	
-	public CourseController(CourseService courseService) {
-		this.courseService = courseService;
-	}
-	
-	@GetMapping("/courses")
-	public List<Course> getDataListCourse(){
-		LOGGER.debug("entering /courses");
-		return courseService.getCourseList();
-	}
+//	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
+//	
+//	private final CourseService courseService;
+//	
+//	public CourseController(CourseService courseService) {
+//		this.courseService = courseService;
+//	}
+//	
+//	@GetMapping("/courses")
+//	public List<Course> getDataListCourse(){
+//		LOGGER.debug("entering /courses");
+//		return courseService.getCourseList();
+//	}
 
 }

@@ -17,16 +17,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Getter @Setter @NoArgsConstructor
-@Table(name = "admin_delivery_record")
+//@Entity
+//@Getter @Setter @NoArgsConstructor
+//@Table(name = "admin_delivery_record")
 public class DeliveryRecord {
-	@EmbeddedId
-	DeliveryRecordId deliveryRecordId;
-	
-	@JoinColumn(name = "instructor_id")
-	@OneToMany(targetEntity = Instructor.class)
-	private List<Instructor> deliveredInstructors;
+//	@EmbeddedId
+//	DeliveryRecordId deliveryRecordId;
+//	
+//	@JoinColumn(name = "instructor_id")
+//	@OneToMany(targetEntity = Instructor.class)
+//	private List<Instructor> deliveredInstructors;
 }
 
 

@@ -13,9 +13,9 @@ public class CourseNotFoundException extends RuntimeException {
 		super("Course " + courseId + " is not found!");
 	}
 	
-	public CourseNotFoundException(Course course) {
-		super("Course " + course.getCourseName() + " is not found!");
-	}
+//	public CourseNotFoundException(Course course) {
+//		super("Course " + course.getCourseName() + " is not found!");
+//	}
 	public CourseNotFoundException(String message) {
 		super(message);
 	}

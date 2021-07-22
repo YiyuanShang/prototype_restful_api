@@ -12,10 +12,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Getter @Setter @NoArgsConstructor
-@Table(name = "admin_attend_record")
+//@Entity
+//@Getter @Setter @NoArgsConstructor
+//@Table(name = "admin_attend_record")
 public class AttendanceRecord {
-	@ManyToMany(targetEntity = Student.class)
-	private List<Student> attendedStudents;
+//	@ManyToMany(targetEntity = Student.class)
+//	private List<Student> attendedStudents;
 }

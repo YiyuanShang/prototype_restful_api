@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Embeddable
-@Data @AllArgsConstructor
+//@Embeddable
+//@Data @AllArgsConstructor
 public class DeliveryRecordId implements Serializable{
-	private static final long serialVersionUID = 5499033971077509189L;
-	
-	private int sessionId;
-	
-	private int instructorId;
+//	private static final long serialVersionUID = 5499033971077509189L;
+//	
+//	private int sessionId;
+//	
+//	private int instructorId;
 
 }

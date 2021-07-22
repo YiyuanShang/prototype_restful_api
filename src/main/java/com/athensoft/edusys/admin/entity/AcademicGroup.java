@@ -21,31 +21,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "admin_group")
-@Getter @Setter @NoArgsConstructor @ToString
+//@Entity
+//@Table(name = "admin_group")
+//@Getter @Setter @NoArgsConstructor @ToString
 public class AcademicGroup {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int groupId;
-	
-	@Column(unique=true)
-	private String groupNo;
-	
-	@ManyToMany(targetEntity = Student.class)
-	private List<Student> regStudents;
-	
-	@ManyToMany(targetEntity = Instructor.class)
-	private List<Instructor> regInstructors;
-	
-	@Enumerated(EnumType.STRING)
-	private GroupStatus groupStatus;
-	
-	private Date startDate;
-	private Date endDate;
-	private int courseId;
-	private int sessionNum;
-	
-	@Enumerated(EnumType.STRING)
-	private GroupType groupType;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int groupId;
+//	
+//	@Column(unique=true)
+//	private String groupNo;
+//	
+//	@ManyToMany(targetEntity = Student.class)
+//	private List<Student> regStudents;
+//	
+//	@ManyToMany(targetEntity = Instructor.class)
+//	private List<Instructor> regInstructors;
+//	
+//	@Enumerated(EnumType.ORDINAL)
+//	private GroupStatus groupStatus;
+//	
+//	private Date startDate;
+//	private Date endDate;
+//	private int courseId;
+//	private int sessionNum;
+//	
+//	@Enumerated(EnumType.ORDINAL)
+//	private GroupType groupType;
 }

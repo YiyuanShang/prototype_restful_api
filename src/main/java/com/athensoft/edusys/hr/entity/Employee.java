@@ -16,27 +16,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "hr_employee")
-@Getter @Setter @NoArgsConstructor @ToString
+//@Entity
+//@Table(name = "hr_employee")
+//@Getter @Setter @NoArgsConstructor @ToString
 public class Employee {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int empId;
-	
-	@Column(unique = true)
-	private String empCode;
-	
-	private String empFirstName;
-	private String empLastName;
-	private String email;
-	
-	@Enumerated(EnumType.STRING)
-	private EmployeeType empType;
-	
-	private Date hireDate;
-	private Date expiryDate;
-	
-	@Enumerated(EnumType.STRING)
-	private RoleType roleType;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int empId;
+//	
+//	@Column(unique = true)
+//	private String empCode;
+//	
+//	private String empFirstName;
+//	private String empLastName;
+//	private String email;
+//	
+//	@Enumerated(EnumType.STRING)
+//	private EmployeeType empType;
+//	
+//	private Date hireDate;
+//	private Date expiryDate;
+//	
+//	@Enumerated(EnumType.STRING)
+//	private RoleType roleType;
 }

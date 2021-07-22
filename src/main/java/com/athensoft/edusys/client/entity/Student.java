@@ -22,18 +22,26 @@ import lombok.ToString;
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private int stuId;
 	
-	@Column(unique = true)
+	@Column(name = "stu_no", unique = true)
 	private String stuNo;
 	
+	@Column(name = "stu_firstname", nullable = false)
 	private String stuFirstName;
+	
+	@Column(name = "stu_lastname", nullable = false)
 	private String stuLastName;
+	
+	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "ismember")
 	private boolean isMember;
+	
+	@Column(name = "regdate", nullable = false)
 	private Date regDate;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private StudentType stuType;
 }

@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "prod_question")
-@Getter @Setter @NoArgsConstructor @ToString
+//@Entity
+//@Table(name = "prod_question")
+//@Getter @Setter @NoArgsConstructor @ToString
 public class Question {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int questionId;
-	private QuestionType questionType;
-	private float points;
-	private String questionDesc;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int questionId;
+//	private QuestionType questionType;
+//	private float points;
+//	private String questionDesc;
 }

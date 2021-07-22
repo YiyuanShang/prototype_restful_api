@@ -19,20 +19,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "acd_asgmt_record")
-@Getter @Setter @NoArgsConstructor @ToString
+//@Entity
+//@Table(name = "acd_asgmt_record")
+//@Getter @Setter @NoArgsConstructor @ToString
 public class AssignmentRecord {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int assgmtRecordId;
-	
-	@Enumerated(EnumType.STRING)
-	private AssignmentType assgmtType;
-	
-	private Date issueDate;
-	private Date dueDate;
-	
-	@ManyToMany(targetEntity = Question.class)
-	private List<Question> questions;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int assgmtRecordId;
+//	
+//	@Enumerated(EnumType.STRING)
+//	private AssignmentType assgmtType;
+//	
+//	private Date issueDate;
+//	private Date dueDate;
+//	
+//	@ManyToMany(targetEntity = Question.class)
+//	private List<Question> questions;
 }

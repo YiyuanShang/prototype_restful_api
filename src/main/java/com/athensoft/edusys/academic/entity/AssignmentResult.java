@@ -14,21 +14,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "acd_asgmt_result")
-@Getter @Setter @NoArgsConstructor @ToString
+//@Entity
+//@Table(name = "acd_asgmt_result")
+//@Getter @Setter @NoArgsConstructor @ToString
 public class AssignmentResult {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int assgmtRecordId;
-	
-	@Transient
-	private String stuNo;
-	private int instructorId;
-	private float resultScore;
-	private String resultGrade;
-	private int assgmtResultId;
-	
-	@Enumerated(EnumType.STRING)
-	private AssignmentResultStatus assgmtResultStatus;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int assgmtRecordId;
+//	
+//	@Transient
+//	private String stuNo;
+//	private int instructorId;
+//	private float resultScore;
+//	private String resultGrade;
+//	private int assgmtResultId;
+//	
+//	@Enumerated(EnumType.STRING)
+//	private AssignmentResultStatus assgmtResultStatus;
 }

@@ -22,29 +22,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "acd_session")
-@Getter @Setter @NoArgsConstructor @ToString
+//@Entity
+//@Table(name = "acd_session")
+//@Getter @Setter @NoArgsConstructor @ToString
 public class AcademicSession {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int sessionId;
-	
-	private String groupNo;
-	private int courseId;
-	private int sessionSeqNo;
-	
-	@OneToOne
-	@JoinColumn(name = "assgmt_record_id")
-	private AssignmentRecord assignment;
-	
-	
-	@OneToOne
-	private DeliveryRecord deliveryRecord;
-	
-	@OneToOne
-	private AttendanceRecord attendanceRecord;
-	
-	@ManyToMany(targetEntity = Topic.class)
-	private List<Topic> topics;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int sessionId;
+//	
+//	private String groupNo;
+//	private int courseId;
+//	private int sessionSeqNo;
+//	
+//	@OneToOne
+//	@JoinColumn(name = "assgmt_record_id")
+//	private AssignmentRecord assignment;
+//	
+//	
+//	@OneToOne
+//	private DeliveryRecord deliveryRecord;
+//	
+//	@OneToOne
+//	private AttendanceRecord attendanceRecord;
+//	
+//	@ManyToMany(targetEntity = Topic.class)
+//	private List<Topic> topics;
 }
