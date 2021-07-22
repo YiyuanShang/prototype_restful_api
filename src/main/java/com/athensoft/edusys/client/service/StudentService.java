@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.client.dao.StudentRepository;
 import com.athensoft.edusys.client.entity.Student;
+import com.athensoft.edusys.client.entity.StudentType;
 import com.athensoft.edusys.error.exceptions.StudentNotFoundException;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 
@@ -64,7 +65,8 @@ public class StudentService {
 			String stuLastName, 
 			String email, 
 			Optional<Boolean> isMember, 
-			Date regDate) {
+			Date regDate,
+			Optional<Integer> stuType) {
 		List<String> ignoredProperties = new ArrayList<>();
 		Student student = new Student();
 		if(stuId.isEmpty()) {
@@ -76,6 +78,11 @@ public class StudentService {
 			ignoredProperties.add("isMember");
 		}else {
 			student.setMember(isMember.get());
+		}
+		if(stuType.isEmpty()) {
+			ignoredProperties.add("stuType");
+		}else {
+			student.setStuType(StudentType.values()[stuType.get()]);
 		}
 		
 		student.setStuNo(stuNo);
@@ -97,12 +104,13 @@ public class StudentService {
 	public List<Student> getStudentListByFiltersStr() throws JSONException, ParseException{
 		JSONObject obj = new JSONObject();
 		obj.put("stuId", "1");
-		obj.put("stuNo", "");
-		obj.put("stuFirstName", "");
-		obj.put("stuLastName", "");
-		obj.put("email", "");
+		obj.put("stuNo", "stu001");
+		obj.put("stuFirstName", "Peter");
+		obj.put("stuLastName", "Zhang");
+		obj.put("email", "peter@gmail.com");
 		obj.put("isMember", "true");
-		obj.put("regDate", "");
+		obj.put("regDate", "2020-06-24T04:00:00.000+00:00");
+		obj.put("stuType", "3");
 		String filterStr = obj.toString();
 		JSONObject jobj = new JSONObject(filterStr);
 		
@@ -114,7 +122,7 @@ public class StudentService {
 		String email = jobj.getString("email").trim();
 		String isMemberStr = jobj.getString("isMember").trim();
 		String regDateStr = jobj.getString("regDate").trim();
-		
+		String stuTypeStr = jobj.getString("stuType").trim();
 		
 		Student student = new Student();
 		if (GlobalValidationUtils.isEmptyStr(stuIdStr)) {
@@ -164,6 +172,13 @@ public class StudentService {
 		}else {
 			Date regDate = new SimpleDateFormat("yyyy-mm-dd").parse(regDateStr);
 			student.setRegDate(regDate);
+		}
+		
+		if (GlobalValidationUtils.isEmptyStr(stuTypeStr)) {
+			ignoredProperties.add("stuType");
+		}else {
+			StudentType stuType = StudentType.values()[Integer.valueOf(stuTypeStr)];
+			student.setStuType(stuType);
 		}
 		
 		LOGGER.debug("searched student:" + student);

@@ -17,7 +17,7 @@ import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.client.service.StudentService;
 
 @RestController
-@RequestMapping("/edusys")
+@RequestMapping("/edusys/client")
 public class StudentController {
 	private final StudentService studentService;
 	
@@ -50,8 +50,9 @@ public class StudentController {
 			@RequestParam(name = "stuLastName", required = false) String stuLastName,
 			@RequestParam(name = "email", required = false) String email,
 			@RequestParam(name = "isMember") Optional<Boolean> isMember,
-			@RequestParam(name = "regDate", required = false) Date regDate){
-		return ResponseEntity.ok(studentService.getStudentListByFilters(stuId, stuNo, stuFirstName, stuLastName, email, isMember, regDate));
+			@RequestParam(name = "regDate", required = false) Date regDate,
+			@RequestParam(name = "studentType") Optional<Integer> stuType){
+		return ResponseEntity.ok(studentService.getStudentListByFilters(stuId, stuNo, stuFirstName, stuLastName, email, isMember, regDate, stuType));
 	}
 	
 	@GetMapping("/students/filtersStr")
