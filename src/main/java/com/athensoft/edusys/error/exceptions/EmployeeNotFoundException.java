@@ -2,7 +2,7 @@ package com.athensoft.edusys.error.exceptions;
 
 import com.athensoft.edusys.hr.entity.Employee;
 
-public class EmployeeNotFoundException extends RuntimeException {
+public class EmployeeNotFoundException extends NotFoundException {
 	private static final long serialVersionUID = -3231332530981116656L;
 
 	public EmployeeNotFoundException() {
@@ -14,7 +14,7 @@ public class EmployeeNotFoundException extends RuntimeException {
 	}
 	
 	public EmployeeNotFoundException(Employee employee) {
-		super("Employee " + employee.getEmpCode() + " is not found!");
+		super("Employee " + employee.getEmpId() + " is not found!");
 	}
 	public EmployeeNotFoundException(String message) {
 		super(message);

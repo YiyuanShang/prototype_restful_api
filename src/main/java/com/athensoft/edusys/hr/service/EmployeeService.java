@@ -36,7 +36,7 @@ public class EmployeeService {
 	
 	public Employee getEmployeeById(int empId) {
 		return empRepo.findById(empId)
-				.orElseThrow(() -> new EmployeeNotFoundException());
+				.orElseThrow(() -> new EmployeeNotFoundException(empId));
 	}
 	
 	public List<Employee> getEmployeeListByFilters(

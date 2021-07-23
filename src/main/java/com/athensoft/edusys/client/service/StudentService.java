@@ -67,6 +67,7 @@ public class StudentService {
 			Optional<Boolean> isMember, 
 			Optional<String> regDateStr,
 			Optional<Integer> stuType) throws ParseException {
+		
 		List<String> ignoredProperties = new ArrayList<>();
 		Student student = new Student();
 		if(stuId.isEmpty()) {

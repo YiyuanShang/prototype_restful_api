@@ -2,7 +2,7 @@ package com.athensoft.edusys.error.exceptions;
 
 import com.athensoft.edusys.product.entity.Course;
 
-public class CourseNotFoundException extends RuntimeException {
+public class CourseNotFoundException extends NotFoundException {
 	private static final long serialVersionUID = -3231332530981116656L;
 
 	public CourseNotFoundException() {
