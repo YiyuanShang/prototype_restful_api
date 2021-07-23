@@ -101,8 +101,9 @@ public class StudentService {
 		LOGGER.debug("searched student:" + student);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
 		if (!ignoredProperties.isEmpty()) {
-			exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
+			exampleMatcher = exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
 		}
+	
 		Example<Student> example = Example.of(student, exampleMatcher);
 		LOGGER.debug("example student:" + example.toString());
 		return studentRepo.findAll(example);
@@ -191,7 +192,7 @@ public class StudentService {
 		LOGGER.debug("searched student:" + student);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
 		if (!ignoredProperties.isEmpty()) {
-			exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
+			exampleMatcher = exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
 		}
 		Example<Student> example = Example.of(student, exampleMatcher);
 		LOGGER.debug("example student:" + example.toString());

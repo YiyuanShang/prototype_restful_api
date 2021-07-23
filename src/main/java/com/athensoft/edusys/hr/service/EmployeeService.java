@@ -78,7 +78,7 @@ public class EmployeeService {
 		LOGGER.debug("searched employee:" + employee);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
 		if (!ignoredProperties.isEmpty()) {
-			exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
+			exampleMatcher = exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
 		}
 		Example<Employee> example = Example.of(employee, exampleMatcher);
 		LOGGER.debug("example student:" + example.toString());
@@ -88,13 +88,13 @@ public class EmployeeService {
 	public List<Employee> getEmployeeListByFiltersStr() throws ParseException{
 		JSONObject obj = new JSONObject();
 		obj.put("empId", "1");
-		obj.put("empCode", "1");
-		obj.put("empFirstName", "1");
-		obj.put("empLastName", "1");
-		obj.put("email", "1");
+		obj.put("empCode", "emp001");
+		obj.put("empFirstName", "Kenny");
+		obj.put("empLastName", "Zhang");
+		obj.put("email", "kenny@gmail.com");
 		obj.put("empType", "1");
-		obj.put("hireDate", "1");
-		obj.put("expiryDate", "1");
+		obj.put("hireDate", "2018-01-01");
+		obj.put("expiryDate", "2019-12-31");
 		obj.put("roleType", "1");
 		String filterStr = obj.toString();
 		JSONObject jobj = new JSONObject(filterStr);
@@ -172,10 +172,10 @@ public class EmployeeService {
 		LOGGER.debug("searched employee:" + employee);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
 		if (!ignoredProperties.isEmpty()) {
-			exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
+			exampleMatcher = exampleMatcher.withIgnorePaths(ignoredProperties.toArray(new String[0]));
 		}
 		Example<Employee> example = Example.of(employee, exampleMatcher);
-		LOGGER.debug("example student:" + example.toString());
+		LOGGER.debug("example employee:" + example.toString());
 		return empRepo.findAll(example);
 	}
 
