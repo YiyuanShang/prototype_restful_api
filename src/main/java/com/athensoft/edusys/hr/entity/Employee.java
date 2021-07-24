@@ -20,7 +20,6 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "hr_employee")
-@Getter @Setter @NoArgsConstructor @ToString
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +50,101 @@ public class Employee {
 	
 	@Enumerated(EnumType.ORDINAL)
 	private RoleType roleType;
+
+	public Employee() {}
+	
+	public Employee(int empId, String empCode, String empFirstName, String empLastName, String email,
+			EmployeeType empType, Date hireDate, Date expiryDate, RoleType roleType) {
+		super();
+		this.empId = empId;
+		this.empCode = empCode;
+		this.empFirstName = empFirstName;
+		this.empLastName = empLastName;
+		this.email = email;
+		this.empType = empType;
+		this.hireDate = hireDate;
+		this.expiryDate = expiryDate;
+		this.roleType = roleType;
+	}
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+	public String getEmpCode() {
+		return empCode;
+	}
+
+	public void setEmpCode(String empCode) {
+		this.empCode = empCode;
+	}
+
+	public String getEmpFirstName() {
+		return empFirstName;
+	}
+
+	public void setEmpFirstName(String empFirstName) {
+		this.empFirstName = empFirstName;
+	}
+
+	public String getEmpLastName() {
+		return empLastName;
+	}
+
+	public void setEmpLastName(String empLastName) {
+		this.empLastName = empLastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public EmployeeType getEmpType() {
+		return empType;
+	}
+
+	public void setEmpType(EmployeeType empType) {
+		this.empType = empType;
+	}
+
+	public Date getHireDate() {
+		return hireDate;
+	}
+
+	public void setHireDate(Date hireDate) {
+		this.hireDate = hireDate;
+	}
+
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
+	public RoleType getRoleType() {
+		return roleType;
+	}
+
+	public void setRoleType(RoleType roleType) {
+		this.roleType = roleType;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empCode=" + empCode + ", empFirstName=" + empFirstName + ", empLastName="
+				+ empLastName + ", email=" + email + ", empType=" + empType + ", hireDate=" + hireDate + ", expiryDate="
+				+ expiryDate + ", roleType=" + roleType + "]";
+	}
+	
+	
 }

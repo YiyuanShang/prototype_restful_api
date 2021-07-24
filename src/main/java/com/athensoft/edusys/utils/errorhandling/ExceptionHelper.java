@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.athensoft.edusys.error.exceptions.AlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.NotFoundException;
 import com.athensoft.edusys.error.exceptions.StudentNotFoundException;
 
@@ -26,11 +27,11 @@ public class ExceptionHelper {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
 	}
 	
-//	@ExceptionHandler(StudentNotFoundException.class)
-//	public ResponseEntity<String> handlePersonNotFoundException(StudentNotFoundException exception) {
-//		LOGGER.error(exception.getMessage());
-//		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
-//	}
+	@ExceptionHandler(AlreadyExistsException.class)
+	public ResponseEntity<String> handlePersonNotFoundException(AlreadyExistsException exception) {
+		LOGGER.error(exception.getMessage());
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+	}
 	
 	
 }

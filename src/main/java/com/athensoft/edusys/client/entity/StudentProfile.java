@@ -16,7 +16,6 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "client_student_profile")
-@Getter @Setter @NoArgsConstructor @ToString
 public class StudentProfile {
 	@Id
 	private int stuId;
@@ -33,4 +32,63 @@ public class StudentProfile {
 	
 	@Column(name = "email_1")
 	private String email1;
+
+	public StudentProfile() {}
+	
+	public StudentProfile(int stuId, Student student, String parentName1, String parentName2, String email1) {
+		super();
+		this.stuId = stuId;
+		this.student = student;
+		this.parentName1 = parentName1;
+		this.parentName2 = parentName2;
+		this.email1 = email1;
+	}
+
+	public int getStuId() {
+		return stuId;
+	}
+
+	public void setStuId(int stuId) {
+		this.stuId = stuId;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public String getParentName1() {
+		return parentName1;
+	}
+
+	public void setParentName1(String parentName1) {
+		this.parentName1 = parentName1;
+	}
+
+	public String getParentName2() {
+		return parentName2;
+	}
+
+	public void setParentName2(String parentName2) {
+		this.parentName2 = parentName2;
+	}
+
+	public String getEmail1() {
+		return email1;
+	}
+
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+
+	@Override
+	public String toString() {
+		return "StudentProfile [stuId=" + stuId + ", student=" + student + ", parentName1=" + parentName1
+				+ ", parentName2=" + parentName2 + ", email1=" + email1 + "]";
+	}
+	
+
 }

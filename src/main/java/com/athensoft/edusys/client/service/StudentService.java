@@ -15,11 +15,15 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.client.dao.StudentRepository;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.client.entity.StudentType;
+import com.athensoft.edusys.error.exceptions.StudentAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.StudentNotFoundException;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 
@@ -199,6 +203,24 @@ public class StudentService {
 		LOGGER.debug("example student:" + example.toString());
 		return studentRepo.findAll(example);
 	}
+
+	public ResponseEntity<Student> createStudent(Student student) {
+		LOGGER.debug("creating student:" + student);
+		// check whether student already exists
+		Student checkStudent = new Student();
+		checkStudent.setStuNo(student.getStuNo());
+		
+		Example<Student> example = Example.of(checkStudent, ExampleMatcher.matching()
+		        .withStringMatcher(StringMatcher.CONTAINING)
+		        .withIgnoreCase());
+		if (studentRepo.exists(example)) {
+			throw new StudentAlreadyExistsException(student);
+		}
+		LOGGER.debug("created student");
+		return new ResponseEntity<>(studentRepo.save(student), HttpStatus.CREATED);
+	}
+	
+	
 	
 	
 	

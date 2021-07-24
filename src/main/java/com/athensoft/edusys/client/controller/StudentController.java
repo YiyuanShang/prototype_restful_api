@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +60,11 @@ public class StudentController {
 	@GetMapping("/students/filtersStr")
 	public ResponseEntity<List<Student>> getDataByFiltersStr() throws JSONException, ParseException{
 		return ResponseEntity.ok(studentService.getStudentListByFiltersStr());
+	}
+	
+	@PostMapping("/students")
+	public ResponseEntity<Student> createStudent(@RequestBody Student student){
+		return studentService.createStudent(student);
 	}
 
 }

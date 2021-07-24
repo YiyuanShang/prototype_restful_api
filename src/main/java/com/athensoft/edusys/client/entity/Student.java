@@ -22,7 +22,6 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "client_student")
-@Getter @Setter @NoArgsConstructor @ToString
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,4 +48,92 @@ public class Student {
 	
 	@Enumerated(EnumType.ORDINAL)
 	private StudentType stuType;
+
+	public Student() {}
+	
+	public Student(int stuId, String stuNo, String stuFirstName, String stuLastName, String email, boolean isMember,
+			Date regDate, StudentType stuType) {
+		super();
+		this.stuId = stuId;
+		this.stuNo = stuNo;
+		this.stuFirstName = stuFirstName;
+		this.stuLastName = stuLastName;
+		this.email = email;
+		this.isMember = isMember;
+		this.regDate = regDate;
+		this.stuType = stuType;
+	}
+
+	public int getStuId() {
+		return stuId;
+	}
+
+	public void setStuId(int stuId) {
+		this.stuId = stuId;
+	}
+
+	public String getStuNo() {
+		return stuNo;
+	}
+
+	public void setStuNo(String stuNo) {
+		this.stuNo = stuNo;
+	}
+
+	public String getStuFirstName() {
+		return stuFirstName;
+	}
+
+	public void setStuFirstName(String stuFirstName) {
+		this.stuFirstName = stuFirstName;
+	}
+
+	public String getStuLastName() {
+		return stuLastName;
+	}
+
+	public void setStuLastName(String stuLastName) {
+		this.stuLastName = stuLastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isMember() {
+		return isMember;
+	}
+
+	public void setMember(boolean isMember) {
+		this.isMember = isMember;
+	}
+
+	public Date getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+
+	public StudentType getStuType() {
+		return stuType;
+	}
+
+	public void setStuType(StudentType stuType) {
+		this.stuType = stuType;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [stuId=" + stuId + ", stuNo=" + stuNo + ", stuFirstName=" + stuFirstName + ", stuLastName="
+				+ stuLastName + ", email=" + email + ", isMember=" + isMember + ", regDate=" + regDate + ", stuType="
+				+ stuType + "]";
+	}
+	
+	
 }
