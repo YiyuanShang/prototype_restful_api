@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.client.dao.StudentProfileRepository;
@@ -115,4 +116,31 @@ public class StudentProfileService {
 		return stuProfileRepo.findAll(example);
 	}
 
+	public ResponseEntity<String> deleteStudentProfile(StudentProfile studentProfile){
+		isStudentProfileExistent(studentProfile);
+		
+		stuProfileRepo.delete(studentProfile);
+		return ResponseEntity.ok("Delete student profile " + studentProfile + " successfully!");
+	}
+	
+	public ResponseEntity<String> deleteStudentProfileById(int stuId){
+		isStudentProfileExistent(stuId);
+		
+		stuProfileRepo.deleteById(stuId);
+		return ResponseEntity.ok("Delete student profile " + stuId + " successfully!");
+	}
+	
+	public boolean isStudentProfileExistent(StudentProfile studentProfile) {
+		if (! stuProfileRepo.existsById(studentProfile.getStuId())) {
+			throw new StudentProfileNotFoundException(studentProfile);
+		}
+		return true;
+	}
+	
+	public boolean isStudentProfileExistent(int stuId) {
+		if (! stuProfileRepo.existsById(stuId)) {
+			throw new StudentProfileNotFoundException(stuId);
+		}
+		return true;
+	}
 }

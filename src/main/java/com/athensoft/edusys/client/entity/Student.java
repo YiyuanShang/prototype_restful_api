@@ -39,7 +39,7 @@ public class Student {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "ismember")
+	@Column(name = "ismember", columnDefinition = "boolean default false")
 	private boolean isMember;
 	
 	@Column(name = "regdate", nullable = false)
@@ -108,7 +108,7 @@ public class Student {
 		return isMember;
 	}
 
-	public void setMember(boolean isMember) {
+	public void setIsMember(boolean isMember) {
 		this.isMember = isMember;
 	}
 

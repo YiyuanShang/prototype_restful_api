@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import org.json.JSONException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,5 +68,19 @@ public class StudentController {
 	public ResponseEntity<Student> createStudent(@RequestBody Student student){
 		return studentService.createStudent(student);
 	}
+	
+	@PutMapping("/students")
+	public ResponseEntity<Student> updateStudent(@RequestBody Student student){
+		return studentService.updateStudent(student);
+	}
 
+	@DeleteMapping("/students")
+	public ResponseEntity<String> deleteStudent(@RequestBody Student student){
+		return studentService.deleteStudent(student);
+	}
+	
+	@DeleteMapping("/students/{stuId}")
+	public ResponseEntity<String> deleteStudentById(@PathVariable int stuId){
+		return studentService.deleteStudentById(stuId);
+	}
 }

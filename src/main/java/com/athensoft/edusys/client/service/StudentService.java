@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.athensoft.edusys.client.dao.StudentProfileRepository;
 import com.athensoft.edusys.client.dao.StudentRepository;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.client.entity.StudentType;
@@ -33,9 +34,12 @@ import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 public class StudentService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentService.class);
 	private final StudentRepository studentRepo;
+	private final StudentProfileRepository stuProfileRepo;
 	
-	public StudentService(StudentRepository studentRepo) {
+	
+	public StudentService(StudentRepository studentRepo, StudentProfileRepository stuProfileRepo) {
 		this.studentRepo = studentRepo;
+		this.stuProfileRepo = stuProfileRepo;
 	}
 	
 	public List<Student> getStudentList(){
@@ -82,7 +86,7 @@ public class StudentService {
 		if(isMember.isEmpty()) {
 			ignoredProperties.add("isMember");
 		}else {
-			student.setMember(isMember.get());
+			student.setIsMember(isMember.get());
 		}
 		if(stuType.isEmpty()) {
 			ignoredProperties.add("stuType");
@@ -177,7 +181,7 @@ public class StudentService {
 		if (GlobalValidationUtils.isEmptyStr(isMemberStr)) {
 			ignoredProperties.add("isMember");
 		}else {
-			student.setMember(Boolean.valueOf(isMemberStr));
+			student.setIsMember(Boolean.valueOf(isMemberStr));
 		}
 		
 		if (GlobalValidationUtils.isEmptyStr(regDateStr)) {
@@ -205,20 +209,61 @@ public class StudentService {
 	}
 
 	public ResponseEntity<Student> createStudent(Student student) {
-		LOGGER.debug("creating student:" + student);
-		// check whether student already exists
-		Student checkStudent = new Student();
-		checkStudent.setStuNo(student.getStuNo());
-		
-		Example<Student> example = Example.of(checkStudent, ExampleMatcher.matching()
-		        .withStringMatcher(StringMatcher.CONTAINING)
-		        .withIgnoreCase());
-		if (studentRepo.exists(example)) {
+		// check whether student already exists by student number
+		if (studentRepo.findByStuNo(student.getStuNo()).isPresent()) {
 			throw new StudentAlreadyExistsException(student);
 		}
-		LOGGER.debug("created student");
+		LOGGER.debug("creating student:" + student);
 		return new ResponseEntity<>(studentRepo.save(student), HttpStatus.CREATED);
 	}
+	
+	public ResponseEntity<Student> updateStudent(Student student){
+		checkStudentNotFoundException(student);
+		LOGGER.debug("updating student:" + student);
+		return ResponseEntity.ok(studentRepo.save(student));
+	}
+	
+	public ResponseEntity<String> deleteStudent(Student student) {
+		int stuId = student.getStuId();
+		checkStudentNotFoundException(stuId);
+		
+		// delete student profile
+		if(stuProfileRepo.existsById(stuId)) {
+			stuProfileRepo.deleteById(stuId);
+		}
+		
+		// delete student
+		studentRepo.delete(student);
+		
+		return ResponseEntity.ok("Delete student " + student + " successfully!");
+	}
+	
+	public ResponseEntity<String> deleteStudentById(int stuId) {
+		checkStudentNotFoundException(stuId);
+		
+		// delete student profile
+		if(stuProfileRepo.existsById(stuId)) {
+			stuProfileRepo.deleteById(stuId);
+		}
+		
+		// delete student
+		studentRepo.deleteById(stuId);
+		
+		return ResponseEntity.ok("Delete student " + stuId + " successfully!");
+	}
+
+	private void checkStudentNotFoundException(Student student) {
+		if (!studentRepo.existsById(student.getStuId())) {
+			throw new StudentNotFoundException(student);
+		}
+	}
+	
+	private void checkStudentNotFoundException(int stuId) {
+		if (!studentRepo.existsById(stuId)) {
+			throw new StudentNotFoundException(stuId);
+		}
+	}
+	
 	
 	
 	
