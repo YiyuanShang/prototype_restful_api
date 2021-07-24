@@ -1,12 +1,16 @@
 package com.athensoft.edusys.client.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -18,26 +22,32 @@ import lombok.ToString;
 @Table(name = "client_student_profile")
 public class StudentProfile {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int stuId;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stu_id")
+
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	@PrimaryKeyJoinColumn(name = "stu_id", referencedColumnName = "stu_id")
 	private Student student;
-	
+
+	@Column(name = "stu_no")
+	private String stuNo;
+
 	@Column(name = "parentname_1")
 	private String parentName1;
-	
+
 	@Column(name = "parentname_2")
 	private String parentName2;
-	
+
 	@Column(name = "email_1")
 	private String email1;
 
-	public StudentProfile() {}
-	
-	public StudentProfile(int stuId, Student student, String parentName1, String parentName2, String email1) {
+	public StudentProfile() {
+	}
+
+	public StudentProfile(Student student, String parentName1, String parentName2, String email1) {
 		super();
-		this.stuId = stuId;
+		this.stuId = student.getStuId();
+		this.stuNo = student.getStuNo();
 		this.student = student;
 		this.parentName1 = parentName1;
 		this.parentName2 = parentName2;
@@ -84,11 +94,20 @@ public class StudentProfile {
 		this.email1 = email1;
 	}
 
+	public String getStuNo() {
+		return stuNo;
+	}
+
+	public void setStuNo(String stuNo) {
+		this.stuNo = stuNo;
+	}
+
 	@Override
 	public String toString() {
-		return "StudentProfile [stuId=" + stuId + ", student=" + student + ", parentName1=" + parentName1
-				+ ", parentName2=" + parentName2 + ", email1=" + email1 + "]";
+		return "StudentProfile [stuId=" + stuId + ", student=" + student + ", stuNo=" + stuNo + ", parentName1="
+				+ parentName1 + ", parentName2=" + parentName2 + ", email1=" + email1 + "]";
 	}
+
 	
 
 }

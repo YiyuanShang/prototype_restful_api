@@ -9,11 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.client.dao.StudentProfileRepository;
 import com.athensoft.edusys.client.entity.StudentProfile;
+import com.athensoft.edusys.error.exceptions.StudentAlreadyExistsException;
+import com.athensoft.edusys.error.exceptions.StudentProfileAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.StudentProfileNotFoundException;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 
@@ -37,6 +40,7 @@ public class StudentProfileService {
 
 	public List<StudentProfile> getStudentProfileListByFilters(
 			Optional<Integer> stuId, 
+			String stuNo,
 			String parentName1, 
 			String parentName2,
 			String email1) {
@@ -48,6 +52,7 @@ public class StudentProfileService {
 		}else {
 			studentProfile.setStuId(stuId.get());
 		}
+		studentProfile.setStuNo(stuNo);
 		studentProfile.setParentName1(parentName1);
 		studentProfile.setParentName2(parentName2);
 		studentProfile.setEmail1(email1);
@@ -67,6 +72,7 @@ public class StudentProfileService {
 	public List<StudentProfile> getStudentProfileListByFiltersStr() {
 		JSONObject obj = new JSONObject();
 		obj.put("stuId", "1");
+		obj.put("stuNo", "stu001");
 		obj.put("parentName1", "parent101");
 		obj.put("parentName2", "parent201");
 		obj.put("email1", "parent101@gmail.com");
@@ -76,6 +82,7 @@ public class StudentProfileService {
 		
 		List<String> ignoredProperties = new ArrayList<>();
 		String stuIdStr = jobj.getString("stuId").trim();
+		String stuNo = jobj.getString("stuNo").trim();
 		String parentName1 = jobj.getString("parentName1").trim();
 		String parentName2 = jobj.getString("parentName2").trim();
 		String email1 = jobj.getString("email1").trim();
@@ -85,6 +92,12 @@ public class StudentProfileService {
 			ignoredProperties.add("stuId");
 		}else {
 			studentProfile.setStuId(Integer.valueOf(stuIdStr));
+		}
+		
+		if (GlobalValidationUtils.isEmptyStr(stuNo)) {
+			ignoredProperties.add("stuNo");
+		}else {
+			studentProfile.setStuNo(stuNo);
 		}
 		
 		if (GlobalValidationUtils.isEmptyStr(parentName1)) {
@@ -115,32 +128,53 @@ public class StudentProfileService {
 		LOGGER.debug("example student profile:" + example.toString());
 		return stuProfileRepo.findAll(example);
 	}
+	
+	public ResponseEntity<StudentProfile> createStudentProfile(StudentProfile studentProfile){
+		checkStudentAlreadyExistsException(studentProfile);
+		
+		LOGGER.debug("creating student profile:" + studentProfile);
+		return new ResponseEntity<>(stuProfileRepo.save(studentProfile), HttpStatus.CREATED);
+	}
+	
+	public ResponseEntity<StudentProfile> updateStudentProfile(StudentProfile studentProfile){
+		checkStudentProfileNotFoundExcpetion(studentProfile);
+		
+		return new ResponseEntity<>(stuProfileRepo.save(studentProfile), HttpStatus.OK);
+	}
 
 	public ResponseEntity<String> deleteStudentProfile(StudentProfile studentProfile){
-		isStudentProfileExistent(studentProfile);
+		checkStudentProfileNotFoundExcpetion(studentProfile);
 		
 		stuProfileRepo.delete(studentProfile);
 		return ResponseEntity.ok("Delete student profile " + studentProfile + " successfully!");
 	}
 	
 	public ResponseEntity<String> deleteStudentProfileById(int stuId){
-		isStudentProfileExistent(stuId);
+		checkStudentProfileNotFoundExcpetion(stuId);
 		
 		stuProfileRepo.deleteById(stuId);
 		return ResponseEntity.ok("Delete student profile " + stuId + " successfully!");
 	}
 	
-	public boolean isStudentProfileExistent(StudentProfile studentProfile) {
+	private void checkStudentProfileNotFoundExcpetion(StudentProfile studentProfile) {
 		if (! stuProfileRepo.existsById(studentProfile.getStuId())) {
 			throw new StudentProfileNotFoundException(studentProfile);
 		}
-		return true;
 	}
 	
-	public boolean isStudentProfileExistent(int stuId) {
+	private void checkStudentProfileNotFoundExcpetion(int stuId) {
 		if (! stuProfileRepo.existsById(stuId)) {
 			throw new StudentProfileNotFoundException(stuId);
 		}
-		return true;
 	}
+	
+	private void checkStudentAlreadyExistsException(StudentProfile studentProfile) {
+		LOGGER.debug("checking whether student profile already exists:" + studentProfile);
+		int stuId = studentProfile.getStuId();
+		if (stuProfileRepo.existsById(stuId)) {
+			throw new StudentProfileAlreadyExistsException(studentProfile);
+		}
+	}
+	
+	
 }

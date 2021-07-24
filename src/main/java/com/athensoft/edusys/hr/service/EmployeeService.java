@@ -12,8 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.athensoft.edusys.error.exceptions.EmployeeAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.EmployeeNotFoundException;
 import com.athensoft.edusys.hr.dao.EmployeeRepository;
 import com.athensoft.edusys.hr.entity.Employee;
@@ -177,6 +180,49 @@ public class EmployeeService {
 		Example<Employee> example = Example.of(employee, exampleMatcher);
 		LOGGER.debug("example employee:" + example.toString());
 		return empRepo.findAll(example);
+	}
+	
+	public ResponseEntity<Employee> createEmloyee(Employee employee){
+		checkEmployeeAlreadyExistsException(employee);
+		
+		return new ResponseEntity<>(empRepo.save(employee), HttpStatus.CREATED);
+	}
+	
+	public ResponseEntity<Employee> updateEmloyee(Employee employee){
+		checkEmployeeNotFoundException(employee);
+		
+		return ResponseEntity.ok(empRepo.save(employee));
+	}
+	
+	public ResponseEntity<String> deleteEmployee(Employee employee){
+		checkEmployeeNotFoundException(employee);
+		
+		return ResponseEntity.ok("Employee " + employee + " is deleted successfully!");
+	}
+	
+	public ResponseEntity<String> deleteEmployeeById(int empId){
+		checkEmployeeNotFoundException(empId);
+		
+		return ResponseEntity.ok("Employee " + empId + " is deleted successfully!");
+	}
+	
+	
+	private void checkEmployeeAlreadyExistsException(Employee employee) {
+		if (empRepo.existsById(employee.getEmpId())) {
+			throw new EmployeeAlreadyExistsException(employee);
+		}
+	}
+	
+	private void checkEmployeeNotFoundException(Employee employee) {
+		if (!empRepo.existsById(employee.getEmpId())) {
+			throw new EmployeeNotFoundException(employee);
+		}
+	}
+	
+	private void checkEmployeeNotFoundException(int empId) {
+		if (!empRepo.existsById(empId)) {
+			throw new EmployeeNotFoundException(empId);
+		}
 	}
 
 
