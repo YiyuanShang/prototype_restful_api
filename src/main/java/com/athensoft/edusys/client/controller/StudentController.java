@@ -75,12 +75,12 @@ public class StudentController {
 	}
 
 	@DeleteMapping("/students")
-	public ResponseEntity<String> deleteStudent(@RequestBody Student student){
+	public ResponseEntity<Student> deleteStudent(@RequestBody Student student){
 		return studentService.deleteStudent(student);
 	}
 	
 	@DeleteMapping("/students/{stuId}")
-	public ResponseEntity<String> deleteStudentById(@PathVariable int stuId){
+	public ResponseEntity<Student> deleteStudentById(@PathVariable int stuId){
 		return studentService.deleteStudentById(stuId);
 	}
 }

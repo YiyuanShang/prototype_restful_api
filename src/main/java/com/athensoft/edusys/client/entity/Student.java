@@ -48,11 +48,15 @@ public class Student {
 	
 	@Enumerated(EnumType.ORDINAL)
 	private StudentType stuType;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private StudentStatus stuStatus;
 
 	public Student() {}
 	
+	
 	public Student(int stuId, String stuNo, String stuFirstName, String stuLastName, String email, boolean isMember,
-			Date regDate, StudentType stuType) {
+			Date regDate, StudentType stuType, StudentStatus stuStatus) {
 		super();
 		this.stuId = stuId;
 		this.stuNo = stuNo;
@@ -62,7 +66,9 @@ public class Student {
 		this.isMember = isMember;
 		this.regDate = regDate;
 		this.stuType = stuType;
+		this.stuStatus = stuStatus;
 	}
+
 
 	public int getStuId() {
 		return stuId;
@@ -128,12 +134,24 @@ public class Student {
 		this.stuType = stuType;
 	}
 
+	public StudentStatus getStuStatus() {
+		return stuStatus;
+	}
+
+
+	public void setStuStatus(StudentStatus stuStatus) {
+		this.stuStatus = stuStatus;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Student [stuId=" + stuId + ", stuNo=" + stuNo + ", stuFirstName=" + stuFirstName + ", stuLastName="
 				+ stuLastName + ", email=" + email + ", isMember=" + isMember + ", regDate=" + regDate + ", stuType="
-				+ stuType + "]";
+				+ stuType + ", stuStatus=" + stuStatus + "]";
 	}
+
+
 	
 	
 }

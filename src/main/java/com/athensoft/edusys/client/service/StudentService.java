@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.athensoft.edusys.client.dao.StudentProfileRepository;
 import com.athensoft.edusys.client.dao.StudentRepository;
 import com.athensoft.edusys.client.entity.Student;
+import com.athensoft.edusys.client.entity.StudentStatus;
 import com.athensoft.edusys.client.entity.StudentType;
 import com.athensoft.edusys.error.exceptions.StudentAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.StudentNotFoundException;
@@ -223,33 +224,17 @@ public class StudentService {
 		return ResponseEntity.ok(studentRepo.save(student));
 	}
 	
-	public ResponseEntity<String> deleteStudent(Student student) {
+	public ResponseEntity<Student> deleteStudent(Student student) {
+		LOGGER.debug("deleting student:" + student);
 		int stuId = student.getStuId();
-		checkStudentNotFoundException(stuId);
-		
-		// delete student profile
-		if(stuProfileRepo.existsById(stuId)) {
-			stuProfileRepo.deleteById(stuId);
-		}
-		
-		// delete student
-		studentRepo.delete(student);
-		
-		return ResponseEntity.ok("Delete student " + student + " successfully!");
+		return deleteStudentById(stuId);
 	}
 	
-	public ResponseEntity<String> deleteStudentById(int stuId) {
-		checkStudentNotFoundException(stuId);
-		
-		// delete student profile
-		if(stuProfileRepo.existsById(stuId)) {
-			stuProfileRepo.deleteById(stuId);
-		}
-		
-		// delete student
-		studentRepo.deleteById(stuId);
-		
-		return ResponseEntity.ok("Delete student " + stuId + " successfully!");
+	public ResponseEntity<Student> deleteStudentById(int stuId) {
+		LOGGER.debug("deleting student id:" + stuId);
+		Student student = studentRepo.findById(stuId).orElseThrow(() -> new StudentNotFoundException(stuId));
+		student.setStuStatus(StudentStatus.INACTIVE);
+		return ResponseEntity.ok(studentRepo.save(student));
 	}
 
 	private void checkStudentNotFoundException(Student student) {
