@@ -37,7 +37,7 @@ public class EmployeeService {
 		return empRepo.findAll();
 	}
 	
-	public Employee getEmployeeById(int empId) {
+	public Employee getEmployeeById(Integer empId) {
 		return empRepo.findById(empId)
 				.orElseThrow(() -> new EmployeeNotFoundException(empId));
 	}
@@ -200,7 +200,7 @@ public class EmployeeService {
 		return ResponseEntity.ok("Employee " + employee + " is deleted successfully!");
 	}
 	
-	public ResponseEntity<String> deleteEmployeeById(int empId){
+	public ResponseEntity<String> deleteEmployeeById(Integer empId){
 		checkEmployeeNotFoundException(empId);
 		
 		return ResponseEntity.ok("Employee " + empId + " is deleted successfully!");
@@ -219,7 +219,7 @@ public class EmployeeService {
 		}
 	}
 	
-	private void checkEmployeeNotFoundException(int empId) {
+	private void checkEmployeeNotFoundException(Integer empId) {
 		if (!empRepo.existsById(empId)) {
 			throw new EmployeeNotFoundException(empId);
 		}

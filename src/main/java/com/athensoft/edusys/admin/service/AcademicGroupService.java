@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.admin.dao.AcademicGroupRepository;
 import com.athensoft.edusys.admin.entity.AcademicGroup;
+import com.athensoft.edusys.error.exceptions.AcademicGroupNotFoundException;
 
 @Service
 public class AcademicGroupService {
@@ -17,6 +18,10 @@ public class AcademicGroupService {
 	
 	public List<AcademicGroup> getAcademicGroupList(){
 		return acdGroupRepo.findAll();
+	}
+	
+	public AcademicGroup getAcademicGroupById(Integer groupId) {
+		return acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
 	}
 
 }

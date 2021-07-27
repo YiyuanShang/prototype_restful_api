@@ -47,7 +47,7 @@ public class StudentService {
 		return studentRepo.findAll();
 	}
 	
-	public Student getStudentById(int stuId) {
+	public Student getStudentById(Integer stuId) {
 		return studentRepo.findById(stuId)
 				.orElseThrow(() -> new StudentNotFoundException(stuId));
 	}
@@ -230,7 +230,7 @@ public class StudentService {
 		return deleteStudentById(stuId);
 	}
 	
-	public ResponseEntity<Student> deleteStudentById(int stuId) {
+	public ResponseEntity<Student> deleteStudentById(Integer stuId) {
 		LOGGER.debug("deleting student id:" + stuId);
 		Student student = studentRepo.findById(stuId).orElseThrow(() -> new StudentNotFoundException(stuId));
 		student.setStuStatus(StudentStatus.INACTIVE);
@@ -243,7 +243,7 @@ public class StudentService {
 		}
 	}
 	
-	private void checkStudentNotFoundException(int stuId) {
+	private void checkStudentNotFoundException(Integer stuId) {
 		if (!studentRepo.existsById(stuId)) {
 			throw new StudentNotFoundException(stuId);
 		}

@@ -149,7 +149,7 @@ public class StudentProfileService {
 		return ResponseEntity.ok("Delete student profile " + studentProfile + " successfully!");
 	}
 	
-	public ResponseEntity<String> deleteStudentProfileById(int stuId){
+	public ResponseEntity<String> deleteStudentProfileById(Integer stuId){
 		checkStudentProfileNotFoundExcpetion(stuId);
 		
 		stuProfileRepo.deleteById(stuId);
@@ -162,7 +162,7 @@ public class StudentProfileService {
 		}
 	}
 	
-	private void checkStudentProfileNotFoundExcpetion(int stuId) {
+	private void checkStudentProfileNotFoundExcpetion(Integer stuId) {
 		if (! stuProfileRepo.existsById(stuId)) {
 			throw new StudentProfileNotFoundException(stuId);
 		}
