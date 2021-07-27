@@ -23,7 +23,8 @@ import lombok.ToString;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int empId;
+	@Column(name = "emp_id")
+	private Integer empId = -1;
 	
 	@Column(name = "emp_code", unique = true, nullable = false)
 	private String empCode;
@@ -53,7 +54,7 @@ public class Employee {
 
 	public Employee() {}
 	
-	public Employee(int empId, String empCode, String empFirstName, String empLastName, String email,
+	public Employee(Integer empId, String empCode, String empFirstName, String empLastName, String email,
 			EmployeeType empType, Date hireDate, Date expiryDate, RoleType roleType) {
 		super();
 		this.empId = empId;
@@ -67,11 +68,11 @@ public class Employee {
 		this.roleType = roleType;
 	}
 
-	public int getEmpId() {
+	public Integer getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(int empId) {
+	public void setEmpId(Integer empId) {
 		this.empId = empId;
 	}
 

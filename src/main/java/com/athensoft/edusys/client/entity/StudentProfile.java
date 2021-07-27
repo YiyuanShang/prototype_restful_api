@@ -23,7 +23,7 @@ import lombok.ToString;
 public class StudentProfile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int stuId;
+	private Integer stuId = -1;
 
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	@PrimaryKeyJoinColumn(name = "stu_id", referencedColumnName = "stu_id")
@@ -58,7 +58,7 @@ public class StudentProfile {
 		return stuId;
 	}
 
-	public void setStuId(int stuId) {
+	public void setStuId(Integer stuId) {
 		this.stuId = stuId;
 	}
 

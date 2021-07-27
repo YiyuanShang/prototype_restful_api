@@ -25,7 +25,8 @@ import lombok.ToString;
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int stuId;
+	@Column(name = "stu_id")
+	private Integer stuId = -1;
 	
 	@Column(name = "stu_no", unique = true)
 	private String stuNo;
@@ -40,7 +41,7 @@ public class Student {
 	private String email;
 	
 	@Column(name = "ismember", columnDefinition = "boolean default false")
-	private boolean isMember;
+	private Boolean isMember;
 	
 	@Column(name = "regdate", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -54,8 +55,7 @@ public class Student {
 
 	public Student() {}
 	
-	
-	public Student(int stuId, String stuNo, String stuFirstName, String stuLastName, String email, boolean isMember,
+	public Student(Integer stuId, String stuNo, String stuFirstName, String stuLastName, String email, Boolean isMember,
 			Date regDate, StudentType stuType, StudentStatus stuStatus) {
 		super();
 		this.stuId = stuId;
@@ -70,78 +70,132 @@ public class Student {
 	}
 
 
-	public int getStuId() {
+
+
+	public Integer getStuId() {
 		return stuId;
 	}
 
-	public void setStuId(int stuId) {
+
+
+
+	public void setStuId(Integer stuId) {
 		this.stuId = stuId;
 	}
+
+
+
 
 	public String getStuNo() {
 		return stuNo;
 	}
 
+
+
+
 	public void setStuNo(String stuNo) {
 		this.stuNo = stuNo;
 	}
+
+
+
 
 	public String getStuFirstName() {
 		return stuFirstName;
 	}
 
+
+
+
 	public void setStuFirstName(String stuFirstName) {
 		this.stuFirstName = stuFirstName;
 	}
+
+
+
 
 	public String getStuLastName() {
 		return stuLastName;
 	}
 
+
+
+
 	public void setStuLastName(String stuLastName) {
 		this.stuLastName = stuLastName;
 	}
+
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public boolean isMember() {
+
+
+
+	public Boolean getIsMember() {
 		return isMember;
 	}
 
-	public void setIsMember(boolean isMember) {
+
+
+
+	public void setIsMember(Boolean isMember) {
 		this.isMember = isMember;
 	}
+
+
+
 
 	public Date getRegDate() {
 		return regDate;
 	}
 
+
+
+
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+
+
+
 
 	public StudentType getStuType() {
 		return stuType;
 	}
 
+
+
+
 	public void setStuType(StudentType stuType) {
 		this.stuType = stuType;
 	}
+
+
+
 
 	public StudentStatus getStuStatus() {
 		return stuStatus;
 	}
 
 
+
+
 	public void setStuStatus(StudentStatus stuStatus) {
 		this.stuStatus = stuStatus;
 	}
+
+
 
 
 	@Override
