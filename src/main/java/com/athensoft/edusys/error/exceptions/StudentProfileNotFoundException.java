@@ -10,7 +10,7 @@ public class StudentProfileNotFoundException extends NotFoundException {
 		super("Student profle is not found!");
 	}
 	
-	public StudentProfileNotFoundException(int stuId) {
+	public StudentProfileNotFoundException(Integer stuId) {
 		super("Student profile " + stuId + " is not found!");
 	}
 	

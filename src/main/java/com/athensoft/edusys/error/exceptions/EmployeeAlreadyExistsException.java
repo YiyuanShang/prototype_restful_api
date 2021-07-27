@@ -10,7 +10,7 @@ public class EmployeeAlreadyExistsException extends AlreadyExistsException {
 		super("Employee already exists!");
 	}
 	
-	public EmployeeAlreadyExistsException(int empId) {
+	public EmployeeAlreadyExistsException(Integer empId) {
 		super("Employee " + empId + " already exists!");
 	}
 	

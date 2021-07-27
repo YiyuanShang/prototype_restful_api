@@ -9,7 +9,7 @@ public class CourseNotFoundException extends NotFoundException {
 		super("Course is not found!");
 	}
 	
-	public CourseNotFoundException(int courseId) {
+	public CourseNotFoundException(Integer courseId) {
 		super("Course " + courseId + " is not found!");
 	}
 	

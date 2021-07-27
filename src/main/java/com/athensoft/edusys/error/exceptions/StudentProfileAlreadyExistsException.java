@@ -10,7 +10,7 @@ public class StudentProfileAlreadyExistsException extends AlreadyExistsException
 		super("Student profile already exists!");
 	}
 	
-	public StudentProfileAlreadyExistsException(int stuId) {
+	public StudentProfileAlreadyExistsException(Integer stuId) {
 		super("Student profile of stduent " + stuId + " already exists!");
 	}
 	

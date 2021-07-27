@@ -9,7 +9,7 @@ public class StudentNotFoundException extends NotFoundException {
 		super("Student is not found!");
 	}
 	
-	public StudentNotFoundException(int stuId) {
+	public StudentNotFoundException(Integer stuId) {
 		super("Student " + stuId + " is not found!");
 	}
 	

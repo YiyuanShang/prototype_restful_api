@@ -9,7 +9,7 @@ public class EmployeeNotFoundException extends NotFoundException {
 		super("Employee is not found!");
 	}
 	
-	public EmployeeNotFoundException(int empId) {
+	public EmployeeNotFoundException(Integer empId) {
 		super("Employee " + empId + " is not found!");
 	}
 	

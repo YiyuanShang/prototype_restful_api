@@ -9,7 +9,7 @@ public class StudentAlreadyExistsException extends AlreadyExistsException {
 		super("Student already exists!");
 	}
 	
-	public StudentAlreadyExistsException(int stuId) {
+	public StudentAlreadyExistsException(Integer stuId) {
 		super("Student " + stuId + " already exists!");
 	}
 	
