@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,14 +57,44 @@ public class AcademicGroupController {
 		return ResponseEntity.ok(acdGroupService.getAcademicGroupListByFiltersStr());
 	}
 	
+	@PostMapping("/groups")
+	public ResponseEntity<AcademicGroup> createAcademicGroup(@RequestBody AcademicGroup group){
+		return acdGroupService.createAcademicGroup(group);
+	}
+	
+	@PutMapping("/groups")
+	public ResponseEntity<AcademicGroup> updateAcademicGroup(@RequestBody AcademicGroup group){
+		return acdGroupService.updateAcademicGroup(group);
+	}
+	
+	@DeleteMapping("/groups/{groupId}")
+	public ResponseEntity<AcademicGroup> deleteAcademicGroupById(@PathVariable Integer groupId){
+		return acdGroupService.deleteAcademicGroupById(groupId);
+	}
+	
+	@DeleteMapping("/groups")
+	public ResponseEntity<AcademicGroup> deleteAcademicGroup(@RequestBody AcademicGroup group){
+		return acdGroupService.deleteAcademicGroup(group);
+	}
+	
 	@PutMapping("/groups/{groupId}/students/{stuId}")
-	public ResponseEntity<AcademicGroup> joinAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
+	public ResponseEntity<AcademicGroup> addStudentToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
 		return ResponseEntity.ok(acdGroupService.addStudentToAcademicGroup(groupId, stuId));
 	}
 	
+	@DeleteMapping("/groups/{groupId}/students/{stuId}")
+	public ResponseEntity<AcademicGroup> removeStudentFromAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
+		return ResponseEntity.ok(acdGroupService.removeStudentFromAcademicGroup(groupId, stuId));
+	}
+	
 	@PutMapping("/groups/{groupId}/employees/{empId}")
-	public ResponseEntity<AcademicGroup> registerAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
+	public ResponseEntity<AcademicGroup> addInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
 		return ResponseEntity.ok(acdGroupService.addInstructorToAcademicGroup(groupId, empId));
+	}
+	
+	@DeleteMapping("/groups/{groupId}/employees/{empId}")
+	public ResponseEntity<AcademicGroup> removeInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
+		return ResponseEntity.ok(acdGroupService.removeInstructorToAcademicGroup(groupId, empId));
 	}
 
 

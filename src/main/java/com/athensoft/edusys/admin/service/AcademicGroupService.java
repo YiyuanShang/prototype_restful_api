@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.admin.dao.AcademicGroupRepository;
@@ -20,6 +22,7 @@ import com.athensoft.edusys.admin.entity.GroupStatus;
 import com.athensoft.edusys.admin.entity.GroupType;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.client.service.StudentService;
+import com.athensoft.edusys.error.exceptions.AcademicGroupAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.AcademicGroupNotFoundException;
 import com.athensoft.edusys.hr.entity.Employee;
 import com.athensoft.edusys.hr.entity.Instructor;
@@ -212,6 +215,34 @@ public class AcademicGroupService {
 		LOGGER.debug("example group:" + example.toString());
 		return acdGroupRepo.findAll(example);
 	}
+	
+	public ResponseEntity<AcademicGroup> createAcademicGroup(AcademicGroup group) {
+		if (acdGroupRepo.existsById(group.getGroupId())) {
+			throw new AcademicGroupAlreadyExistsException(group);
+		}
+		return new ResponseEntity<>(acdGroupRepo.save(group), HttpStatus.CREATED);
+	}
+	
+	public ResponseEntity<AcademicGroup> updateAcademicGroup(AcademicGroup group) {
+		if (!acdGroupRepo.existsById(group.getGroupId())) {
+			throw new AcademicGroupNotFoundException(group);
+		}
+		return ResponseEntity.ok(acdGroupRepo.save(group));
+	}
+	
+	public ResponseEntity<AcademicGroup> deleteAcademicGroupById(Integer groupId) {
+		if (!acdGroupRepo.existsById(groupId)) {
+			throw new AcademicGroupNotFoundException(groupId);
+		}
+		AcademicGroup group = acdGroupRepo.findById(groupId).get();
+		group.setGroupStatus(GroupStatus.CLOSED);
+		
+		return ResponseEntity.ok(acdGroupRepo.save(group));		
+	}
+
+	public ResponseEntity<AcademicGroup> deleteAcademicGroup(AcademicGroup group) {
+		return deleteAcademicGroupById(group.getGroupId());
+	}
 
 	public AcademicGroup addStudentToAcademicGroup(Integer groupId, Integer stuId) {
 		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
@@ -222,9 +253,21 @@ public class AcademicGroupService {
 		group.getRegStudents().add(student);
 
 		LOGGER.debug("new registered student list:" + group.getRegStudents());
-		return acdGroupRepo.saveAndFlush(group);
+		return acdGroupRepo.save(group);
 	}
 	
+	public AcademicGroup removeStudentFromAcademicGroup(Integer groupId, Integer stuId) {
+		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		Student student = stuService.getStudentById(stuId);
+		LOGGER.debug("academic group:" + group);
+		
+		LOGGER.debug("removing student " + student + " from registered student list");
+		group.getRegStudents().remove(student);
+		
+		LOGGER.debug("new registered student list:" + group.getRegStudents());
+		return acdGroupRepo.save(group);
+	}
+
 	public AcademicGroup addInstructorToAcademicGroup(Integer groupId, Integer empId) {
 		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
 		Employee instructor = empService.getEmployeeById(empId);
@@ -235,7 +278,20 @@ public class AcademicGroupService {
 		group.getRegInstructors().add(instructor);
 		
 		LOGGER.debug("new registered instructor list:" + group.getRegInstructors());
-		return acdGroupRepo.saveAndFlush(group);
+		return acdGroupRepo.save(group);
+	}
+
+	public AcademicGroup removeInstructorToAcademicGroup(Integer groupId, Integer empId) {
+		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		Employee instructor = empService.getEmployeeById(empId);
+		
+		LOGGER.debug("academic group:" + group);
+		
+		LOGGER.debug("removing instructor " + instructor + " to registered instructor list");
+		group.getRegInstructors().remove(instructor);
+		
+		LOGGER.debug("new registered instructor list:" + group.getRegInstructors());
+		return acdGroupRepo.save(group);
 	}
 	
 
