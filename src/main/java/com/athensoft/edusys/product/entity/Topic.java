@@ -2,6 +2,7 @@ package com.athensoft.edusys.product.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,13 +16,15 @@ import lombok.ToString;
 
 //@Entity
 //@Table(name = "prod_topic")
-//@Getter @Setter @NoArgsConstructor @ToString
-public class Topic {
+//public class Topic {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name = "topic_id")
 //	private int topicId;
-//	private String subject;
-//	private String module;
+//	
+//	@Column(name = "topic_desc")
 //	private String topicDesc;
+//	
+//	
 //	private List<Question> questions;
-}
+//}

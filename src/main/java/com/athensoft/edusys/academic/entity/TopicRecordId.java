@@ -1,4 +1,4 @@
-package com.athensoft.edusys.admin.entity;
+package com.athensoft.edusys.academic.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -6,19 +6,19 @@ import java.util.Objects;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class DeliveryRecordId implements Serializable{
-	private static final long serialVersionUID = -2145507013907203638L;
+public class TopicRecordId implements Serializable{
+	private static final long serialVersionUID = 2790864776285692290L;
 
 	private Integer sessionId;
 	
-	private Integer empId;
+	private Integer topicId;
 
-	public DeliveryRecordId() {}
+	public TopicRecordId() {}
 	
-	public DeliveryRecordId(Integer sessionId, Integer empId) {
+	public TopicRecordId(Integer sessionId, Integer topicId) {
 		super();
 		this.sessionId = sessionId;
-		this.empId = empId;
+		this.topicId = topicId;
 	}
 
 	public Integer getSessionId() {
@@ -29,22 +29,22 @@ public class DeliveryRecordId implements Serializable{
 		this.sessionId = sessionId;
 	}
 
-	public Integer getempId() {
-		return empId;
+	public Integer getTopicId() {
+		return topicId;
 	}
 
-	public void setempId(Integer empId) {
-		this.empId = empId;
+	public void setTopicId(Integer topicId) {
+		this.topicId = topicId;
 	}
 
 	@Override
 	public String toString() {
-		return "DeliveryRecordId [sessionId=" + sessionId + ", empId=" + empId + "]";
+		return "TopicRecordId [sessionId=" + sessionId + ", topicId=" + topicId + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(sessionId, empId);
+		return Objects.hash(sessionId, topicId);
 	}
 
 	@Override
@@ -55,11 +55,11 @@ public class DeliveryRecordId implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DeliveryRecordId other = (DeliveryRecordId) obj;
-		if (empId == null) {
-			if (other.empId != null)
+		TopicRecordId other = (TopicRecordId) obj;
+		if (topicId == null) {
+			if (other.topicId != null)
 				return false;
-		} else if (!empId.equals(other.empId))
+		} else if (!topicId.equals(other.topicId))
 			return false;
 		if (sessionId == null) {
 			if (other.sessionId != null)

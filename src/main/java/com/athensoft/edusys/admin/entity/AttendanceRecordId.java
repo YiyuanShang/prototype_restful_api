@@ -6,19 +6,19 @@ import java.util.Objects;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class DeliveryRecordId implements Serializable{
-	private static final long serialVersionUID = -2145507013907203638L;
+public class AttendanceRecordId implements Serializable{
+	private static final long serialVersionUID = 5984393258377995702L;
 
 	private Integer sessionId;
 	
-	private Integer empId;
+	private Integer stuId;
 
-	public DeliveryRecordId() {}
+	public AttendanceRecordId() {}
 	
-	public DeliveryRecordId(Integer sessionId, Integer empId) {
+	public AttendanceRecordId(Integer sessionId, Integer stuId) {
 		super();
 		this.sessionId = sessionId;
-		this.empId = empId;
+		this.stuId = stuId;
 	}
 
 	public Integer getSessionId() {
@@ -29,22 +29,22 @@ public class DeliveryRecordId implements Serializable{
 		this.sessionId = sessionId;
 	}
 
-	public Integer getempId() {
-		return empId;
+	public Integer getStuId() {
+		return stuId;
 	}
 
-	public void setempId(Integer empId) {
-		this.empId = empId;
+	public void setStuId(Integer stuId) {
+		this.stuId = stuId;
 	}
 
 	@Override
 	public String toString() {
-		return "DeliveryRecordId [sessionId=" + sessionId + ", empId=" + empId + "]";
+		return "AttendanceRecordId [sessionId=" + sessionId + ", stuId=" + stuId + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(sessionId, empId);
+		return Objects.hash(sessionId, stuId);
 	}
 
 	@Override
@@ -55,16 +55,16 @@ public class DeliveryRecordId implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DeliveryRecordId other = (DeliveryRecordId) obj;
-		if (empId == null) {
-			if (other.empId != null)
-				return false;
-		} else if (!empId.equals(other.empId))
-			return false;
+		AttendanceRecordId other = (AttendanceRecordId) obj;
 		if (sessionId == null) {
 			if (other.sessionId != null)
 				return false;
 		} else if (!sessionId.equals(other.sessionId))
+			return false;
+		if (stuId == null) {
+			if (other.stuId != null)
+				return false;
+		} else if (!stuId.equals(other.stuId))
 			return false;
 		return true;
 	}

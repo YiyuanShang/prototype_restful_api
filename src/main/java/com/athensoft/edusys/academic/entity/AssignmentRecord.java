@@ -32,7 +32,7 @@ public class AssignmentRecord {
 	@Column(name = "assgmt_record_id")
 	private Integer assgmtRecordId = -1;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private AssignmentType assgmtType;
 	
 	@Temporal(TemporalType.DATE)
@@ -43,23 +43,33 @@ public class AssignmentRecord {
 	@Column(name = "duedate")
 	private Date dueDate;
 	
-	@ManyToMany(targetEntity = Question.class)
-	@JoinTable(name = "acd_rel_assgmt_question", 
-	joinColumns = @JoinColumn(name = "assgmt_record_id", referencedColumnName = "assgmt_record_id"),
-    inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "question_id"))
-	private List<Question> questions;
+//	@ManyToMany(targetEntity = Question.class)
+//	@JoinTable(name = "acd_rel_assgmt_question", 
+//	joinColumns = @JoinColumn(name = "assgmt_record_id", referencedColumnName = "assgmt_record_id"),
+//    inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "question_id"))
+//	private List<Question> questions;
 
 	public AssignmentRecord() {}
 	
-	public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate,
-			List<Question> questions) {
-		super();
-		this.assgmtRecordId = assgmtRecordId;
-		this.assgmtType = assgmtType;
-		this.issueDate = issueDate;
-		this.dueDate = dueDate;
-		this.questions = questions;
-	}
+public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate) {
+	super();
+	this.assgmtRecordId = assgmtRecordId;
+	this.assgmtType = assgmtType;
+	this.issueDate = issueDate;
+	this.dueDate = dueDate;
+}
+
+//	public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate,
+//			List<Question> questions) {
+//		super();
+//		this.assgmtRecordId = assgmtRecordId;
+//		this.assgmtType = assgmtType;
+//		this.issueDate = issueDate;
+//		this.dueDate = dueDate;
+//		this.questions = questions;
+//	}
+	
+	
 
 	public Integer getAssgmtRecordId() {
 		return assgmtRecordId;
@@ -93,19 +103,25 @@ public class AssignmentRecord {
 		this.dueDate = dueDate;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-
 	@Override
 	public String toString() {
 		return "AssignmentRecord [assgmtRecordId=" + assgmtRecordId + ", assgmtType=" + assgmtType + ", issueDate="
-				+ issueDate + ", dueDate=" + dueDate + ", questions=" + questions + "]";
+				+ issueDate + ", dueDate=" + dueDate + "]";
 	}
+
+//	public List<Question> getQuestions() {
+//		return questions;
+//	}
+//
+//	public void setQuestions(List<Question> questions) {
+//		this.questions = questions;
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "AssignmentRecord [assgmtRecordId=" + assgmtRecordId + ", assgmtType=" + assgmtType + ", issueDate="
+//				+ issueDate + ", dueDate=" + dueDate + ", questions=" + questions + "]";
+//	}
 	
 	
 	

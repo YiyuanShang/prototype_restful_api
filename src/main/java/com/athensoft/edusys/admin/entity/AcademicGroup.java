@@ -29,8 +29,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "admin_group")
-public class AcademicGroup implements Serializable{
-	private static final long serialVersionUID = 4595377121451870613L;
+public class AcademicGroup{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
