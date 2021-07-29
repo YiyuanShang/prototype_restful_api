@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +52,16 @@ public class AcademicGroupController {
 	@GetMapping("/groups/filtersStr")
 	public ResponseEntity<List<AcademicGroup>> getDataByFiltersStr() throws ParseException{
 		return ResponseEntity.ok(acdGroupService.getAcademicGroupListByFiltersStr());
+	}
+	
+	@PutMapping("/groups/{groupId}/students/{stuId}")
+	public ResponseEntity<AcademicGroup> joinAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
+		return ResponseEntity.ok(acdGroupService.addStudentToAcademicGroup(groupId, stuId));
+	}
+	
+	@PutMapping("/groups/{groupId}/employees/{empId}")
+	public ResponseEntity<AcademicGroup> registerAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
+		return ResponseEntity.ok(acdGroupService.addInstructorToAcademicGroup(groupId, empId));
 	}
 
 

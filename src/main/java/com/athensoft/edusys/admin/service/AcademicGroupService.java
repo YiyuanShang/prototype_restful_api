@@ -18,7 +18,12 @@ import com.athensoft.edusys.admin.dao.AcademicGroupRepository;
 import com.athensoft.edusys.admin.entity.AcademicGroup;
 import com.athensoft.edusys.admin.entity.GroupStatus;
 import com.athensoft.edusys.admin.entity.GroupType;
+import com.athensoft.edusys.client.entity.Student;
+import com.athensoft.edusys.client.service.StudentService;
 import com.athensoft.edusys.error.exceptions.AcademicGroupNotFoundException;
+import com.athensoft.edusys.hr.entity.Employee;
+import com.athensoft.edusys.hr.entity.Instructor;
+import com.athensoft.edusys.hr.service.EmployeeService;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 
 @Service
@@ -26,8 +31,13 @@ public class AcademicGroupService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AcademicGroupService.class);
 	private final AcademicGroupRepository acdGroupRepo;
 	
-	public AcademicGroupService(AcademicGroupRepository acdGroupRepo) {
+	private final StudentService stuService;
+	private final EmployeeService empService;
+	
+	public AcademicGroupService(AcademicGroupRepository acdGroupRepo, StudentService stuService, EmployeeService empService) {
 		this.acdGroupRepo = acdGroupRepo;
+		this.stuService = stuService;
+		this.empService = empService;
 	}
 	
 	public List<AcademicGroup> getAcademicGroupList(){
@@ -201,6 +211,31 @@ public class AcademicGroupService {
 		Example<AcademicGroup> example = Example.of(group, exampleMatcher);
 		LOGGER.debug("example group:" + example.toString());
 		return acdGroupRepo.findAll(example);
+	}
+
+	public AcademicGroup addStudentToAcademicGroup(Integer groupId, Integer stuId) {
+		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		Student student = stuService.getStudentById(stuId);
+		LOGGER.debug("academic group:" + group);
+	
+		LOGGER.debug("adding student " + student + " to registered student list");
+		group.getRegStudents().add(student);
+
+		LOGGER.debug("new registered student list:" + group.getRegStudents());
+		return acdGroupRepo.saveAndFlush(group);
+	}
+	
+	public AcademicGroup addInstructorToAcademicGroup(Integer groupId, Integer empId) {
+		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		Employee instructor = empService.getEmployeeById(empId);
+		
+		LOGGER.debug("academic group:" + group);
+		
+		LOGGER.debug("adding instructor " + instructor + " to registered instructor list");
+		group.getRegInstructors().add(instructor);
+		
+		LOGGER.debug("new registered instructor list:" + group.getRegInstructors());
+		return acdGroupRepo.saveAndFlush(group);
 	}
 	
 

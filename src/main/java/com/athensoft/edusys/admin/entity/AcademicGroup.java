@@ -1,5 +1,6 @@
 package com.athensoft.edusys.admin.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -28,10 +29,12 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "admin_group")
-public class AcademicGroup {
+public class AcademicGroup implements Serializable{
+	private static final long serialVersionUID = 4595377121451870613L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "group_id")
+	@Column(name = "group_id", nullable = false)
 	private Integer groupId = -1;
 	
 	@Column(name = "group_no", unique=true)
@@ -47,7 +50,7 @@ public class AcademicGroup {
 	@JoinTable(name = "admin_rel_group_employee", 
 			joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
 	        inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
-	private List<Instructor> regInstructors;
+	private List<Employee> regInstructors;
 	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "group_status")
@@ -76,7 +79,7 @@ public class AcademicGroup {
 	
 	public AcademicGroup() {}
 
-	public AcademicGroup(Integer groupId, String groupNo, List<Student> regStudents, List<Instructor> regInstructors,
+	public AcademicGroup(Integer groupId, String groupNo, List<Student> regStudents, List<Employee> regInstructors,
 			GroupStatus groupStatus, Date startDate, Date endDate, Integer sessionNum, GroupType groupType,
 			String groupName, String groupDesc) {
 		super();
@@ -117,11 +120,11 @@ public class AcademicGroup {
 		this.regStudents = regStudents;
 	}
 
-	public List<Instructor> getRegInstructors() {
+	public List<Employee> getRegInstructors() {
 		return regInstructors;
 	}
 
-	public void setRegInstructors(List<Instructor> regInstructors) {
+	public void setRegInstructors(List<Employee> regInstructors) {
 		this.regInstructors = regInstructors;
 	}
 
