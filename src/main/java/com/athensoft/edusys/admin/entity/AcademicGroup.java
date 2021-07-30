@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.hr.entity.Employee;
 import com.athensoft.edusys.hr.entity.Instructor;
+import com.athensoft.edusys.product.entity.Course;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,11 +57,11 @@ public class AcademicGroup{
 	private GroupStatus groupStatus;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "startdate")
+	@Column(name = "start_date")
 	private Date startDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "enddate")
+	@Column(name = "end_date")
 	private Date endDate;
 	
 	@Column(name = "session_num")
@@ -75,6 +76,12 @@ public class AcademicGroup{
 	
 	@Column(name = "group_desc")
 	private String groupDesc;
+	
+//	@ManyToMany(targetEntity = Course.class)
+//	@JoinTable(name = "admin_rel_group_course", 
+//		joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
+//	    inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"))
+//	private List<Course> courses;
 	
 	public AcademicGroup() {}
 
@@ -93,7 +100,10 @@ public class AcademicGroup{
 		this.groupType = groupType;
 		this.groupName = groupName;
 		this.groupDesc = groupDesc;
+//		this.courses = courses;
 	}
+
+
 
 	public Integer getGroupId() {
 		return groupId;
@@ -182,6 +192,15 @@ public class AcademicGroup{
 	public void setGroupDesc(String groupDesc) {
 		this.groupDesc = groupDesc;
 	}
+	
+
+//	public List<Course> getCourses() {
+//		return courses;
+//	}
+//
+//	public void setCourses(List<Course> courses) {
+//		this.courses = courses;
+//	}
 
 	@Override
 	public String toString() {
@@ -190,6 +209,8 @@ public class AcademicGroup{
 				+ ", endDate=" + endDate + ", sessionNum=" + sessionNum + ", groupType=" + groupType + ", groupName="
 				+ groupName + ", groupDesc=" + groupDesc + "]";
 	}
+
+	
 	
 	
 	

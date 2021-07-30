@@ -1,9 +1,12 @@
 package com.athensoft.edusys.academic.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,10 +16,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.athensoft.edusys.admin.entity.AttendanceRecord;
 import com.athensoft.edusys.admin.entity.DeliveryRecord;
 //import com.athensoft.edusys.product.entity.Topic;
+import com.athensoft.edusys.admin.entity.SessionStatus;
 
 @Entity
 @Table(name = "acd_session")
@@ -45,6 +51,24 @@ public class AcademicSession {
 //	@OneToOne(targetEntity = TopicRecord.class)
 //	private TopicRecord topicRecord;
 
+	@Column(name = "delivery_date")
+	@Temporal(TemporalType.DATE)
+	private Date deliveryDate;
+	
+	@Column(name = "start_time")
+	@Temporal(TemporalType.TIME)
+	private Date startTime;
+	
+	@Column(name = "end_time")
+	@Temporal(TemporalType.TIME)
+	private Date endTime;
+	
+	private Integer duration; 
+	
+	@Enumerated(EnumType.ORDINAL)	
+	@Column(name = "session_status")
+	private SessionStatus sessionStatus;
+	
 	public AcademicSession() {}
 	
 public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, AssignmentRecord assignment,
@@ -118,6 +142,47 @@ public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, 
 
 	public void setAttendanceRecord(AttendanceRecord attendanceRecord) {
 		this.attendanceRecord = attendanceRecord;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Integer getDuration() {
+		// convert milliseconds to minutes
+		return (int) ((endTime.getTime() - startTime.getTime())/60000);
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+
+	public SessionStatus getSessionStatus() {
+		return sessionStatus;
+	}
+
+	public void setSessionStatus(SessionStatus sessionStatus) {
+		this.sessionStatus = sessionStatus;
 	}
 
 	@Override

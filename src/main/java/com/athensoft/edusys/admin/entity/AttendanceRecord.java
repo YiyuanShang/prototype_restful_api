@@ -2,6 +2,7 @@ package com.athensoft.edusys.admin.entity;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -21,9 +22,11 @@ public class AttendanceRecord {
 	AttendanceRecordId attendanceRecordId;
 	
 	
-	@OneToMany(targetEntity = Student.class)
+	@ElementCollection
 	@JoinColumns({
 		  @JoinColumn(name = "session_id"),
 		  @JoinColumn(name = "stu_id")})
-	private List<Student> attendedStudents;
+	private List<AttendanceRecordEntry> students;
+	
+	
 }

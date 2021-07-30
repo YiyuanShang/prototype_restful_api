@@ -14,7 +14,6 @@ import lombok.ToString;
 
 //@Entity
 //@Table(name = "prod_course")
-//@Getter @Setter @NoArgsConstructor @ToString
 public class Course {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +24,7 @@ public class Course {
 //	private String courseShortName;
 //	private String courseName;
 //	private String courseDesc;
-	
+//	
 	
 	
 	
