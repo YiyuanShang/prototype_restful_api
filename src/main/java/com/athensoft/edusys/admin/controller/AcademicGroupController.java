@@ -48,8 +48,9 @@ public class AcademicGroupController {
 			@RequestParam(name = "sessionNum") Optional<Integer> sessionNum, 
 			@RequestParam(name = "groupType") Optional<Integer> groupType,
 			@RequestParam(name = "groupName", required = false) String groupName,
-			@RequestParam(name = "groupDesc", required = false) String groupDesc) throws ParseException{
-		return ResponseEntity.ok(acdGroupService.getAcademicGroupListByFilters(groupId, groupNo, groupStatus, startDate, endDate, sessionNum, groupType, groupName, groupDesc));
+			@RequestParam(name = "groupDesc", required = false) String groupDesc,
+			@RequestParam(name = "price", required = false) Float price) throws ParseException{
+		return ResponseEntity.ok(acdGroupService.getAcademicGroupListByFilters(groupId, groupNo, groupStatus, startDate, endDate, sessionNum, groupType, groupName, groupDesc, price));
 	}
 	
 	@GetMapping("/groups/filtersStr")

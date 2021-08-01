@@ -60,7 +60,8 @@ public class AcademicGroupService {
 			Optional<Integer> sessionNum, 
 			Optional<Integer> groupType, 
 			String groupName, 
-			String groupDesc
+			String groupDesc,
+			Float price
 			) throws ParseException{
 		List<String> ignoredProperties = new ArrayList<>();
 		AcademicGroup group = new AcademicGroup();
@@ -105,6 +106,7 @@ public class AcademicGroupService {
 		group.setGroupNo(groupNo);
 		group.setGroupName(groupName);
 		group.setGroupDesc(groupDesc);
+		group.setPrice(price);
 		
 		LOGGER.debug("searched group:" + group);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
@@ -129,6 +131,7 @@ public class AcademicGroupService {
 		obj.put("groupType", "2");
 		obj.put("groupName", "");
 		obj.put("groupDesc", "");
+		obj.put("price", "");
 		
 		String filterStr = obj.toString();
 		JSONObject jobj = new JSONObject(filterStr);
@@ -144,6 +147,7 @@ public class AcademicGroupService {
 		String groupTypeStr = jobj.getString("groupType").trim();
 		String groupName = jobj.getString("groupName").trim(); 
 		String groupDesc = jobj.getString("groupDesc").trim();
+		String price = jobj.getString("price").trim();
 		
 		AcademicGroup group = new AcademicGroup();
 		
@@ -203,6 +207,12 @@ public class AcademicGroupService {
 			ignoredProperties.add("groupDesc");
 		}else {
 			group.setGroupDesc(groupDesc);
+		}
+		
+		if (GlobalValidationUtils.isEmptyStr(price)) {
+			ignoredProperties.add("price");
+		}else {
+			group.setPrice(Float.valueOf(price));
 		}
 		
 		LOGGER.debug("searched group:" + group);
