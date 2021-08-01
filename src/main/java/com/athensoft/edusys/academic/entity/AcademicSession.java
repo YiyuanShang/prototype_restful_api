@@ -3,7 +3,10 @@ package com.athensoft.edusys.academic.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,6 +18,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +31,8 @@ import com.athensoft.edusys.admin.entity.SessionStatus;
 
 @Entity
 @Table(name = "acd_session")
+//@SecondaryTable(name="admin_delivery_record",
+//pkJoinColumns = {@PrimaryKeyJoinColumn(name = "session_id", referencedColumnName = "session_id")})
 public class AcademicSession {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +50,9 @@ public class AcademicSession {
 	private AssignmentRecord assignment;
 	
 	@OneToOne(targetEntity = DeliveryRecord.class)
+//	@AttributeOverrides({
+//        @AttributeOverride(name="deliveredSession", column=@Column(name="session_id", table="admin_delivery_record"))
+//    })
 	private DeliveryRecord deliveryRecord;
 	
 	@OneToOne(targetEntity = AttendanceRecord.class)

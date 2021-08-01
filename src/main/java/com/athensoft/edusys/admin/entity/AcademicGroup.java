@@ -83,11 +83,14 @@ public class AcademicGroup{
 //	    inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"))
 //	private List<Course> courses;
 	
+	@Column(name = "price")
+	private Float price;
+	
 	public AcademicGroup() {}
 
 	public AcademicGroup(Integer groupId, String groupNo, List<Student> regStudents, List<Employee> regInstructors,
 			GroupStatus groupStatus, Date startDate, Date endDate, Integer sessionNum, GroupType groupType,
-			String groupName, String groupDesc) {
+			String groupName, String groupDesc, Float price) {
 		super();
 		this.groupId = groupId;
 		this.groupNo = groupNo;
@@ -101,6 +104,7 @@ public class AcademicGroup{
 		this.groupName = groupName;
 		this.groupDesc = groupDesc;
 //		this.courses = courses;
+		this.price = price;
 	}
 
 
@@ -194,6 +198,22 @@ public class AcademicGroup{
 	}
 	
 
+public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "AcademicGroup [groupId=" + groupId + ", groupNo=" + groupNo + ", regStudents=" + regStudents
+				+ ", regInstructors=" + regInstructors + ", groupStatus=" + groupStatus + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", sessionNum=" + sessionNum + ", groupType=" + groupType + ", groupName="
+				+ groupName + ", groupDesc=" + groupDesc + ", price=" + price + "]";
+	}
+
 //	public List<Course> getCourses() {
 //		return courses;
 //	}
@@ -202,13 +222,8 @@ public class AcademicGroup{
 //		this.courses = courses;
 //	}
 
-	@Override
-	public String toString() {
-		return "AcademicGroup [groupId=" + groupId + ", groupNo=" + groupNo + ", regStudents=" + regStudents
-				+ ", regInstructors=" + regInstructors + ", groupStatus=" + groupStatus + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", sessionNum=" + sessionNum + ", groupType=" + groupType + ", groupName="
-				+ groupName + ", groupDesc=" + groupDesc + "]";
-	}
+	
+	
 
 	
 	
