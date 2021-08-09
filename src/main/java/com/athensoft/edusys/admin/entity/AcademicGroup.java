@@ -68,7 +68,7 @@ public class AcademicGroup {
 	@Column(name = "group_desc")
 	private String groupDesc;
 
-	@OneToMany(targetEntity = CourseEntry.class, mappedBy = "course", fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = CourseEntry.class, mappedBy = "course", fetch = FetchType.EAGER)
 	private List<CourseEntry> courseEntries;
 
 	@Column(name = "price")

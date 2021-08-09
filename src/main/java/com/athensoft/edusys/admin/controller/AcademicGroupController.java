@@ -3,6 +3,7 @@ package com.athensoft.edusys.admin.controller;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.athensoft.edusys.admin.entity.AcademicGroup;
 import com.athensoft.edusys.admin.service.AcademicGroupService;
 import com.athensoft.edusys.client.entity.Student;
+import com.athensoft.edusys.product.entity.Course;
 
 @RestController
 @RequestMapping("/edusys/admin")
@@ -89,20 +91,48 @@ public class AcademicGroupController {
 		return ResponseEntity.ok(acdGroupService.addStudentToAcademicGroup(groupId, stuId));
 	}
 	
-	@DeleteMapping("/groups/{groupId}/students/student/{stuId}")
-	public ResponseEntity<AcademicGroup> removeStudentFromAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
-		return ResponseEntity.ok(acdGroupService.removeStudentFromAcademicGroup(groupId, stuId));
-	}
-	
 	@PutMapping("/groups/{groupId}/employees/employee/{empId}")
 	public ResponseEntity<AcademicGroup> addInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
 		return ResponseEntity.ok(acdGroupService.addInstructorToAcademicGroup(groupId, empId));
+	}
+
+	@PutMapping("/groups/{groupId}/courses")
+	public ResponseEntity<AcademicGroup> addCourseListToAcademicGroup(
+			@PathVariable(name = "groupId") Integer groupId, 
+			@RequestBody List<Map<String, Object>> courseEntryList){
+		return ResponseEntity.ok(acdGroupService.addCourseListToAcademicGroup(groupId, courseEntryList));
+	}
+	
+	@PutMapping("/groups/{groupId}/courses/course/{courseId}")
+	public ResponseEntity<AcademicGroup> addCourseToAcademicGroup(
+			@PathVariable(name = "groupId") Integer groupId, 
+			@PathVariable(name = "courseId") Integer courseId, 
+			@RequestParam(name = "isPrimary") Boolean isPrimary){
+		return ResponseEntity.ok(acdGroupService.addCourseToAcademicGroup(groupId, courseId, isPrimary));
+	}
+
+	@DeleteMapping("/groups/{groupId}/students/student/{stuId}")
+	public ResponseEntity<AcademicGroup> removeStudentFromAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
+		return ResponseEntity.ok(acdGroupService.removeStudentFromAcademicGroup(groupId, stuId));
 	}
 	
 	@DeleteMapping("/groups/{groupId}/employees/employee/{empId}")
 	public ResponseEntity<AcademicGroup> removeInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
 		return ResponseEntity.ok(acdGroupService.removeInstructorToAcademicGroup(groupId, empId));
 	}
-
+	
+	@DeleteMapping("/groups/{groupId}/courses")
+	public ResponseEntity<AcademicGroup> removeCourseListFromAcademicGroup(
+			@PathVariable(name = "groupId") Integer groupId, 
+			@RequestBody List<Course> courseList){
+		return ResponseEntity.ok(acdGroupService.removeCourseListFromAcademicGroup(groupId, courseList));
+	}
+	
+	@DeleteMapping("/groups/{groupId}/courses/course/{courseId}")
+	public ResponseEntity<AcademicGroup> removeCourseFromAcademicGroup(
+			@PathVariable(name = "groupId") Integer groupId, 
+			@PathVariable(name = "courseId") Integer courseId){
+		return ResponseEntity.ok(acdGroupService.removeCourseFromAcademicGroup(groupId, courseId));
+	}
 
 }
