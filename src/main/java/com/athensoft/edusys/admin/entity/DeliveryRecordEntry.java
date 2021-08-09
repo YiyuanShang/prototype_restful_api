@@ -10,18 +10,30 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.hr.entity.Employee;
 
 @Embeddable
 public class DeliveryRecordEntry implements Serializable{
 	private static final long serialVersionUID = 1053151989709424903L;
 	
-//	@Column(name = "emp_id")
-	@OneToOne(targetEntity = Employee.class)
+//	@OneToOne(targetEntity = AcademicSession.class)
+	@ManyToOne
+//	@MapsId("sessionId")
+	@JoinColumn(name = "session_id")
+	private AcademicSession session;
+	
+	@ManyToOne
+//	@MapsId("empId")
+	@JoinColumn(name = "emp_id")
+//	@OneToOne(targetEntity = Employee.class)
 	private Employee instructor;
+	
 	
 	public DeliveryRecordEntry() {}
 	

@@ -5,15 +5,28 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.client.entity.Student;
 
 @Embeddable
 public class AttendanceRecordEntry implements Serializable{
 	private static final long serialVersionUID = 6958416949270053797L;
 	
-	@OneToOne(targetEntity = Student.class)
+//	@OneToOne(targetEntity = AcademicSession.class)
+	@ManyToOne
+	@MapsId("sessionId")
+	@JoinColumn(name = "session_id")
+	private AcademicSession session;
+	
+//	@OneToOne(targetEntity = Student.class)
+	@ManyToOne
+	@MapsId("stuId")
+	@JoinColumn(name = "stu_id")
 	private Student student;
 	
 	@Column(name = "attendance_type")

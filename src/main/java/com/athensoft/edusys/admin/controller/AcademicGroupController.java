@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.edusys.admin.entity.AcademicGroup;
 import com.athensoft.edusys.admin.service.AcademicGroupService;
+import com.athensoft.edusys.client.entity.Student;
 
 @RestController
 @RequestMapping("/edusys/admin")
@@ -78,22 +79,27 @@ public class AcademicGroupController {
 		return acdGroupService.deleteAcademicGroup(group);
 	}
 	
-	@PutMapping("/groups/{groupId}/students/{stuId}")
+	@PutMapping("/groups/{groupId}/students")
+	public ResponseEntity<AcademicGroup> addStudentListToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @RequestBody List<Student> studentList){
+		return ResponseEntity.ok(acdGroupService.addStudentListToAcademicGroup(groupId, studentList));
+	}
+	
+	@PutMapping("/groups/{groupId}/students/student/{stuId}")
 	public ResponseEntity<AcademicGroup> addStudentToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
 		return ResponseEntity.ok(acdGroupService.addStudentToAcademicGroup(groupId, stuId));
 	}
 	
-	@DeleteMapping("/groups/{groupId}/students/{stuId}")
+	@DeleteMapping("/groups/{groupId}/students/student/{stuId}")
 	public ResponseEntity<AcademicGroup> removeStudentFromAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
 		return ResponseEntity.ok(acdGroupService.removeStudentFromAcademicGroup(groupId, stuId));
 	}
 	
-	@PutMapping("/groups/{groupId}/employees/{empId}")
+	@PutMapping("/groups/{groupId}/employees/employee/{empId}")
 	public ResponseEntity<AcademicGroup> addInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
 		return ResponseEntity.ok(acdGroupService.addInstructorToAcademicGroup(groupId, empId));
 	}
 	
-	@DeleteMapping("/groups/{groupId}/employees/{empId}")
+	@DeleteMapping("/groups/{groupId}/employees/employee/{empId}")
 	public ResponseEntity<AcademicGroup> removeInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
 		return ResponseEntity.ok(acdGroupService.removeInstructorToAcademicGroup(groupId, empId));
 	}

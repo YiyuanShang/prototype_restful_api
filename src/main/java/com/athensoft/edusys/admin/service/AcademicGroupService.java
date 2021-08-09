@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.admin.dao.AcademicGroupRepository;
 import com.athensoft.edusys.admin.entity.AcademicGroup;
+import com.athensoft.edusys.admin.entity.CourseEntry;
+import com.athensoft.edusys.admin.entity.CourseEntryId;
 import com.athensoft.edusys.admin.entity.GroupStatus;
 import com.athensoft.edusys.admin.entity.GroupType;
 import com.athensoft.edusys.client.entity.Student;
@@ -27,6 +29,8 @@ import com.athensoft.edusys.error.exceptions.AcademicGroupNotFoundException;
 import com.athensoft.edusys.hr.entity.Employee;
 import com.athensoft.edusys.hr.entity.Instructor;
 import com.athensoft.edusys.hr.service.EmployeeService;
+import com.athensoft.edusys.product.entity.Course;
+import com.athensoft.edusys.product.service.CourseService;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 
 @Service
@@ -36,11 +40,13 @@ public class AcademicGroupService {
 	
 	private final StudentService stuService;
 	private final EmployeeService empService;
+	private final CourseService courseService;
 	
-	public AcademicGroupService(AcademicGroupRepository acdGroupRepo, StudentService stuService, EmployeeService empService) {
+	public AcademicGroupService(AcademicGroupRepository acdGroupRepo, StudentService stuService, EmployeeService empService, CourseService courseService) {
 		this.acdGroupRepo = acdGroupRepo;
 		this.stuService = stuService;
 		this.empService = empService;
+		this.courseService = courseService;
 	}
 	
 	public List<AcademicGroup> getAcademicGroupList(){
@@ -234,16 +240,12 @@ public class AcademicGroupService {
 	}
 	
 	public ResponseEntity<AcademicGroup> updateAcademicGroup(AcademicGroup group) {
-		if (!acdGroupRepo.existsById(group.getGroupId())) {
-			throw new AcademicGroupNotFoundException(group);
-		}
+		checkAcademicGroupNotFoundException(group.getGroupId());
 		return ResponseEntity.ok(acdGroupRepo.save(group));
 	}
 	
 	public ResponseEntity<AcademicGroup> deleteAcademicGroupById(Integer groupId) {
-		if (!acdGroupRepo.existsById(groupId)) {
-			throw new AcademicGroupNotFoundException(groupId);
-		}
+		checkAcademicGroupNotFoundException(groupId);
 		AcademicGroup group = acdGroupRepo.findById(groupId).get();
 		group.setGroupStatus(GroupStatus.CLOSED);
 		
@@ -255,7 +257,7 @@ public class AcademicGroupService {
 	}
 
 	public AcademicGroup addStudentToAcademicGroup(Integer groupId, Integer stuId) {
-		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		AcademicGroup group = getAcademicGroupById(groupId);
 		Student student = stuService.getStudentById(stuId);
 		LOGGER.debug("academic group:" + group);
 	
@@ -266,8 +268,19 @@ public class AcademicGroupService {
 		return acdGroupRepo.save(group);
 	}
 	
+	public AcademicGroup addStudentListToAcademicGroup(Integer groupId, List<Student> studentList) {
+		AcademicGroup group = getAcademicGroupById(groupId);
+		LOGGER.debug("academic group:" + group);
+		
+		LOGGER.debug("adding students " + studentList + " to registered student list");
+		group.getRegStudents().addAll(studentList);
+		
+		LOGGER.debug("new registered student list:" + group.getRegStudents());
+		return acdGroupRepo.save(group);
+	}
+
 	public AcademicGroup removeStudentFromAcademicGroup(Integer groupId, Integer stuId) {
-		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		AcademicGroup group = getAcademicGroupById(groupId);
 		Student student = stuService.getStudentById(stuId);
 		LOGGER.debug("academic group:" + group);
 		
@@ -279,7 +292,7 @@ public class AcademicGroupService {
 	}
 
 	public AcademicGroup addInstructorToAcademicGroup(Integer groupId, Integer empId) {
-		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		AcademicGroup group = getAcademicGroupById(groupId);
 		Employee instructor = empService.getEmployeeById(empId);
 		
 		LOGGER.debug("academic group:" + group);
@@ -292,7 +305,7 @@ public class AcademicGroupService {
 	}
 
 	public AcademicGroup removeInstructorToAcademicGroup(Integer groupId, Integer empId) {
-		AcademicGroup group = acdGroupRepo.findById(groupId).orElseThrow(() -> new AcademicGroupNotFoundException(groupId));
+		AcademicGroup group = getAcademicGroupById(groupId);
 		Employee instructor = empService.getEmployeeById(empId);
 		
 		LOGGER.debug("academic group:" + group);
@@ -304,5 +317,25 @@ public class AcademicGroupService {
 		return acdGroupRepo.save(group);
 	}
 	
+	public AcademicGroup addCourseToAcademicGroup(Integer groupId, Integer courseId, Boolean isPrimary) {
+		AcademicGroup group = getAcademicGroupById(groupId);
+		Course course = courseService.getCourseById(courseId);
+		
+		LOGGER.debug("academic group:" + group);
+		LOGGER.debug("adding course " + course + " to course list, isPrimary:" + isPrimary);
+		CourseEntryId courseEntryId = new CourseEntryId(groupId, courseId);
+		CourseEntry courseEntry = new CourseEntry(courseEntryId, course, isPrimary);
+		group.getCourseEntries().add(courseEntry);
+		
+		LOGGER.debug("new course list:" + group.getCourseEntries());
+		return acdGroupRepo.save(group);
+		
+	}
+	
+	private void checkAcademicGroupNotFoundException(Integer groupId) {
+		if (!acdGroupRepo.existsById(groupId)) {
+			throw new AcademicGroupNotFoundException(groupId);
+		}
+	}
 
 }

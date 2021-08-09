@@ -16,7 +16,7 @@ import lombok.ToString;
 
 //@Entity
 //@Table(name = "prod_topic")
-//public class Topic {
+public class Topic {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@Column(name = "topic_id")
@@ -27,4 +27,4 @@ import lombok.ToString;
 //	
 //	
 //	private List<Question> questions;
-//}
+}

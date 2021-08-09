@@ -8,89 +8,78 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.hr.entity.Employee;
-import com.athensoft.edusys.hr.entity.Instructor;
-import com.athensoft.edusys.product.entity.Course;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "admin_group")
-public class AcademicGroup{
+public class AcademicGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "group_id", nullable = false)
 	private Integer groupId = -1;
-	
-	@Column(name = "group_no", unique=true)
+
+	@Column(name = "group_no", unique = true)
 	private String groupNo;
-	
+
 	@ManyToMany(targetEntity = Student.class)
-	@JoinTable(name = "admin_rel_group_student",
-			joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
-	        inverseJoinColumns = @JoinColumn(name = "stu_id", referencedColumnName = "stu_id"))
+	@JoinTable(name = "admin_rel_group_student", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"), inverseJoinColumns = @JoinColumn(name = "stu_id", referencedColumnName = "stu_id"))
 	private List<Student> regStudents;
-	
+
 	@ManyToMany(targetEntity = Employee.class)
-	@JoinTable(name = "admin_rel_group_employee", 
-			joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
-	        inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
+	@JoinTable(name = "admin_rel_group_employee", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"), inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
 	private List<Employee> regInstructors;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "group_status")
 	private GroupStatus groupStatus;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date")
 	private Date startDate;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date")
 	private Date endDate;
-	
+
 	@Column(name = "session_num")
 	private Integer sessionNum;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "group_type")
 	private GroupType groupType;
-	
+
 	@Column(name = "group_name")
 	private String groupName;
-	
+
 	@Column(name = "group_desc")
 	private String groupDesc;
-	
-//	@ManyToMany(targetEntity = Course.class)
-//	@JoinTable(name = "admin_rel_group_course", 
-//		joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
-//	    inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"))
-//	private List<Course> courses;
-	
+
+	@OneToMany(targetEntity = CourseEntry.class, mappedBy = "course", fetch = FetchType.LAZY)
+	private List<CourseEntry> courseEntries;
+
 	@Column(name = "price")
 	private Float price;
-	
-	public AcademicGroup() {}
+
+	public AcademicGroup() {
+	}
 
 	public AcademicGroup(Integer groupId, String groupNo, List<Student> regStudents, List<Employee> regInstructors,
 			GroupStatus groupStatus, Date startDate, Date endDate, Integer sessionNum, GroupType groupType,
-			String groupName, String groupDesc, Float price) {
+			String groupName, String groupDesc, List<CourseEntry> courseEntries, Float price) {
 		super();
 		this.groupId = groupId;
 		this.groupNo = groupNo;
@@ -103,11 +92,9 @@ public class AcademicGroup{
 		this.groupType = groupType;
 		this.groupName = groupName;
 		this.groupDesc = groupDesc;
-//		this.courses = courses;
+		this.courseEntries = courseEntries;
 		this.price = price;
 	}
-
-
 
 	public Integer getGroupId() {
 		return groupId;
@@ -196,9 +183,16 @@ public class AcademicGroup{
 	public void setGroupDesc(String groupDesc) {
 		this.groupDesc = groupDesc;
 	}
-	
 
-public Float getPrice() {
+	public List<CourseEntry> getCourseEntries() {
+		return courseEntries;
+	}
+
+	public void setCourseEntries(List<CourseEntry> courseEntries) {
+		this.courseEntries = courseEntries;
+	}
+
+	public Float getPrice() {
 		return price;
 	}
 
@@ -211,23 +205,8 @@ public Float getPrice() {
 		return "AcademicGroup [groupId=" + groupId + ", groupNo=" + groupNo + ", regStudents=" + regStudents
 				+ ", regInstructors=" + regInstructors + ", groupStatus=" + groupStatus + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", sessionNum=" + sessionNum + ", groupType=" + groupType + ", groupName="
-				+ groupName + ", groupDesc=" + groupDesc + ", price=" + price + "]";
+				+ groupName + ", groupDesc=" + groupDesc + ", courseEntries=" + courseEntries + ", price=" + price
+				+ "]";
 	}
 
-//	public List<Course> getCourses() {
-//		return courses;
-//	}
-//
-//	public void setCourses(List<Course> courses) {
-//		this.courses = courses;
-//	}
-
-	
-	
-
-	
-	
-	
-	
-	
 }
