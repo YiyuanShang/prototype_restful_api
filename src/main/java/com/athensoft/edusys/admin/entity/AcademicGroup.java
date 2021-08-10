@@ -1,6 +1,7 @@
 package com.athensoft.edusys.admin.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,8 @@ import javax.persistence.TemporalType;
 
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.hr.entity.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "admin_group")
@@ -68,7 +71,8 @@ public class AcademicGroup {
 	@Column(name = "group_desc")
 	private String groupDesc;
 
-	@OneToMany(targetEntity = CourseEntry.class, mappedBy = "course", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private List<CourseEntry> courseEntries;
 
 	@Column(name = "price")

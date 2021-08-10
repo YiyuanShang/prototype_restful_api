@@ -34,6 +34,7 @@ import com.athensoft.edusys.hr.service.EmployeeService;
 import com.athensoft.edusys.product.entity.Course;
 import com.athensoft.edusys.product.service.CourseService;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class AcademicGroupService {
@@ -294,12 +295,14 @@ public class AcademicGroupService {
 
 		LOGGER.debug("academic group:" + group);
 		
+		ObjectMapper mapper = new ObjectMapper();
 		for (Map<String, Object> courseEntryMap : courseEntryList) {
-			Boolean isPrimary = (Boolean) courseEntryMap.get("isPrimary");
-			Course course = (Course) courseEntryMap.get("course");
 			
-			CourseEntryId courseEntryId = new CourseEntryId(groupId, course.getCourseId());
-			CourseEntry courseEntry = new CourseEntry(courseEntryId, course, isPrimary);
+			
+			Boolean isPrimary = mapper.convertValue(courseEntryMap.get("isPrimary"), Boolean.class);
+			Course course = mapper.convertValue(courseEntryMap.get("course"), Course.class);
+			
+			CourseEntry courseEntry = new CourseEntry(course, group, isPrimary);
 			
 			LOGGER.debug("adding course " + course + " to course list, isPrimary:" + isPrimary);
 			courseEntryRepo.save(courseEntry);
@@ -317,15 +320,14 @@ public class AcademicGroupService {
 
 		LOGGER.debug("academic group:" + group);
 		LOGGER.debug("adding course " + course + " to course list, isPrimary:" + isPrimary);
-		CourseEntryId courseEntryId = new CourseEntryId(groupId, courseId);
-		CourseEntry courseEntry = new CourseEntry(courseEntryId, course, isPrimary);
+		CourseEntry courseEntry = new CourseEntry(course, group, isPrimary);
 		
 		courseEntryRepo.save(courseEntry);
+		LOGGER.debug("adding course entry to group course entries");
 		group.getCourseEntries().add(courseEntry);
 
 		LOGGER.debug("new course list:" + group.getCourseEntries());
 		return acdGroupRepo.save(group);
-//		return getAcademicGroupById(groupId);
 	}
 
 	public AcademicGroup removeStudentFromAcademicGroup(Integer groupId, Integer stuId) {
@@ -358,10 +360,17 @@ public class AcademicGroupService {
 
 		LOGGER.debug("academic group:" + group);
 		LOGGER.debug("removing courses " + courseList + " from course list");
+		
+		List<CourseEntryId> courseEntryIdList = new ArrayList<>();
+		for (Course course : courseList) {
+			CourseEntryId courseEntryId = new CourseEntryId(groupId, course.getCourseId());
+			courseEntryIdList.add(courseEntryId);
+		}
 		// remove all course list elements from collection
-		group.getCourseEntries().removeAll(courseList);
-
+		group.getCourseEntries().removeIf(courseEntry -> courseEntryIdList.contains(courseEntry.getCourseEntryId()));
+				
 		LOGGER.debug("new course list:" + group.getCourseEntries());
+		courseEntryRepo.deleteAllByIdInBatch(courseEntryIdList);
 		return acdGroupRepo.save(group);
 
 	}
@@ -370,6 +379,7 @@ public class AcademicGroupService {
 		AcademicGroup group = getAcademicGroupById(groupId);
 
 		LOGGER.debug("academic group:" + group);
+		LOGGER.debug("old course list:" + group.getCourseEntries());
 		LOGGER.debug("removing course " + courseId + " to course list");
 		// remove course entry with specific course Id from collection
 		group.getCourseEntries().removeIf(courseEntry -> courseEntry.getCourseEntryId().getCourseId() == courseId);

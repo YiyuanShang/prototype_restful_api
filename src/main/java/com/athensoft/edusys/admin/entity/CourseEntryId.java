@@ -1,6 +1,7 @@
 package com.athensoft.edusys.admin.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Embeddable;
 
@@ -41,5 +42,33 @@ public class CourseEntryId implements Serializable {
 	public String toString() {
 		return "CourseEntryId [groupId=" + groupId + ", courseId=" + courseId + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(groupId, courseId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CourseEntryId other = (CourseEntryId) obj;
+		if (courseId == null) {
+			if (other.courseId != null)
+				return false;
+		} else if (!courseId.equals(other.courseId))
+			return false;
+		if (groupId == null) {
+			if (other.groupId != null)
+				return false;
+		} else if (!groupId.equals(other.groupId))
+			return false;
+		return true;
+	}
+	
 
 }
