@@ -9,11 +9,11 @@ import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//import com.athensoft.edusys.product.entity.Topic;
+import com.athensoft.edusys.product.entity.Topic;
 
 //@Entity
 //@Table(name = "acd_rel_session_topic")
-//public class TopicRecord {
+public class TopicRecord {
 //	@EmbeddedId
 //	TopicRecordId topicRecordId;
 //	
@@ -22,4 +22,4 @@ import javax.persistence.Table;
 //		  @JoinColumn(name = "session_id"),
 //		  @JoinColumn(name = "topic_id")})
 //	List<Topic> deliveredTopics;
-//}
+}

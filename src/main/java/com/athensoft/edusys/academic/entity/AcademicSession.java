@@ -1,5 +1,7 @@
 package com.athensoft.edusys.academic.entity;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -24,10 +26,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 import com.athensoft.edusys.admin.entity.AttendanceRecord;
 import com.athensoft.edusys.admin.entity.DeliveryRecord;
 //import com.athensoft.edusys.product.entity.Topic;
 import com.athensoft.edusys.admin.entity.SessionStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "acd_session")
@@ -38,12 +42,12 @@ public class AcademicSession {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@Column(name = "session_id", nullable = false)
 	private Integer sessionId = -1;
-//	
-//	@Column(name = "group_no", unique = true)
-//	private String groupNo;
-//	
-//	@Column(name = "session_seqno")
-//	private Integer sessionSeqNo;
+	
+	@Column(name = "group_no", unique = true)
+	private String groupNo;
+	
+	@Column(name = "session_seqno")
+	private Integer sessionSeqNo;
 //	
 //	@OneToOne
 //	@JoinColumn(name = "assgmt_record_id")
@@ -59,27 +63,30 @@ public class AcademicSession {
 //	@OneToOne(targetEntity = AttendanceRecord.class)
 //	@JoinTable(name = "admin_attend_record")
 //	private AttendanceRecord attendanceRecord;
-//	
-////	@OneToOne(targetEntity = TopicRecord.class)
-////	private TopicRecord topicRecord;
-//
-//	@Column(name = "delivery_date")
-//	@Temporal(TemporalType.DATE)
-//	private Date deliveryDate;
-//	
-//	@Column(name = "start_time")
-//	@Temporal(TemporalType.TIME)
-//	private Date startTime;
-//	
-//	@Column(name = "end_time")
-//	@Temporal(TemporalType.TIME)
-//	private Date endTime;
-//	
-//	private Integer duration; 
-//	
-//	@Enumerated(EnumType.ORDINAL)	
-//	@Column(name = "session_status")
-//	private SessionStatus sessionStatus;
+	
+//	@OneToOne(targetEntity = TopicRecord.class)
+//	private TopicRecord topicRecord;
+
+	@Column(name = "delivery_date")
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Etc/GMT+4")
+	private Date deliveryDate;
+	
+	@Column(name = "start_time")
+	@Temporal(TemporalType.TIME)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+	private Date startTime;
+	
+	@Column(name = "end_time")
+	@Temporal(TemporalType.TIME)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+	private Date endTime;
+	
+	private Integer duration; 
+	
+	@Enumerated(EnumType.ORDINAL)	
+	@Column(name = "session_status")
+	private SessionStatus sessionStatus;
 //	
 //	public AcademicSession() {}
 //	
@@ -108,29 +115,29 @@ public class AcademicSession {
 //	
 //	
 //
-//	public Integer getSessionId() {
-//		return sessionId;
-//	}
-//
-//	public void setSessionId(Integer sessionId) {
-//		this.sessionId = sessionId;
-//	}
-//
-//	public String getGroupNo() {
-//		return groupNo;
-//	}
-//
-//	public void setGroupNo(String groupNo) {
-//		this.groupNo = groupNo;
-//	}
-//
-//	public Integer getSessionSeqNo() {
-//		return sessionSeqNo;
-//	}
-//
-//	public void setSessionSeqNo(Integer sessionSeqNo) {
-//		this.sessionSeqNo = sessionSeqNo;
-//	}
+	public Integer getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(Integer sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	public String getGroupNo() {
+		return groupNo;
+	}
+
+	public void setGroupNo(String groupNo) {
+		this.groupNo = groupNo;
+	}
+
+	public Integer getSessionSeqNo() {
+		return sessionSeqNo;
+	}
+
+	public void setSessionSeqNo(Integer sessionSeqNo) {
+		this.sessionSeqNo = sessionSeqNo;
+	}
 //
 //	public AssignmentRecord getAssignment() {
 //		return assignment;
@@ -156,47 +163,56 @@ public class AcademicSession {
 //		this.attendanceRecord = attendanceRecord;
 //	}
 //
-//	public Date getDeliveryDate() {
-//		return deliveryDate;
-//	}
-//
-//	public void setDeliveryDate(Date deliveryDate) {
-//		this.deliveryDate = deliveryDate;
-//	}
-//
-//	public Date getStartTime() {
-//		return startTime;
-//	}
-//
-//	public void setStartTime(Date startTime) {
-//		this.startTime = startTime;
-//	}
-//
-//	public Date getEndTime() {
-//		return endTime;
-//	}
-//
-//	public void setEndTime(Date endTime) {
-//		this.endTime = endTime;
-//	}
-//
-//	public Integer getDuration() {
-//		// convert milliseconds to minutes
-//		return (int) ((endTime.getTime() - startTime.getTime())/60000);
-//	}
-//
-//	public void setDuration(Integer duration) {
-//		this.duration = duration;
-//	}
-//
-//	public SessionStatus getSessionStatus() {
-//		return sessionStatus;
-//	}
-//
-//	public void setSessionStatus(SessionStatus sessionStatus) {
-//		this.sessionStatus = sessionStatus;
-//	}
-//
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryLocalDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Integer getDuration() {
+		// convert milliseconds to minutes
+		return (int) ((endTime.getTime() - startTime.getTime())/60000);
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+
+	public SessionStatus getSessionStatus() {
+		return sessionStatus;
+	}
+
+	public void setSessionStatus(SessionStatus sessionStatus) {
+		this.sessionStatus = sessionStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
+				+ ", deliveryDate=" + deliveryDate + ", startTime=" + startTime + ", endTime=" + endTime + ", duration="
+				+ duration + ", sessionStatus=" + sessionStatus + "]";
+	}
+	
+	
+
 //	@Override
 //	public String toString() {
 //		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
