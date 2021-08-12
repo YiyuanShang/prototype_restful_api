@@ -32,6 +32,7 @@ import com.athensoft.edusys.admin.entity.DeliveryRecord;
 //import com.athensoft.edusys.product.entity.Topic;
 import com.athensoft.edusys.admin.entity.SessionStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "acd_session")
@@ -64,8 +65,9 @@ public class AcademicSession {
 //	@JoinTable(name = "admin_attend_record")
 //	private AttendanceRecord attendanceRecord;
 	
-//	@OneToOne(targetEntity = TopicRecord.class)
-//	private TopicRecord topicRecord;
+	@OneToOne(targetEntity = TopicRecord.class, mappedBy = "deliveredSession")
+	@JsonManagedReference
+	private TopicRecord topicRecord;
 
 	@Column(name = "delivery_date")
 	@Temporal(TemporalType.DATE)
@@ -87,34 +89,25 @@ public class AcademicSession {
 	@Enumerated(EnumType.ORDINAL)	
 	@Column(name = "session_status")
 	private SessionStatus sessionStatus;
-//	
-//	public AcademicSession() {}
-//	
-//public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, AssignmentRecord assignment,
-//		DeliveryRecord deliveryRecord, AttendanceRecord attendanceRecord) {
-//	super();
-//	this.sessionId = sessionId;
-//	this.groupNo = groupNo;
-//	this.sessionSeqNo = sessionSeqNo;
-//	this.assignment = assignment;
-//	this.deliveryRecord = deliveryRecord;
-//	this.attendanceRecord = attendanceRecord;
-//}
-//
-////	public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, AssignmentRecord assignment,
-////			DeliveryRecord deliveryRecord, AttendanceRecord attendanceRecord, TopicRecord topicRecord) {
-////		super();
-////		this.sessionId = sessionId;
-////		this.groupNo = groupNo;
-////		this.sessionSeqNo = sessionSeqNo;
-////		this.assignment = assignment;
-////		this.deliveryRecord = deliveryRecord;
-////		this.attendanceRecord = attendanceRecord;
-////		this.topicRecord = topicRecord;
-////	}
-//	
-//	
-//
+	
+	public AcademicSession() {}
+	
+
+	public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, TopicRecord topicRecord,
+			Date deliveryDate, Date startTime, Date endTime, Integer duration, SessionStatus sessionStatus) {
+		super();
+		this.sessionId = sessionId;
+		this.groupNo = groupNo;
+		this.sessionSeqNo = sessionSeqNo;
+		this.topicRecord = topicRecord;
+		this.deliveryDate = deliveryDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.duration = duration;
+		this.sessionStatus = sessionStatus;
+	}
+
+
 	public Integer getSessionId() {
 		return sessionId;
 	}
@@ -167,9 +160,10 @@ public class AcademicSession {
 		return deliveryDate;
 	}
 
-	public void setDeliveryLocalDate(Date deliveryDate) {
+	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
+
 
 	public Date getStartTime() {
 		return startTime;
@@ -204,37 +198,24 @@ public class AcademicSession {
 		this.sessionStatus = sessionStatus;
 	}
 
+	
+
+	public TopicRecord getTopicRecord() {
+		return topicRecord;
+	}
+
+
+	public void setTopicRecord(TopicRecord topicRecord) {
+		this.topicRecord = topicRecord;
+	}
+
+
 	@Override
 	public String toString() {
 		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
-				+ ", deliveryDate=" + deliveryDate + ", startTime=" + startTime + ", endTime=" + endTime + ", duration="
-				+ duration + ", sessionStatus=" + sessionStatus + "]";
+				+ ", topicRecord=" + topicRecord + ", deliveryDate=" + deliveryDate + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", duration=" + duration + ", sessionStatus=" + sessionStatus + "]";
 	}
 	
 	
-
-//	@Override
-//	public String toString() {
-//		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
-//				+ ", assignment=" + assignment + ", deliveryRecord=" + deliveryRecord + ", attendanceRecord="
-//				+ attendanceRecord + "]";
-//	}
-//
-////	public TopicRecord getTopics() {
-////		return topicRecord;
-////	}
-////
-////	public void setTopics(TopicRecord topicRecord) {
-////		this.topicRecord = topicRecord;
-////	}
-//
-////	@Override
-////	public String toString() {
-////		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
-////				+ ", assignment=" + assignment + ", deliveryRecord=" + deliveryRecord + ", attendanceRecord="
-////				+ attendanceRecord + ", topicRecord=" + topicRecord + "]";
-////	}
-//	
-//	
-//	
 }
