@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.academic.dao.AcademicSessionRepository;
 import com.athensoft.edusys.academic.entity.AcademicSession;
+import com.athensoft.edusys.academic.entity.TopicRecord;
 import com.athensoft.edusys.error.exceptions.AcademicSessionAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.AcademicSessionNotFoundException;
 
@@ -30,17 +31,30 @@ public class AcademicSessionService {
 		return acdSessionRepo.findById(sessionId).orElseThrow(() -> new AcademicSessionNotFoundException(sessionId));
 	}
 	
+	
 	public ResponseEntity<AcademicSession> createAcademicSession(AcademicSession session){
 		checkAcademicSessionAlreadyExistsException(session.getSessionId());
 		LOGGER.debug("creating session:" + session);
 		return new ResponseEntity<>(acdSessionRepo.save(session), HttpStatus.CREATED);
 	}
 	
-	private void checkAcademicSessionAlreadyExistsException(Integer sesisonId) {
-		if (acdSessionRepo.existsById(sesisonId)) {
-			throw new AcademicSessionAlreadyExistsException(sesisonId);
+	public ResponseEntity<AcademicSession> updateAcademicSession(AcademicSession session){
+		checkAcademicSessionNotFoundException(session.getSessionId());
+		return ResponseEntity.ok(acdSessionRepo.save(session));
+	}
+	
+	private void checkAcademicSessionAlreadyExistsException(Integer sessionId) {
+		if (acdSessionRepo.existsById(sessionId)) {
+			throw new AcademicSessionAlreadyExistsException(sessionId);
 		}
 	}
+	
+	private void checkAcademicSessionNotFoundException(Integer sessionId) {
+		if (!acdSessionRepo.existsById(sessionId)) {
+			throw new AcademicSessionNotFoundException(sessionId);
+		}
+	}
+	
 	
 
 }
