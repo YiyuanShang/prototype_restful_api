@@ -45,6 +45,15 @@ public class TopicRecord {
 	@JsonBackReference
 	AcademicSession deliveredSession;
 	
+	public TopicRecord() {}
+	public TopicRecord(Integer topicRecordId, List<TopicRecordEntry> topicRecordEntries,
+			AcademicSession deliveredSession) {
+		super();
+		this.topicRecordId = topicRecordId;
+		this.topicRecordEntries = topicRecordEntries;
+		this.deliveredSession = deliveredSession;
+	}
+
 	public List<TopicRecordEntry> getTopicRecordEntries() {
 		return topicRecordEntries;
 	}
@@ -67,6 +76,11 @@ public class TopicRecord {
 
 	public void setTopicRecordId(Integer topicRecordId) {
 		this.topicRecordId = topicRecordId;
+	}
+	@Override
+	public String toString() {
+		return "TopicRecord [topicRecordId=" + topicRecordId + ", topicRecordEntries=" + topicRecordEntries
+				+ ", sessionId=" + deliveredSession.getSessionId() + "]";
 	}
 	
 	

@@ -63,6 +63,12 @@ public class TopicRecordEntry {
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
+
+	@Override
+	public String toString() {
+		return "TopicRecordEntry [topicRecordId=" + topicRecordId + ", topicType=" + topicType + ", topic=" + topic
+				+ "]";
+	}
 	
 	
 

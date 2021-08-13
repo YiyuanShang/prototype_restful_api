@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.academic.entity.TopicRecord;
+import com.athensoft.edusys.academic.entity.TopicRecordEntry;
 import com.athensoft.edusys.academic.service.AcademicSessionService;
 import com.athensoft.edusys.academic.service.TopicRecordService;
 
@@ -48,8 +49,8 @@ public class AcademicSessionController {
 	}
 	
 	@PostMapping("/acdSessions/{sessionId}/topicRecord")
-	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId, @RequestBody TopicRecord topicRecord){
-		return topicRecordService.createTopicRecord(sessionId, topicRecord);
+	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId, @RequestBody List<TopicRecordEntry> topicRecordEntries){
+		return topicRecordService.createTopicRecord(sessionId, topicRecordEntries);
 	}
 	
 	
