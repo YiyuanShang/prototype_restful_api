@@ -55,7 +55,7 @@ public class TopicRecordService {
 		LOGGER.debug("creating topic record entries:" + topicRecordEntries);
 		topicRecordEntryRepo.saveAll(topicRecordEntries);
 		
-		LOGGER.debug(null);
+		LOGGER.debug("created topic record entries");
 		deliveredSession.setTopicRecord(topicRecord);
 		LOGGER.debug("updating deliveredSession:" + deliveredSession);
 		sessionService.updateAcademicSession(deliveredSession);

@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.data.jpa.repository.Query;
 
 import com.athensoft.edusys.product.entity.Topic;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -35,9 +38,13 @@ public class TopicRecordEntry {
 	@Enumerated(EnumType.ORDINAL)	
 	private TopicType topicType;
 	
+//	@Id
+//	@Column(name = "topic_id")
+//	private Integer topicId;
+	
 	@Id
+//	@Transient
 	@OneToOne(targetEntity = Topic.class)
-	@JoinColumn(name = "topic_id")
 	private Topic topic;
 
 	public Integer getTopicRecordId() {
@@ -57,12 +64,22 @@ public class TopicRecordEntry {
 	}
 
 	public Topic getTopic() {
+		
 		return topic;
 	}
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
+	
+
+//	public Integer getTopicId() {
+//		return topicId;
+//	}
+//
+//	public void setTopicId(Integer topicId) {
+//		this.topicId = topicId;
+//	}
 
 	@Override
 	public String toString() {

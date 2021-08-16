@@ -2,6 +2,8 @@ package com.athensoft.edusys.academic.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,40 +21,41 @@ import com.athensoft.edusys.academic.service.TopicRecordService;
 @RestController
 @RequestMapping("/edusys/academic")
 public class AcademicSessionController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AcademicSessionController.class);
 	private final AcademicSessionService acdSessionService;
-	
+
 	private final TopicRecordService topicRecordService;
-	
+
 	public AcademicSessionController(AcademicSessionService acdSessionService, TopicRecordService topicRecordService) {
 		this.acdSessionService = acdSessionService;
 		this.topicRecordService = topicRecordService;
 	}
-	
+
 	@GetMapping("/acdSessions")
-	public ResponseEntity<List<AcademicSession>> getDataListAcademicSession(){
+	public ResponseEntity<List<AcademicSession>> getDataListAcademicSession() {
 		return ResponseEntity.ok(acdSessionService.getAcademicSessionList());
 	}
-	
+
 	@GetMapping("/acdSessions/{sessionId}")
-	public ResponseEntity<AcademicSession> getDataAcademicSession(@PathVariable Integer sessionId){
+	public ResponseEntity<AcademicSession> getDataAcademicSession(@PathVariable Integer sessionId) {
 		return ResponseEntity.ok(acdSessionService.getAcademicSessionById(sessionId));
 	}
-	
+
 	@GetMapping("/acdSessions/{sessionId}/topicRecord")
-	public ResponseEntity<TopicRecord> getDataTopicRecord(@PathVariable Integer sessionId){
+	public ResponseEntity<TopicRecord> getDataTopicRecord(@PathVariable Integer sessionId) {
 		return ResponseEntity.ok(topicRecordService.getTopicRecordBySessionId(sessionId));
 	}
-	
+
 	@PostMapping("/acdSessions")
-	public ResponseEntity<AcademicSession> createAcademicSession(@RequestBody AcademicSession session){
+	public ResponseEntity<AcademicSession> createAcademicSession(@RequestBody AcademicSession session) {
 		return acdSessionService.createAcademicSession(session);
 	}
-	
+
 	@PostMapping("/acdSessions/{sessionId}/topicRecord")
-	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId, @RequestBody List<TopicRecordEntry> topicRecordEntries){
+	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId,
+			@RequestBody List<TopicRecordEntry> topicRecordEntries) {
+		LOGGER.debug("entering addTopicRecordToAcademicSession");
 		return topicRecordService.createTopicRecord(sessionId, topicRecordEntries);
 	}
-	
-	
 
 }
