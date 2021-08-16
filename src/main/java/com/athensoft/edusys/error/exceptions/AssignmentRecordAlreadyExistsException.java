@@ -9,12 +9,8 @@ public class AssignmentRecordAlreadyExistsException extends AlreadyExistsExcepti
 		super("Assignment record already exists!");
 	}
 	
-	public AssignmentRecordAlreadyExistsException(Integer assgmtRecordId) {
-		super("Assignment record " + assgmtRecordId + " already exists!");
-	}
-	
-	public AssignmentRecordAlreadyExistsException(AssignmentRecord assgmtRecord) {
-		super("Assignment record " + assgmtRecord.getAssgmtRecordId() + " already exists!");
+	public AssignmentRecordAlreadyExistsException(Integer sessionId) {
+		super("Assignment record of session " + sessionId + " already exists!");
 	}
 	
 	public AssignmentRecordAlreadyExistsException(String message) {

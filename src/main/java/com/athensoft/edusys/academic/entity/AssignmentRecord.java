@@ -31,33 +31,34 @@ public class AssignmentRecord {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "assgmt_record_id")
 	private Integer assgmtRecordId = -1;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private AssignmentType assgmtType;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "issuedate")
 	private Date issueDate;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "duedate")
 	private Date dueDate;
-	
+
 //	@ManyToMany(targetEntity = Question.class)
 //	@JoinTable(name = "acd_rel_assgmt_question", 
 //	joinColumns = @JoinColumn(name = "assgmt_record_id", referencedColumnName = "assgmt_record_id"),
 //    inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "question_id"))
 //	private List<Question> questions;
 
-	public AssignmentRecord() {}
-	
-public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate) {
-	super();
-	this.assgmtRecordId = assgmtRecordId;
-	this.assgmtType = assgmtType;
-	this.issueDate = issueDate;
-	this.dueDate = dueDate;
-}
+	public AssignmentRecord() {
+	}
+
+	public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate) {
+		super();
+		this.assgmtRecordId = assgmtRecordId;
+		this.assgmtType = assgmtType;
+		this.issueDate = issueDate;
+		this.dueDate = dueDate;
+	}
 
 //	public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate,
 //			List<Question> questions) {
@@ -68,8 +69,6 @@ public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date 
 //		this.dueDate = dueDate;
 //		this.questions = questions;
 //	}
-	
-	
 
 	public Integer getAssgmtRecordId() {
 		return assgmtRecordId;
@@ -122,8 +121,5 @@ public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date 
 //		return "AssignmentRecord [assgmtRecordId=" + assgmtRecordId + ", assgmtType=" + assgmtType + ", issueDate="
 //				+ issueDate + ", dueDate=" + dueDate + ", questions=" + questions + "]";
 //	}
-	
-	
-	
-	
+
 }

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.edusys.academic.entity.AcademicSession;
+import com.athensoft.edusys.academic.entity.AssignmentRecord;
 import com.athensoft.edusys.academic.entity.TopicRecord;
 import com.athensoft.edusys.academic.entity.TopicRecordEntry;
 import com.athensoft.edusys.academic.service.AcademicSessionService;
+import com.athensoft.edusys.academic.service.AssignmentRecordService;
 import com.athensoft.edusys.academic.service.TopicRecordService;
 
 @RestController
@@ -25,10 +27,12 @@ public class AcademicSessionController {
 	private final AcademicSessionService acdSessionService;
 
 	private final TopicRecordService topicRecordService;
+	private final AssignmentRecordService assignmentRecordService;
 
-	public AcademicSessionController(AcademicSessionService acdSessionService, TopicRecordService topicRecordService) {
+	public AcademicSessionController(AcademicSessionService acdSessionService, TopicRecordService topicRecordService, AssignmentRecordService assignmentRecordService) {
 		this.acdSessionService = acdSessionService;
 		this.topicRecordService = topicRecordService;
+		this.assignmentRecordService = assignmentRecordService;
 	}
 
 	@GetMapping("/acdSessions")
@@ -57,5 +61,11 @@ public class AcademicSessionController {
 		LOGGER.debug("entering addTopicRecordToAcademicSession");
 		return topicRecordService.createTopicRecord(sessionId, topicRecordEntries);
 	}
-
+	
+	@PostMapping("/acdSessions/{sessionId}/assgmtRecord")
+	public ResponseEntity<AssignmentRecord> addAssignmentRecordToAcademicSession(@PathVariable Integer sessionId,
+			@RequestBody AssignmentRecord assignmentRecord){
+		LOGGER.debug("entering addAssignmentRecordToAcademicSession");
+		return assignmentRecordService.createAssignmentRecord(sessionId, assignmentRecord);
+	}
 }

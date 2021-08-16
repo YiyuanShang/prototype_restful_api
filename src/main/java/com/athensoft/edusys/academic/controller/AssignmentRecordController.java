@@ -44,10 +44,7 @@ public class AssignmentRecordController {
 		return ResponseEntity.ok(assgmtRecordService.getgetAssignmentRecordListByFilters(assgmtRecordId, assgmtType, issueDate, dueDate));
 	}
 	
-	@PostMapping("/assgmtRecords")
-	public ResponseEntity<AssignmentRecord> createAssignmentRecord(@RequestBody AssignmentRecord assgmtRecord){
-		return assgmtRecordService.createAssignmentRecord(assgmtRecord);
-	}
+	
 	
 	@PutMapping("/assgmtRecords")
 	public ResponseEntity<AssignmentRecord> updateAssignmentRecord(@RequestBody AssignmentRecord assgmtRecord){

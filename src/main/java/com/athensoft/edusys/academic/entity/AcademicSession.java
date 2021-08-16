@@ -49,10 +49,10 @@ public class AcademicSession {
 	
 	@Column(name = "session_seqno")
 	private Integer sessionSeqNo;
-//	
-//	@OneToOne
-//	@JoinColumn(name = "assgmt_record_id")
-//	private AssignmentRecord assignment;
+	
+	@OneToOne(targetEntity = AssignmentRecord.class)
+	@JoinColumn(name = "session_id")
+	private AssignmentRecord assignment;
 //	
 //	@OneToOne(targetEntity = DeliveryRecord.class)
 ////	@AttributeOverrides({
@@ -91,22 +91,6 @@ public class AcademicSession {
 	private SessionStatus sessionStatus;
 	
 	public AcademicSession() {}
-	
-
-	public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, TopicRecord topicRecord,
-			Date deliveryDate, Date startTime, Date endTime, Integer duration, SessionStatus sessionStatus) {
-		super();
-		this.sessionId = sessionId;
-		this.groupNo = groupNo;
-		this.sessionSeqNo = sessionSeqNo;
-		this.topicRecord = topicRecord;
-		this.deliveryDate = deliveryDate;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.duration = duration;
-		this.sessionStatus = sessionStatus;
-	}
-
 
 	public Integer getSessionId() {
 		return sessionId;
@@ -131,15 +115,15 @@ public class AcademicSession {
 	public void setSessionSeqNo(Integer sessionSeqNo) {
 		this.sessionSeqNo = sessionSeqNo;
 	}
-//
-//	public AssignmentRecord getAssignment() {
-//		return assignment;
-//	}
-//
-//	public void setAssignment(AssignmentRecord assignment) {
-//		this.assignment = assignment;
-//	}
-//
+
+	public AssignmentRecord getAssignment() {
+		return assignment;
+	}
+
+	public void setAssignment(AssignmentRecord assignment) {
+		this.assignment = assignment;
+	}
+
 //	public DeliveryRecord getDeliveryRecord() {
 //		return deliveryRecord;
 //	}
@@ -209,13 +193,15 @@ public class AcademicSession {
 		this.topicRecord = topicRecord;
 	}
 
-
 	@Override
 	public String toString() {
 		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
-				+ ", topicRecord=" + topicRecord + ", deliveryDate=" + deliveryDate + ", startTime=" + startTime
-				+ ", endTime=" + endTime + ", duration=" + duration + ", sessionStatus=" + sessionStatus + "]";
+				+ ", assignment=" + assignment + ", topicRecord=" + topicRecord + ", deliveryDate=" + deliveryDate
+				+ ", startTime=" + startTime + ", endTime=" + endTime + ", duration=" + duration + ", sessionStatus="
+				+ sessionStatus + "]";
 	}
+
+	
 	
 	
 }

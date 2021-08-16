@@ -45,6 +45,7 @@ public class TopicRecordEntry {
 	@Id
 //	@Transient
 	@OneToOne(targetEntity = Topic.class)
+	@JoinColumn(name = "topic_id")
 	private Topic topic;
 
 	public Integer getTopicRecordId() {

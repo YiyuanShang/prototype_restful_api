@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.academic.dao.AssignmentRecordRepository;
+import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.academic.entity.AssignmentRecord;
 import com.athensoft.edusys.academic.entity.AssignmentType;
 import com.athensoft.edusys.error.exceptions.AssignmentRecordAlreadyExistsException;
@@ -28,8 +29,10 @@ public class AssignmentRecordService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssignmentRecordService.class);
 	private final AssignmentRecordRepository assgmtRecordRepo;
 	
-	public AssignmentRecordService(AssignmentRecordRepository assgmtRecordRepo) {
+	private final AcademicSessionService sessionService;
+	public AssignmentRecordService(AssignmentRecordRepository assgmtRecordRepo, AcademicSessionService sessionService) {
 		this.assgmtRecordRepo = assgmtRecordRepo;
+		this.sessionService = sessionService;
 	}
 	
 	public List<AssignmentRecord> getAssignmentRecordList(){
@@ -37,7 +40,11 @@ public class AssignmentRecordService {
 	}
 	
 	public AssignmentRecord getAssignmentRecordById(Integer assgmtRecordId) {
-		return assgmtRecordRepo.findById(assgmtRecordId).orElseThrow(() -> new AssignmentRecordNotFoundException(assgmtRecordId));
+		return assgmtRecordRepo.findById(assgmtRecordId).orElseThrow(() -> new AssignmentRecordNotFoundException());
+	}
+	
+	public AssignmentRecord getAssignmentRecordBySessionId(Integer sessionId) {
+		return assgmtRecordRepo.findBySessionId(sessionId).orElseThrow(() -> new AssignmentRecordNotFoundException(sessionId));
 	}
 	
 	public List<AssignmentRecord> getgetAssignmentRecordListByFilters(
@@ -141,12 +148,14 @@ public class AssignmentRecordService {
 		return assgmtRecordRepo.findAll(example);
 	}
 	
-	public ResponseEntity<AssignmentRecord> createAssignmentRecord(AssignmentRecord assgmtRecord){
-		if (assgmtRecordRepo.existsById(assgmtRecord.getAssgmtRecordId())) {
-			throw new AssignmentRecordAlreadyExistsException(assgmtRecord);
-		}
-		
-		return new ResponseEntity<>(assgmtRecordRepo.save(assgmtRecord), HttpStatus.CREATED);
+	public ResponseEntity<AssignmentRecord> createAssignmentRecord(Integer sessionId, AssignmentRecord assgmtRecord){
+		checkAssignmentRecordAlreadyExistsException(sessionId, assgmtRecord.getAssgmtRecordId());
+//		AcademicSession session = sessionService.getAcademicSessionById(sessionId);
+//		session.setAssignment(assgmtRecord);
+		LOGGER.debug("createAssignmentRecord sessionId:" + sessionId + "\t assgmtRecord:" + assgmtRecord);
+		assgmtRecordRepo.createAssignmentRecord(assgmtRecord.getAssgmtType().ordinal(), assgmtRecord.getIssueDate(), assgmtRecord.getDueDate(), sessionId);
+		AssignmentRecord createdAssignmentRecord = getAssignmentRecordBySessionId(sessionId);
+		return new ResponseEntity<>(createdAssignmentRecord, HttpStatus.CREATED);
 	}
 	
 	public ResponseEntity<AssignmentRecord> updateAssignmentRecord(AssignmentRecord assgmtRecord){
@@ -155,6 +164,14 @@ public class AssignmentRecordService {
 		}
 		
 		return ResponseEntity.ok(assgmtRecordRepo.save(assgmtRecord));
+	}
+	
+	private void checkAssignmentRecordAlreadyExistsException(Integer sessionId, Integer assgmtRecordId) {
+		if(assgmtRecordId != null && assgmtRecordRepo.existsById(assgmtRecordId)) {
+			throw new AssignmentRecordAlreadyExistsException(sessionId);
+		}else if (assgmtRecordRepo.findBySessionId(sessionId).isPresent()) {
+			throw new AssignmentRecordAlreadyExistsException(sessionId);
+		}
 	}
 
 }
