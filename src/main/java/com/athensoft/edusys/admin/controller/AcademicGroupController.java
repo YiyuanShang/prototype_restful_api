@@ -111,12 +111,17 @@ public class AcademicGroupController {
 		return ResponseEntity.ok(acdGroupService.addCourseToAcademicGroup(groupId, courseId, isPrimary));
 	}
 
+	@PutMapping("/groups/{groupId}/admins/admin/{empId}")
+	public ResponseEntity<AcademicGroup> addAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
+		return ResponseEntity.ok(acdGroupService.addAdminToAcademicGroup(groupId, empId));
+	}
+	
 	@DeleteMapping("/groups/{groupId}/students/student/{stuId}")
 	public ResponseEntity<AcademicGroup> removeStudentFromAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
 		return ResponseEntity.ok(acdGroupService.removeStudentFromAcademicGroup(groupId, stuId));
 	}
 	
-	@DeleteMapping("/groups/{groupId}/employees/employee/{empId}")
+	@DeleteMapping("/groups/{groupId}/instructors/instructor/{empId}")
 	public ResponseEntity<AcademicGroup> removeInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
 		return ResponseEntity.ok(acdGroupService.removeInstructorToAcademicGroup(groupId, empId));
 	}
@@ -133,6 +138,11 @@ public class AcademicGroupController {
 			@PathVariable(name = "groupId") Integer groupId, 
 			@PathVariable(name = "courseId") Integer courseId){
 		return ResponseEntity.ok(acdGroupService.removeCourseFromAcademicGroup(groupId, courseId));
+	}
+	
+	@DeleteMapping("/groups/{groupId}/admins/admin/{empId}")
+	public ResponseEntity<AcademicGroup> removeAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
+		return ResponseEntity.ok(acdGroupService.removeAdminToAcademicGroup(groupId, empId));
 	}
 
 }

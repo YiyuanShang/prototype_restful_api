@@ -28,6 +28,7 @@ import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.client.service.StudentService;
 import com.athensoft.edusys.error.exceptions.AcademicGroupAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.AcademicGroupNotFoundException;
+import com.athensoft.edusys.hr.entity.Admin;
 import com.athensoft.edusys.hr.entity.Employee;
 import com.athensoft.edusys.hr.entity.Instructor;
 import com.athensoft.edusys.hr.service.EmployeeService;
@@ -329,6 +330,19 @@ public class AcademicGroupService {
 		LOGGER.debug("new course list:" + group.getCourseEntries());
 		return acdGroupRepo.save(group);
 	}
+	
+	public AcademicGroup addAdminToAcademicGroup(Integer groupId, Integer empId) {
+		AcademicGroup group = getAcademicGroupById(groupId);
+		Admin admin = (Admin) empService.getEmployeeById(empId);
+
+		LOGGER.debug("academic group:" + group);
+
+		LOGGER.debug("adding admin " + admin + " to responsible admin list");
+		group.getRegAdmins().add(admin);
+
+		LOGGER.debug("new responsible admin list:" + group.getRegAdmins());
+		return acdGroupRepo.save(group);
+	}
 
 	public AcademicGroup removeStudentFromAcademicGroup(Integer groupId, Integer stuId) {
 		AcademicGroup group = getAcademicGroupById(groupId);
@@ -344,7 +358,7 @@ public class AcademicGroupService {
 
 	public AcademicGroup removeInstructorToAcademicGroup(Integer groupId, Integer empId) {
 		AcademicGroup group = getAcademicGroupById(groupId);
-		Employee instructor = empService.getEmployeeById(empId);
+		Instructor instructor = (Instructor) empService.getEmployeeById(empId);
 
 		LOGGER.debug("academic group:" + group);
 
@@ -388,6 +402,19 @@ public class AcademicGroupService {
 		courseEntryRepo.deleteById(new CourseEntryId(groupId, courseId));
 		return acdGroupRepo.save(group);
 
+	}
+	
+	public AcademicGroup removeAdminToAcademicGroup(Integer groupId, Integer empId) {
+		AcademicGroup group = getAcademicGroupById(groupId);
+		Admin admin = (Admin) empService.getEmployeeById(empId);
+
+		LOGGER.debug("academic group:" + group);
+
+		LOGGER.debug("removing admin " + admin + " to responsible admin list");
+		group.getRegAdmins().remove(admin);
+
+		LOGGER.debug("new responsible admin list:" + group.getRegAdmins());
+		return acdGroupRepo.save(group);
 	}
 
 	private void checkAcademicGroupNotFoundException(Integer groupId) {
