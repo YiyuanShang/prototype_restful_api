@@ -279,7 +279,7 @@ public class AcademicGroupService {
 
 	public AcademicGroup addInstructorToAcademicGroup(Integer groupId, Integer empId) {
 		AcademicGroup group = getAcademicGroupById(groupId);
-		Employee instructor = empService.getEmployeeById(empId);
+		Instructor instructor = (Instructor) empService.getEmployeeById(empId);
 
 		LOGGER.debug("academic group:" + group);
 

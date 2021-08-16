@@ -65,11 +65,11 @@ public class EmployeeService {
 		}else {
 			employee.setEmpType(EmployeeType.values()[empType.get()]);
 		}
-		if(roleType.isEmpty()) {
-			ignoredProperties.add("roleType");
-		}else {
-			employee.setRoleType(RoleType.values()[roleType.get()]);
-		}
+//		if(roleType.isEmpty()) {
+//			ignoredProperties.add("roleType");
+//		}else {
+//			employee.setRoleType(RoleType.values()[roleType.get()]);
+//		}
 		
 		employee.setEmpCode(empCode);
 		employee.setEmpFirstName(empFirstName);
@@ -165,12 +165,12 @@ public class EmployeeService {
 			employee.setExpiryDate(expiryDate);
 		}
 		
-		if (GlobalValidationUtils.isEmptyStr(roleTypeStr)) {
-			ignoredProperties.add("roleType");
-		}else {
-			RoleType roleType = RoleType.values()[Integer.valueOf(roleTypeStr)];
-			employee.setRoleType(roleType);
-		}
+//		if (GlobalValidationUtils.isEmptyStr(roleTypeStr)) {
+//			ignoredProperties.add("roleType");
+//		}else {
+//			RoleType roleType = RoleType.values()[Integer.valueOf(roleTypeStr)];
+//			employee.setRoleType(roleType);
+//		}
 		
 		LOGGER.debug("searched employee:" + employee);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();

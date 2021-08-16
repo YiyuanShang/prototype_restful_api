@@ -91,7 +91,7 @@ public class AcademicGroupController {
 		return ResponseEntity.ok(acdGroupService.addStudentToAcademicGroup(groupId, stuId));
 	}
 	
-	@PutMapping("/groups/{groupId}/employees/employee/{empId}")
+	@PutMapping("/groups/{groupId}/instructors/instructor/{empId}")
 	public ResponseEntity<AcademicGroup> addInstructorToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
 		return ResponseEntity.ok(acdGroupService.addInstructorToAcademicGroup(groupId, empId));
 	}

@@ -3,12 +3,14 @@ package com.athensoft.edusys.hr.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +22,8 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "hr_employee")
+@Inheritance
+@DiscriminatorColumn(name = "role_type")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,14 +52,14 @@ public class Employee {
 	@Column(name = "expirydate")
 	@Temporal(TemporalType.DATE)
 	private Date expiryDate;
-	
-	@Enumerated(EnumType.ORDINAL)
-	private RoleType roleType;
+//	
+//	@Enumerated(EnumType.ORDINAL)
+//	private RoleType roleType;
 
 	public Employee() {}
 	
 	public Employee(Integer empId, String empCode, String empFirstName, String empLastName, String email,
-			EmployeeType empType, Date hireDate, Date expiryDate, RoleType roleType) {
+			EmployeeType empType, Date hireDate, Date expiryDate) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
@@ -65,7 +69,6 @@ public class Employee {
 		this.empType = empType;
 		this.hireDate = hireDate;
 		this.expiryDate = expiryDate;
-		this.roleType = roleType;
 	}
 
 	public Integer getEmpId() {
@@ -132,20 +135,22 @@ public class Employee {
 		this.expiryDate = expiryDate;
 	}
 
-	public RoleType getRoleType() {
-		return roleType;
-	}
-
-	public void setRoleType(RoleType roleType) {
-		this.roleType = roleType;
-	}
-
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", empCode=" + empCode + ", empFirstName=" + empFirstName + ", empLastName="
 				+ empLastName + ", email=" + email + ", empType=" + empType + ", hireDate=" + hireDate + ", expiryDate="
-				+ expiryDate + ", roleType=" + roleType + "]";
+				+ expiryDate + "]";
 	}
+
+//	public RoleType getRoleType() {
+//		return roleType;
+//	}
+//
+//	public void setRoleType(RoleType roleType) {
+//		this.roleType = roleType;
+//	}
+
+	
 	
 	
 }

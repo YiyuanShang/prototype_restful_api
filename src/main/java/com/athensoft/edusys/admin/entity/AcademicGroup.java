@@ -22,7 +22,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.athensoft.edusys.client.entity.Student;
+import com.athensoft.edusys.hr.entity.Admin;
 import com.athensoft.edusys.hr.entity.Employee;
+import com.athensoft.edusys.hr.entity.Instructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -44,7 +46,7 @@ public class AcademicGroup {
 
 	@ManyToMany(targetEntity = Employee.class)
 	@JoinTable(name = "admin_rel_group_employee", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"), inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
-	private List<Employee> regInstructors;
+	private List<Instructor> regInstructors;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "group_status")
@@ -77,28 +79,15 @@ public class AcademicGroup {
 
 	@Column(name = "price")
 	private Float price;
+	
+	@ManyToMany
+	@JoinTable(name = "admin_rel_group_admin",
+    joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
+    inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
+	private List<Admin> regAdmins;
 
 	public AcademicGroup() {
-	}
-
-	public AcademicGroup(Integer groupId, String groupNo, List<Student> regStudents, List<Employee> regInstructors,
-			GroupStatus groupStatus, Date startDate, Date endDate, Integer sessionNum, GroupType groupType,
-			String groupName, String groupDesc, List<CourseEntry> courseEntries, Float price) {
-		super();
-		this.groupId = groupId;
-		this.groupNo = groupNo;
-		this.regStudents = regStudents;
-		this.regInstructors = regInstructors;
-		this.groupStatus = groupStatus;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.sessionNum = sessionNum;
-		this.groupType = groupType;
-		this.groupName = groupName;
-		this.groupDesc = groupDesc;
-		this.courseEntries = courseEntries;
-		this.price = price;
-	}
+	}	
 
 	public Integer getGroupId() {
 		return groupId;
@@ -124,11 +113,11 @@ public class AcademicGroup {
 		this.regStudents = regStudents;
 	}
 
-	public List<Employee> getRegInstructors() {
+	public List<Instructor> getRegInstructors() {
 		return regInstructors;
 	}
 
-	public void setRegInstructors(List<Employee> regInstructors) {
+	public void setRegInstructors(List<Instructor> regInstructors) {
 		this.regInstructors = regInstructors;
 	}
 
@@ -204,13 +193,23 @@ public class AcademicGroup {
 		this.price = price;
 	}
 
+	public List<Admin> getRegAdmins() {
+		return regAdmins;
+	}
+
+	public void setRegAdmins(List<Admin> regAdmins) {
+		this.regAdmins = regAdmins;
+	}
+
 	@Override
 	public String toString() {
 		return "AcademicGroup [groupId=" + groupId + ", groupNo=" + groupNo + ", regStudents=" + regStudents
 				+ ", regInstructors=" + regInstructors + ", groupStatus=" + groupStatus + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", sessionNum=" + sessionNum + ", groupType=" + groupType + ", groupName="
 				+ groupName + ", groupDesc=" + groupDesc + ", courseEntries=" + courseEntries + ", price=" + price
-				+ "]";
+				+ ", regAdmins=" + regAdmins + "]";
 	}
+
+	
 
 }
