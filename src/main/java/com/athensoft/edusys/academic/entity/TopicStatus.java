@@ -1,5 +1,5 @@
 package com.athensoft.edusys.academic.entity;
 
-public enum TopicType {
+public enum TopicStatus {
 	PLANNED, DELIVERED;
 }

@@ -36,7 +36,7 @@ public class TopicRecordEntry {
 	@Id
 	@Column(name = "topic_type")
 	@Enumerated(EnumType.ORDINAL)	
-	private TopicType topicType;
+	private TopicStatus topicType;
 	
 //	@Id
 //	@Column(name = "topic_id")
@@ -56,11 +56,11 @@ public class TopicRecordEntry {
 		this.topicRecordId = topicRecordId;
 	}
 
-	public TopicType getTopicType() {
+	public TopicStatus getTopicType() {
 		return topicType;
 	}
 
-	public void setTopicType(TopicType topicType) {
+	public void setTopicType(TopicStatus topicType) {
 		this.topicType = topicType;
 	}
 

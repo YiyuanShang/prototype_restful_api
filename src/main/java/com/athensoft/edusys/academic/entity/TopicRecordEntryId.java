@@ -24,7 +24,7 @@ public class TopicRecordEntryId implements Serializable{
 	
 	private Integer topicRecordId;
 	
-	private TopicType topicType;
+	private TopicStatus topicType;
 
 	public TopicRecordEntryId() {}
 
@@ -54,11 +54,11 @@ public class TopicRecordEntryId implements Serializable{
 		this.topicRecordId = topicRecordId;
 	}
 
-	public TopicType getTopicType() {
+	public TopicStatus getTopicType() {
 		return topicType;
 	}
 
-	public void setTopicType(TopicType topicType) {
+	public void setTopicType(TopicStatus topicType) {
 		this.topicType = topicType;
 	}
 
