@@ -28,33 +28,33 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "emp_id")
-	private Integer empId = -1;
+	protected Integer empId = -1;
 	
 	@Column(name = "emp_code", unique = true, nullable = false)
-	private String empCode;
+	protected String empCode;
 	
 	@Column(name = "emp_firstname", nullable = false)
-	private String empFirstName;
+	protected String empFirstName;
 	
 	@Column(name = "emp_lastname", nullable = false)
-	private String empLastName;
+	protected String empLastName;
 	
 	@Column(name = "email")
-	private String email;
+	protected String email;
 	
 	@Enumerated(EnumType.ORDINAL)
-	private EmployeeType empType;
+	protected EmployeeType empType;
 	
 	@Column(name = "hiredate")
 	@Temporal(TemporalType.DATE)
-	private Date hireDate;
+	protected Date hireDate;
 	
 	@Column(name = "expirydate")
 	@Temporal(TemporalType.DATE)
-	private Date expiryDate;
+	protected Date expiryDate;
 //	
 //	@Enumerated(EnumType.ORDINAL)
-//	private RoleType roleType;
+//	protected RoleType roleType;
 
 	public Employee() {}
 	

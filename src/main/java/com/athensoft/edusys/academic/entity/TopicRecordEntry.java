@@ -25,28 +25,40 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "acd_session_topic_entry")
-@IdClass(TopicRecordEntryId.class)
+@Table(name = "acd_session_topic_record_entry")
 public class TopicRecordEntry {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer entryId = -1;
+	
+	
 	@Column(name = "session_topic_record_id")
 	@JsonIgnore
 	private Integer topicRecordId;
 
-	@Id
-	@Column(name = "topic_type")
+
+	@Column(name = "topic_status")
 	@Enumerated(EnumType.ORDINAL)	
-	private TopicStatus topicType;
+	private TopicStatus topicStatus;
 	
 //	@Id
 //	@Column(name = "topic_id")
 //	private Integer topicId;
 	
-	@Id
+	
 //	@Transient
-	@OneToOne(targetEntity = Topic.class)
+	@ManyToOne(targetEntity = Topic.class)
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
+
+	
+	public Integer getEntryId() {
+		return entryId;
+	}
+
+	public void setEntryId(Integer entryId) {
+		this.entryId = entryId;
+	}
 
 	public Integer getTopicRecordId() {
 		return topicRecordId;
@@ -57,11 +69,11 @@ public class TopicRecordEntry {
 	}
 
 	public TopicStatus getTopicType() {
-		return topicType;
+		return topicStatus;
 	}
 
-	public void setTopicType(TopicStatus topicType) {
-		this.topicType = topicType;
+	public void setTopicType(TopicStatus topicStatus) {
+		this.topicStatus = topicStatus;
 	}
 
 	public Topic getTopic() {
@@ -84,7 +96,7 @@ public class TopicRecordEntry {
 
 	@Override
 	public String toString() {
-		return "TopicRecordEntry [topicRecordId=" + topicRecordId + ", topicType=" + topicType + ", topic=" + topic
+		return "TopicRecordEntry [topicRecordId=" + topicRecordId + ", topicType=" + topicStatus + ", topic=" + topic
 				+ "]";
 	}
 	
