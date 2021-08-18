@@ -31,25 +31,22 @@ public class TopicRecordEntry {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer entryId = -1;
 	
-	
-	@Column(name = "session_topic_record_id")
+	@Column(name = "session_topic_record_id", nullable = false)
 	@JsonIgnore
 	private Integer topicRecordId;
 
-
-	@Column(name = "topic_status")
+	@Column(nullable = false)
 	@Enumerated(EnumType.ORDINAL)	
 	private TopicStatus topicStatus;
-	
-//	@Id
-//	@Column(name = "topic_id")
-//	private Integer topicId;
+
+	@Column(nullable = false)
+	private Integer topicId;
 	
 	
 //	@Transient
-	@ManyToOne(targetEntity = Topic.class)
-	@JoinColumn(name = "topic_id")
-	private Topic topic;
+//	@ManyToOne(targetEntity = Topic.class)
+//	@JoinColumn(name = "topic_id")
+//	private Topic topic;
 
 	
 	public Integer getEntryId() {
@@ -76,29 +73,31 @@ public class TopicRecordEntry {
 		this.topicStatus = topicStatus;
 	}
 
-	public Topic getTopic() {
-		
-		return topic;
-	}
-
-	public void setTopic(Topic topic) {
-		this.topic = topic;
-	}
-	
-
-//	public Integer getTopicId() {
-//		return topicId;
+//	public Topic getTopic() {
+//		
+//		return topic;
 //	}
 //
-//	public void setTopicId(Integer topicId) {
-//		this.topicId = topicId;
+//	public void setTopic(Topic topic) {
+//		this.topic = topic;
 //	}
+	
+
+	public Integer getTopicId() {
+		return topicId;
+	}
+
+	public void setTopicId(Integer topicId) {
+		this.topicId = topicId;
+	}
 
 	@Override
 	public String toString() {
-		return "TopicRecordEntry [topicRecordId=" + topicRecordId + ", topicType=" + topicStatus + ", topic=" + topic
-				+ "]";
+		return "TopicRecordEntry [entryId=" + entryId + ", topicRecordId=" + topicRecordId + ", topicStatus="
+				+ topicStatus + ", topicId=" + topicId + "]";
 	}
+
+	
 	
 	
 

@@ -1,5 +1,6 @@
 package com.athensoft.edusys.academic.entity;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Date;
@@ -29,8 +30,6 @@ import javax.persistence.TemporalType;
 
 import com.athensoft.edusys.admin.entity.AttendanceRecord;
 import com.athensoft.edusys.admin.entity.DeliveryRecord;
-//import com.athensoft.edusys.product.entity.Topic;
-import com.athensoft.edusys.admin.entity.SessionStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -38,7 +37,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "acd_session")
 //@SecondaryTable(name="admin_delivery_record",
 //pkJoinColumns = {@PrimaryKeyJoinColumn(name = "session_id", referencedColumnName = "session_id")})
-public class AcademicSession {
+public class AcademicSession implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@Column(name = "session_id", nullable = false)
@@ -52,8 +53,8 @@ public class AcademicSession {
 	
 	@OneToOne(targetEntity = AssignmentRecord.class)
 	@JoinColumn(name = "session_id")
-	private AssignmentRecord assignment;
-//	
+	private AssignmentRecord assignmentRecord;
+	
 //	@OneToOne(targetEntity = DeliveryRecord.class)
 ////	@AttributeOverrides({
 ////        @AttributeOverride(name="deliveredSession", column=@Column(name="session_id", table="admin_delivery_record"))
@@ -84,13 +85,31 @@ public class AcademicSession {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private Date endTime;
 	
-	private Integer duration; 
+	private Float duration; 
 	
 	@Enumerated(EnumType.ORDINAL)	
 	@Column(name = "session_status")
 	private SessionStatus sessionStatus;
 	
 	public AcademicSession() {}
+
+	
+	public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, AssignmentRecord assignmentRecord,
+			TopicRecord topicRecord, Date deliveryDate, Date startTime, Date endTime, Float duration,
+			SessionStatus sessionStatus) {
+		super();
+		this.sessionId = sessionId;
+		this.groupNo = groupNo;
+		this.sessionSeqNo = sessionSeqNo;
+		this.assignmentRecord = assignmentRecord;
+		this.topicRecord = topicRecord;
+		this.deliveryDate = deliveryDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.duration = duration;
+		this.sessionStatus = sessionStatus;
+	}
+
 
 	public Integer getSessionId() {
 		return sessionId;
@@ -116,12 +135,12 @@ public class AcademicSession {
 		this.sessionSeqNo = sessionSeqNo;
 	}
 
-	public AssignmentRecord getAssignment() {
-		return assignment;
+	public AssignmentRecord getAssignmentRecord() {
+		return assignmentRecord;
 	}
 
-	public void setAssignment(AssignmentRecord assignment) {
-		this.assignment = assignment;
+	public void setAssignmentRecord(AssignmentRecord assignmentRecord) {
+		this.assignmentRecord = assignmentRecord;
 	}
 
 //	public DeliveryRecord getDeliveryRecord() {
@@ -165,12 +184,12 @@ public class AcademicSession {
 		this.endTime = endTime;
 	}
 
-	public Integer getDuration() {
-		// convert milliseconds to minutes
-		return (int) ((endTime.getTime() - startTime.getTime())/60000);
+	public Float getDuration() {
+		// convert milliseconds to hours
+		return (float) ((endTime.getTime() - startTime.getTime())/ (3.6 * Math.pow(10, 6)));
 	}
 
-	public void setDuration(Integer duration) {
+	public void setDuration(Float duration) {
 		this.duration = duration;
 	}
 
@@ -181,6 +200,14 @@ public class AcademicSession {
 	public void setSessionStatus(SessionStatus sessionStatus) {
 		this.sessionStatus = sessionStatus;
 	}
+
+
+//	@Override
+//	public String toString() {
+//		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
+//				+ ", deliveryDate=" + deliveryDate + ", startTime=" + startTime + ", endTime=" + endTime + ", duration="
+//				+ duration + ", sessionStatus=" + sessionStatus + "]";
+//	}
 
 	
 
@@ -196,7 +223,7 @@ public class AcademicSession {
 	@Override
 	public String toString() {
 		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
-				+ ", assignment=" + assignment + ", topicRecord=" + topicRecord + ", deliveryDate=" + deliveryDate
+				+ ", assignmentRecord=" + assignmentRecord + ", topicRecord=" + topicRecord + ", deliveryDate=" + deliveryDate
 				+ ", startTime=" + startTime + ", endTime=" + endTime + ", duration=" + duration + ", sessionStatus="
 				+ sessionStatus + "]";
 	}

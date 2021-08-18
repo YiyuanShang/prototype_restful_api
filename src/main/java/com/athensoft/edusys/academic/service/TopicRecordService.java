@@ -22,46 +22,59 @@ public class TopicRecordService {
 	private final TopicRecordRepository topicRecordRepo;
 	private final TopicRecordEntryRepository topicRecordEntryRepo;
 	
-	private final AcademicSessionService sessionService;
-	
-	public TopicRecordService(TopicRecordRepository topicRecordRepo, TopicRecordEntryRepository topicRecordEntryRepo, AcademicSessionService sessionService) {
+	public TopicRecordService(TopicRecordRepository topicRecordRepo, TopicRecordEntryRepository topicRecordEntryRepo) {
 		this.topicRecordRepo = topicRecordRepo;
 		this.topicRecordEntryRepo = topicRecordEntryRepo;
-		this.sessionService = sessionService;
 	}
 	
 	public TopicRecord getTopicRecordBySessionId(Integer sessionId) {
 		return topicRecordRepo.findByDeliveredSession_sessionId(sessionId).orElseThrow(() -> new TopicRecordNotFoundException(sessionId));
 	}
 	
-	public ResponseEntity<TopicRecord> createTopicRecord(Integer sessionId, List<TopicRecordEntry> topicRecordEntries){
-		LOGGER.debug("entering createTopicRecord sessionId:" + sessionId + " \t topicRecordEntries:" + topicRecordEntries);
-		checkTopicAlreadyExistsException(sessionId);
-		
-		
+	public TopicRecord createTopicRecord(AcademicSession session){
+		LOGGER.debug("entering createTopicRecord session:" + session);
+		checkTopicAlreadyExistsException(session.getSessionId());
 		
 		TopicRecord topicRecord = new TopicRecord();
-//		topicRecord.setTopicRecordEntries(topicRecordEntries);
-		
-		AcademicSession deliveredSession = sessionService.getAcademicSessionById(sessionId);
-		topicRecord.setDeliveredSession(deliveredSession);
+		topicRecord.setDeliveredSession(session);
 		
 		LOGGER.debug("creating topic record:" + topicRecord);
 		topicRecord = topicRecordRepo.save(topicRecord);
 		LOGGER.debug("created topic record:" + topicRecord);
 		
-		Integer topicRecordId = topicRecord.getTopicRecordId();
-		topicRecordEntries.forEach(topicRecordEntry -> topicRecordEntry.setTopicRecordId(topicRecordId));
-		LOGGER.debug("creating topic record entries:" + topicRecordEntries);
-		topicRecordEntryRepo.saveAll(topicRecordEntries);
 		
-		LOGGER.debug("created topic record entries");
-		deliveredSession.setTopicRecord(topicRecord);
-		LOGGER.debug("updating deliveredSession:" + deliveredSession);
-		sessionService.updateAcademicSession(deliveredSession);
+//		session.setTopicRecord(topicRecord);
+//		LOGGER.debug("updating deliveredSession:" + session);
+//		sessionService.updateAcademicSession(session);
 		
-		return new ResponseEntity<>(topicRecord, HttpStatus.CREATED);
+		return topicRecord;
 	}
+	
+//	public ResponseEntity<TopicRecord> updateTopicRecord(AcademicSession session, List<TopicRecordEntry> topicRecordEntries){
+//		LOGGER.debug("entering createTopicRecord session:" + session + " \t topicRecordEntries:" + topicRecordEntries);
+//		checkTopicAlreadyExistsException(session.getSessionId());
+//		
+//		TopicRecord topicRecord = new TopicRecord();
+////		topicRecord.setTopicRecordEntries(topicRecordEntries);
+//		
+//		topicRecord.setDeliveredSession(deliveredSession);
+//		
+//		LOGGER.debug("creating topic record:" + topicRecord);
+//		topicRecord = topicRecordRepo.save(topicRecord);
+//		LOGGER.debug("created topic record:" + topicRecord);
+//		
+//		Integer topicRecordId = topicRecord.getTopicRecordId();
+//		topicRecordEntries.forEach(topicRecordEntry -> topicRecordEntry.setTopicRecordId(topicRecordId));
+//		LOGGER.debug("creating topic record entries:" + topicRecordEntries);
+//		topicRecordEntryRepo.saveAll(topicRecordEntries);
+//		
+//		LOGGER.debug("created topic record entries");
+//		deliveredSession.setTopicRecord(topicRecord);
+//		LOGGER.debug("updating deliveredSession:" + deliveredSession);
+//		sessionService.updateAcademicSession(deliveredSession);
+//		
+//		return new ResponseEntity<>(topicRecord, HttpStatus.CREATED);
+//	}
 	
 	private void checkTopicRecordNotFoundException(Integer sessionId) {
 		if (!topicRecordRepo.existsByDeliveredSession_sessionId(sessionId)) {

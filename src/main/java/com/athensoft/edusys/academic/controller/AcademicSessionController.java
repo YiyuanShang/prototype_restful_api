@@ -52,15 +52,17 @@ public class AcademicSessionController {
 
 	@PostMapping("/acdSessions")
 	public ResponseEntity<AcademicSession> createAcademicSession(@RequestBody AcademicSession session) {
-		return acdSessionService.createAcademicSession(session);
+		LOGGER.debug("entering createAcademicSession session:" + session);
+		return null;
+//		return acdSessionService.createAcademicSession(session);
 	}
 
-	@PostMapping("/acdSessions/{sessionId}/topicRecord")
-	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId,
-			@RequestBody List<TopicRecordEntry> topicRecordEntries) {
-		LOGGER.debug("entering addTopicRecordToAcademicSession");
-		return topicRecordService.createTopicRecord(sessionId, topicRecordEntries);
-	}
+//	@PostMapping("/acdSessions/{sessionId}/topicRecord")
+//	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId,
+//			@RequestBody List<TopicRecordEntry> topicRecordEntries) {
+//		LOGGER.debug("entering addTopicRecordToAcademicSession");
+//		return topicRecordService.updateTopicRecord(sessionId, topicRecordEntries);
+//	}
 	
 	@PostMapping("/acdSessions/{sessionId}/assgmtRecord")
 	public ResponseEntity<AssignmentRecord> addAssignmentRecordToAcademicSession(@PathVariable Integer sessionId,

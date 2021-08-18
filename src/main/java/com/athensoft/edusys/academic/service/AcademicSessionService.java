@@ -19,8 +19,11 @@ public class AcademicSessionService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AcademicSessionService.class);
 	private final AcademicSessionRepository acdSessionRepo;
 	
-	public AcademicSessionService(AcademicSessionRepository acdSessionRepo) {
+	private final TopicRecordService topicRecordService;
+	
+	public AcademicSessionService(AcademicSessionRepository acdSessionRepo, TopicRecordService topicRecordService) {
 		this.acdSessionRepo = acdSessionRepo;
+		this.topicRecordService = topicRecordService;
 	}
 	
 	public List<AcademicSession> getAcademicSessionList(){
@@ -35,7 +38,12 @@ public class AcademicSessionService {
 	public ResponseEntity<AcademicSession> createAcademicSession(AcademicSession session){
 		checkAcademicSessionAlreadyExistsException(session.getSessionId());
 		LOGGER.debug("creating session:" + session);
-		return new ResponseEntity<>(acdSessionRepo.save(session), HttpStatus.CREATED);
+		AcademicSession createdSession = acdSessionRepo.save(session);
+		
+		// create topic record
+//		createdSession.setTopicRecord(topicRecordService.createTopicRecord(createdSession));
+		
+		return new ResponseEntity<>(createdSession, HttpStatus.CREATED);
 	}
 	
 	public ResponseEntity<AcademicSession> updateAcademicSession(AcademicSession session){
