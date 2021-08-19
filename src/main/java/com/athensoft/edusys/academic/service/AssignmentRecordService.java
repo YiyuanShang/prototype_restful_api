@@ -29,11 +29,9 @@ public class AssignmentRecordService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssignmentRecordService.class);
 	private final AssignmentRecordRepository assgmtRecordRepo;
 	
-	private final AcademicSessionService sessionService;
 	
-	public AssignmentRecordService(AssignmentRecordRepository assgmtRecordRepo, AcademicSessionService sessionService) {
+	public AssignmentRecordService(AssignmentRecordRepository assgmtRecordRepo) {
 		this.assgmtRecordRepo = assgmtRecordRepo;
-		this.sessionService = sessionService;
 	}
 	
 	public List<AssignmentRecord> getAssignmentRecordList(){
@@ -149,14 +147,14 @@ public class AssignmentRecordService {
 		return assgmtRecordRepo.findAll(example);
 	}
 	
-	public ResponseEntity<AssignmentRecord> createAssignmentRecord(Integer sessionId, AssignmentRecord assgmtRecord){
-		checkAssignmentRecordAlreadyExistsException(sessionId, assgmtRecord.getAssgmtRecordId());
-//		AcademicSession session = sessionService.getAcademicSessionById(sessionId);
-//		session.setAssignment(assgmtRecord);
-		LOGGER.debug("createAssignmentRecord sessionId:" + sessionId + "\t assgmtRecord:" + assgmtRecord);
-		assgmtRecordRepo.createAssignmentRecord(assgmtRecord.getAssgmtType().ordinal(), assgmtRecord.getIssueDate(), assgmtRecord.getDueDate(), sessionId);
-		AssignmentRecord createdAssignmentRecord = getAssignmentRecordBySessionId(sessionId);
-		return new ResponseEntity<>(createdAssignmentRecord, HttpStatus.CREATED);
+	public AssignmentRecord createAssignmentRecord(AcademicSession session){
+		Integer sessionId = session.getSessionId();
+		checkAssignmentRecordAlreadyExistsException(sessionId);
+
+		LOGGER.debug("createAssignmentRecord session:" + session);
+		assgmtRecordRepo.createAssignmentRecord(sessionId);
+		
+		return getAssignmentRecordBySessionId(sessionId);
 	}
 	
 	public ResponseEntity<AssignmentRecord> updateAssignmentRecord(AssignmentRecord assgmtRecord){
@@ -167,10 +165,8 @@ public class AssignmentRecordService {
 		return ResponseEntity.ok(assgmtRecordRepo.save(assgmtRecord));
 	}
 	
-	private void checkAssignmentRecordAlreadyExistsException(Integer sessionId, Integer assgmtRecordId) {
-		if(assgmtRecordId != null && assgmtRecordRepo.existsById(assgmtRecordId)) {
-			throw new AssignmentRecordAlreadyExistsException(sessionId);
-		}else if (assgmtRecordRepo.findBySessionId(sessionId).isPresent()) {
+	private void checkAssignmentRecordAlreadyExistsException(Integer sessionId) {
+		if (assgmtRecordRepo.findBySessionId(sessionId).isPresent()) {
 			throw new AssignmentRecordAlreadyExistsException(sessionId);
 		}
 	}

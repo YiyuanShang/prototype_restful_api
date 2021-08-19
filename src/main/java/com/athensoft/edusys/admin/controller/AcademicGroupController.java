@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.edusys.admin.entity.AcademicGroup;
+import com.athensoft.edusys.admin.entity.AdminEntry;
 import com.athensoft.edusys.admin.service.AcademicGroupService;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.product.entity.Course;
@@ -111,10 +112,10 @@ public class AcademicGroupController {
 		return ResponseEntity.ok(acdGroupService.addCourseToAcademicGroup(groupId, courseId, isPrimary));
 	}
 
-	@PutMapping("/groups/{groupId}/admins/admin/{empId}")
-	public ResponseEntity<AcademicGroup> addAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
-		return ResponseEntity.ok(acdGroupService.addAdminToAcademicGroup(groupId, empId));
-	}
+//	@PutMapping("/groups/{groupId}/admins/adminEntries")
+//	public ResponseEntity<AcademicGroup> addAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @RequestBody AdminEntry adminEntry){
+//		return ResponseEntity.ok();
+//	}
 	
 	@DeleteMapping("/groups/{groupId}/students/student/{stuId}")
 	public ResponseEntity<AcademicGroup> removeStudentFromAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){

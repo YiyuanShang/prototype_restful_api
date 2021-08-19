@@ -20,10 +20,12 @@ public class AcademicSessionService {
 	private final AcademicSessionRepository acdSessionRepo;
 	
 	private final TopicRecordService topicRecordService;
+	private final AssignmentRecordService assgmtRecordService;
 	
-	public AcademicSessionService(AcademicSessionRepository acdSessionRepo, TopicRecordService topicRecordService) {
+	public AcademicSessionService(AcademicSessionRepository acdSessionRepo, TopicRecordService topicRecordService, AssignmentRecordService assgmtRecordService) {
 		this.acdSessionRepo = acdSessionRepo;
 		this.topicRecordService = topicRecordService;
+		this.assgmtRecordService = assgmtRecordService;
 	}
 	
 	public List<AcademicSession> getAcademicSessionList(){
@@ -41,7 +43,10 @@ public class AcademicSessionService {
 		AcademicSession createdSession = acdSessionRepo.save(session);
 		
 		// create topic record
-//		createdSession.setTopicRecord(topicRecordService.createTopicRecord(createdSession));
+		createdSession.setTopicRecord(topicRecordService.createTopicRecord(createdSession));
+		
+		// create assignment record
+		createdSession.setAssignmentRecord(assgmtRecordService.createAssignmentRecord(createdSession));
 		
 		return new ResponseEntity<>(createdSession, HttpStatus.CREATED);
 	}

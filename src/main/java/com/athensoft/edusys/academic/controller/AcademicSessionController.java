@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,24 +51,23 @@ public class AcademicSessionController {
 		return ResponseEntity.ok(topicRecordService.getTopicRecordBySessionId(sessionId));
 	}
 
-	@PostMapping("/acdSessions")
+	@PostMapping(value = "/acdSessions", consumes = "application/json")
 	public ResponseEntity<AcademicSession> createAcademicSession(@RequestBody AcademicSession session) {
 		LOGGER.debug("entering createAcademicSession session:" + session);
-		return null;
-//		return acdSessionService.createAcademicSession(session);
+		return acdSessionService.createAcademicSession(session);
 	}
 
-//	@PostMapping("/acdSessions/{sessionId}/topicRecord")
+//	@PutMapping("/acdSessions/{sessionId}/topicRecord")
 //	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId,
 //			@RequestBody List<TopicRecordEntry> topicRecordEntries) {
 //		LOGGER.debug("entering addTopicRecordToAcademicSession");
 //		return topicRecordService.updateTopicRecord(sessionId, topicRecordEntries);
 //	}
 	
-	@PostMapping("/acdSessions/{sessionId}/assgmtRecord")
-	public ResponseEntity<AssignmentRecord> addAssignmentRecordToAcademicSession(@PathVariable Integer sessionId,
-			@RequestBody AssignmentRecord assignmentRecord){
-		LOGGER.debug("entering addAssignmentRecordToAcademicSession");
-		return assignmentRecordService.createAssignmentRecord(sessionId, assignmentRecord);
-	}
+//	@@PutMapping("/acdSessions/{sessionId}/assgmtRecord")
+//	public ResponseEntity<AssignmentRecord> addAssignmentRecordToAcademicSession(@PathVariable Integer sessionId,
+//			@RequestBody AssignmentRecord assignmentRecord){
+//		LOGGER.debug("entering addAssignmentRecordToAcademicSession");
+//		return assignmentRecordService.createAssignmentRecord(sessionId, assignmentRecord);
+//	}
 }
