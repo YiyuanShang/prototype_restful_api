@@ -19,10 +19,6 @@ import javax.persistence.TemporalType;
 
 import com.athensoft.edusys.product.entity.Question;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "acd_asgmt_record")
