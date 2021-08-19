@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.athensoft.edusys.admin.entity.AcademicGroup;
 import com.athensoft.edusys.admin.entity.AdminEntry;
 import com.athensoft.edusys.admin.service.AcademicGroupService;
+import com.athensoft.edusys.admin.service.AdminEntryService;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.product.entity.Course;
 
@@ -27,9 +28,11 @@ import com.athensoft.edusys.product.entity.Course;
 @RequestMapping("/edusys/admin")
 public class AcademicGroupController {
 	private final AcademicGroupService acdGroupService;
+	private final AdminEntryService adminEntryService;
 	
-	public AcademicGroupController(AcademicGroupService acdGroupService) {
+	public AcademicGroupController(AcademicGroupService acdGroupService, AdminEntryService adminEntryService) {
 		this.acdGroupService = acdGroupService;
+		this.adminEntryService = adminEntryService;
 	}
 	
 	@GetMapping("/groups")
@@ -112,10 +115,10 @@ public class AcademicGroupController {
 		return ResponseEntity.ok(acdGroupService.addCourseToAcademicGroup(groupId, courseId, isPrimary));
 	}
 
-//	@PutMapping("/groups/{groupId}/admins/adminEntries")
-//	public ResponseEntity<AcademicGroup> addAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @RequestBody AdminEntry adminEntry){
-//		return ResponseEntity.ok();
-//	}
+	@PutMapping("/groups/{groupId}/admins/adminEntries")
+	public ResponseEntity<AcademicGroup> addAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @RequestBody AdminEntry adminEntry){
+		return ResponseEntity.ok(adminEntryService.addAdminToAcademicGroup(groupId, adminEntry));
+	}
 	
 	@DeleteMapping("/groups/{groupId}/students/student/{stuId}")
 	public ResponseEntity<AcademicGroup> removeStudentFromAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "stuId") Integer stuId){
@@ -143,7 +146,7 @@ public class AcademicGroupController {
 	
 	@DeleteMapping("/groups/{groupId}/admins/admin/{empId}")
 	public ResponseEntity<AcademicGroup> removeAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @PathVariable(name = "empId") Integer empId){
-		return ResponseEntity.ok(acdGroupService.removeAdminToAcademicGroup(groupId, empId));
+		return ResponseEntity.ok(adminEntryService.removeAdminToAcademicGroup(groupId, empId));
 	}
 
 }

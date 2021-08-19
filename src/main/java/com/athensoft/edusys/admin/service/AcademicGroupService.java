@@ -404,18 +404,6 @@ public class AcademicGroupService {
 
 	}
 	
-	public AcademicGroup removeAdminToAcademicGroup(Integer groupId, Integer empId) {
-		AcademicGroup group = getAcademicGroupById(groupId);
-		Admin admin = (Admin) empService.getEmployeeById(empId);
-
-		LOGGER.debug("academic group:" + group);
-
-		LOGGER.debug("removing admin " + admin + " to responsible admin list");
-		group.getRegAdmins().remove(admin);
-
-		LOGGER.debug("new responsible admin list:" + group.getRegAdmins());
-		return acdGroupRepo.save(group);
-	}
 
 	private void checkAcademicGroupNotFoundException(Integer groupId) {
 		if (!acdGroupRepo.existsById(groupId)) {

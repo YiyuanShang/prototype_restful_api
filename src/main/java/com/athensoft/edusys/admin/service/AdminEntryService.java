@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.athensoft.edusys.admin.dao.AdminEntryRepository;
 import com.athensoft.edusys.admin.entity.AcademicGroup;
 import com.athensoft.edusys.admin.entity.AdminEntry;
+import com.athensoft.edusys.admin.entity.AdminEntryId;
 import com.athensoft.edusys.admin.entity.AdminStatus;
 import com.athensoft.edusys.hr.entity.Admin;
 import com.athensoft.edusys.hr.service.EmployeeService;
@@ -76,6 +77,17 @@ public class AdminEntryService {
 		LOGGER.debug("example adminEntry:" + example.toString());
 		return adminEntryRepo.findAll(example);
 		
+	}
+	public AcademicGroup addAdminToAcademicGroup(Integer groupId, AdminEntry adminEntry) {
+		LOGGER.debug("creating adminEntry:" + adminEntry.getAdminStatus());
+		adminEntryRepo.createAdminEntry(adminEntry.getAdmin().getEmpId(), adminEntry.getComment(), adminEntry.getAdminStatus().ordinal(), groupId);
+		
+		return acdGroupService.getAcademicGroupById(groupId);
+	}
+	
+	public AcademicGroup removeAdminToAcademicGroup(Integer groupId, Integer empId) {
+		adminEntryRepo.deleteAdminEntry(empId, groupId);
+		return acdGroupService.getAcademicGroupById(groupId);
 	}
 
 }

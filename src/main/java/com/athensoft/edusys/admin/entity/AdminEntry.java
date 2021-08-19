@@ -58,6 +58,12 @@ public class AdminEntry {
 	public void setGroup(AcademicGroup group) {
 		this.group = group;
 	}
+
+	@Override
+	public String toString() {
+		return "AdminEntry [admin=" + admin + ", comment=" + comment + ", adminStatus=" + adminStatus + ", group="
+				+ group.getGroupId() + "]";
+	}
 	
 	
 
