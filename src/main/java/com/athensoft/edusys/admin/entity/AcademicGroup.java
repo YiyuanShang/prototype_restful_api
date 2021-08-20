@@ -85,6 +85,12 @@ public class AcademicGroup {
     joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
     inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
 	private List<Admin> regAdmins;
+	
+	@OneToMany(targetEntity = GroupSchedule.class)
+	@JoinTable(name = "admin_group_schedule",
+			joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
+		    inverseJoinColumns = @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id"))
+	private List<GroupSchedule> groupSchedules;
 
 	public AcademicGroup() {
 	}	
@@ -200,6 +206,14 @@ public class AcademicGroup {
 	public void setRegAdmins(List<Admin> regAdmins) {
 		this.regAdmins = regAdmins;
 	}
+	
+	public List<GroupSchedule> getGroupSchedules() {
+		return groupSchedules;
+	}
+
+	public void setGroupSchedules(List<GroupSchedule> groupSchedules) {
+		this.groupSchedules = groupSchedules;
+	}
 
 	@Override
 	public String toString() {
@@ -207,8 +221,10 @@ public class AcademicGroup {
 				+ ", regInstructors=" + regInstructors + ", groupStatus=" + groupStatus + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", sessionNum=" + sessionNum + ", groupType=" + groupType + ", groupName="
 				+ groupName + ", groupDesc=" + groupDesc + ", courseEntries=" + courseEntries + ", price=" + price
-				+ ", regAdmins=" + regAdmins + "]";
+				+ ", regAdmins=" + regAdmins + ", groupSchedules=" + groupSchedules + "]";
 	}
+
+	
 
 	
 

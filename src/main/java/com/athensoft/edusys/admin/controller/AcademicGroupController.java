@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.edusys.admin.entity.AcademicGroup;
 import com.athensoft.edusys.admin.entity.AdminEntry;
+import com.athensoft.edusys.admin.entity.GroupSchedule;
+import com.athensoft.edusys.admin.entity.GroupStudentEntry;
 import com.athensoft.edusys.admin.service.AcademicGroupService;
 import com.athensoft.edusys.admin.service.AdminEntryService;
+import com.athensoft.edusys.admin.service.GroupStudentEntryService;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.product.entity.Course;
 
@@ -29,10 +32,12 @@ import com.athensoft.edusys.product.entity.Course;
 public class AcademicGroupController {
 	private final AcademicGroupService acdGroupService;
 	private final AdminEntryService adminEntryService;
+	private final GroupStudentEntryService groupStudentEntryService;
 	
-	public AcademicGroupController(AcademicGroupService acdGroupService, AdminEntryService adminEntryService) {
+	public AcademicGroupController(AcademicGroupService acdGroupService, AdminEntryService adminEntryService, GroupStudentEntryService groupStudentEntryService) {
 		this.acdGroupService = acdGroupService;
 		this.adminEntryService = adminEntryService;
+		this.groupStudentEntryService = groupStudentEntryService;
 	}
 	
 	@GetMapping("/groups")
@@ -63,6 +68,11 @@ public class AcademicGroupController {
 	@GetMapping("/groups/filtersStr")
 	public ResponseEntity<List<AcademicGroup>> getDataByFiltersStr() throws ParseException{
 		return ResponseEntity.ok(acdGroupService.getAcademicGroupListByFiltersStr());
+	}
+	
+	@GetMapping("/groups/{groupId}/students")
+	public ResponseEntity<List<GroupStudentEntry>> getStudentListInAcademicGroup(@PathVariable Integer groupId){
+		return ResponseEntity.ok(groupStudentEntryService.getGroupStudentEntryListByGroupId(groupId));
 	}
 	
 	@PostMapping("/groups")
@@ -118,6 +128,11 @@ public class AcademicGroupController {
 	@PutMapping("/groups/{groupId}/admins/adminEntries")
 	public ResponseEntity<AcademicGroup> addAdminToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @RequestBody AdminEntry adminEntry){
 		return ResponseEntity.ok(adminEntryService.addAdminToAcademicGroup(groupId, adminEntry));
+	}
+	
+	@PutMapping("/groups/{groupId}/schedules/schedule")
+	public ResponseEntity<AcademicGroup> addScheduleToAcademicGroup(@PathVariable(name = "groupId") Integer groupId, @RequestBody GroupSchedule groupSchedule){
+		return ResponseEntity.ok(acdGroupService.addScheduleToAcademicGroup(groupId, groupSchedule));
 	}
 	
 	@DeleteMapping("/groups/{groupId}/students/student/{stuId}")

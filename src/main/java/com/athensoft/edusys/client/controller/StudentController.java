@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.athensoft.edusys.admin.entity.GroupStudentEntry;
+import com.athensoft.edusys.admin.service.GroupStudentEntryService;
 import com.athensoft.edusys.client.entity.Student;
 import com.athensoft.edusys.client.service.StudentService;
 
@@ -24,9 +26,11 @@ import com.athensoft.edusys.client.service.StudentService;
 @RequestMapping("/edusys/client")
 public class StudentController {
 	private final StudentService studentService;
+	private final GroupStudentEntryService groupStudentEntryService;
 	
-	public StudentController(StudentService studentService) {
+	public StudentController(StudentService studentService, GroupStudentEntryService groupStudentEntryService) {
 		this.studentService = studentService;
+		this.groupStudentEntryService = groupStudentEntryService;
 	}
 	
 	@GetMapping("/students")
@@ -35,7 +39,7 @@ public class StudentController {
 	}
 	
 	@GetMapping("/students/{stuId}")
-	public ResponseEntity<Student> getDataById(@PathVariable int stuId){
+	public ResponseEntity<Student> getDataById(@PathVariable Integer stuId){
 		return ResponseEntity.ok(studentService.getStudentById(stuId));
 	}
 	
@@ -64,6 +68,11 @@ public class StudentController {
 		return ResponseEntity.ok(studentService.getStudentListByFiltersStr());
 	}
 	
+	@GetMapping("/students/{stuId}/groups")
+	public ResponseEntity<List<GroupStudentEntry>> getAcademicGroupListByStuId(@PathVariable Integer stuId){
+		return ResponseEntity.ok(groupStudentEntryService.getGroupStudentEntryListByStuId(stuId));
+	}
+	
 	@PostMapping("/students")
 	public ResponseEntity<Student> createStudent(@RequestBody Student student){
 		return studentService.createStudent(student);
@@ -80,7 +89,7 @@ public class StudentController {
 	}
 	
 	@DeleteMapping("/students/{stuId}")
-	public ResponseEntity<Student> deleteStudentById(@PathVariable int stuId){
+	public ResponseEntity<Student> deleteStudentById(@PathVariable Integer stuId){
 		return studentService.deleteStudentById(stuId);
 	}
 }

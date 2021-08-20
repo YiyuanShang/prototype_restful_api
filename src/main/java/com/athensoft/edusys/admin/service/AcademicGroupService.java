@@ -19,9 +19,11 @@ import org.springframework.stereotype.Service;
 
 import com.athensoft.edusys.admin.dao.AcademicGroupRepository;
 import com.athensoft.edusys.admin.dao.CourseEntryRepository;
+import com.athensoft.edusys.admin.dao.GroupScheduleRepository;
 import com.athensoft.edusys.admin.entity.AcademicGroup;
 import com.athensoft.edusys.admin.entity.CourseEntry;
 import com.athensoft.edusys.admin.entity.CourseEntryId;
+import com.athensoft.edusys.admin.entity.GroupSchedule;
 import com.athensoft.edusys.admin.entity.GroupStatus;
 import com.athensoft.edusys.admin.entity.GroupType;
 import com.athensoft.edusys.client.entity.Student;
@@ -42,15 +44,17 @@ public class AcademicGroupService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AcademicGroupService.class);
 	private final AcademicGroupRepository acdGroupRepo;
 	private final CourseEntryRepository courseEntryRepo;
+	private final GroupScheduleRepository scheduleRepo;
 
 	private final StudentService stuService;
 	private final EmployeeService empService;
 	private final CourseService courseService;
 
-	public AcademicGroupService(AcademicGroupRepository acdGroupRepo, CourseEntryRepository courseEntryRepo, StudentService stuService,
-			EmployeeService empService, CourseService courseService) {
+	public AcademicGroupService(AcademicGroupRepository acdGroupRepo, CourseEntryRepository courseEntryRepo, GroupScheduleRepository scheduleRepo, 
+			StudentService stuService, EmployeeService empService, CourseService courseService) {
 		this.acdGroupRepo = acdGroupRepo;
 		this.courseEntryRepo = courseEntryRepo;
+		this.scheduleRepo = scheduleRepo;
 		this.stuService = stuService;
 		this.empService = empService;
 		this.courseService = courseService;
@@ -342,6 +346,13 @@ public class AcademicGroupService {
 
 		LOGGER.debug("new responsible admin list:" + group.getRegAdmins());
 		return acdGroupRepo.save(group);
+	}
+
+	public AcademicGroup addScheduleToAcademicGroup(Integer groupId, GroupSchedule groupSchedule) {
+		AcademicGroup group = getAcademicGroupById(groupId);
+		List<GroupSchedule> groupSchedules = group.getGroupSchedules();
+		scheduleRepo.save(groupSchedule);
+		return null;
 	}
 
 	public AcademicGroup removeStudentFromAcademicGroup(Integer groupId, Integer stuId) {
