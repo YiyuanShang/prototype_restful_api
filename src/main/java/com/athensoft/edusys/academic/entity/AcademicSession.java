@@ -27,36 +27,35 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import com.athensoft.edusys.admin.entity.AttendanceRecord;
 import com.athensoft.edusys.admin.entity.DeliveryRecord;
 import com.athensoft.edusys.hr.entity.Instructor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "acd_session")
-//@SecondaryTable(name="admin_delivery_record",
-//pkJoinColumns = {@PrimaryKeyJoinColumn(name = "session_id", referencedColumnName = "session_id")})
-public class AcademicSession implements Serializable{
+
+public class AcademicSession implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "session_id", nullable = false)
 	private Integer sessionId = -1;
-	
+
 	@Column(name = "group_no", unique = true)
 	private String groupNo;
-	
+
 	@Column(name = "session_seqno")
 	private Integer sessionSeqNo;
-	
+
 	@OneToOne(targetEntity = AssignmentRecord.class)
 	@JoinColumn(name = "session_id")
 	private AssignmentRecord assignmentRecord;
-	
+
 //	@OneToOne(targetEntity = DeliveryRecord.class)
 ////	@AttributeOverrides({
 ////        @AttributeOverride(name="deliveredSession", column=@Column(name="session_id", table="admin_delivery_record"))
@@ -67,40 +66,37 @@ public class AcademicSession implements Serializable{
 //	@OneToOne(targetEntity = AttendanceRecord.class)
 //	@JoinTable(name = "admin_attend_record")
 //	private AttendanceRecord attendanceRecord;
-	
+
 	@OneToOne(targetEntity = TopicRecord.class, mappedBy = "deliveredSession")
-	@JsonManagedReference
 	private TopicRecord topicRecord;
 
 	@Column(name = "delivery_date")
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Etc/GMT+4")
 	private Date deliveryDate;
-	
+
 	@Column(name = "start_time")
 	@Temporal(TemporalType.TIME)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private Date startTime;
-	
+
 	@Column(name = "end_time")
 	@Temporal(TemporalType.TIME)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private Date endTime;
-	
-	private Float duration; 
-	
-	@Enumerated(EnumType.ORDINAL)	
+
+	private Float duration;
+
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "session_status")
 	private SessionStatus sessionStatus;
-	
-	
+
 	@ManyToMany
-	@JoinTable(name = "acd_rel_session_instructor",
-    joinColumns = @JoinColumn(name = "session_id", referencedColumnName = "session_id"),
-    inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
+	@JoinTable(name = "acd_rel_session_instructor", joinColumns = @JoinColumn(name = "session_id", referencedColumnName = "session_id"), inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
 	private List<Instructor> plannedInstructors;
-	
-	public AcademicSession() {}
+
+	public AcademicSession() {
+	}
 
 	public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, AssignmentRecord assignmentRecord,
 			TopicRecord topicRecord, Date deliveryDate, Date startTime, Date endTime, Float duration,
@@ -175,7 +171,6 @@ public class AcademicSession implements Serializable{
 		this.deliveryDate = deliveryDate;
 	}
 
-
 	public Date getStartTime() {
 		return startTime;
 	}
@@ -194,7 +189,7 @@ public class AcademicSession implements Serializable{
 
 	public Float getDuration() {
 		// convert milliseconds to hours
-		return (float) ((endTime.getTime() - startTime.getTime())/ (3.6 * Math.pow(10, 6)));
+		return (float) ((endTime.getTime() - startTime.getTime()) / (3.6 * Math.pow(10, 6)));
 	}
 
 	public void setDuration(Float duration) {
@@ -209,26 +204,14 @@ public class AcademicSession implements Serializable{
 		this.sessionStatus = sessionStatus;
 	}
 
-	
-
-//	@Override
-//	public String toString() {
-//		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
-//				+ ", deliveryDate=" + deliveryDate + ", startTime=" + startTime + ", endTime=" + endTime + ", duration="
-//				+ duration + ", sessionStatus=" + sessionStatus + "]";
-//	}
-
-	
-
 	public TopicRecord getTopicRecord() {
 		return topicRecord;
 	}
 
-
 	public void setTopicRecord(TopicRecord topicRecord) {
 		this.topicRecord = topicRecord;
 	}
-	
+
 	public List<Instructor> getPlannedInstructors() {
 		return plannedInstructors;
 	}
@@ -245,8 +228,4 @@ public class AcademicSession implements Serializable{
 				+ ", sessionStatus=" + sessionStatus + ", plannedInstructors=" + plannedInstructors + "]";
 	}
 
-	
-	
-	
-	
 }

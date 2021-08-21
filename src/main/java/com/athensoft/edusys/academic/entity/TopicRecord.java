@@ -25,7 +25,9 @@ import javax.persistence.Transient;
 
 import com.athensoft.edusys.product.entity.Topic;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "acd_session_topic_record")
@@ -37,7 +39,6 @@ public class TopicRecord {
 	
 	@OneToMany(targetEntity = TopicRecordEntry.class)
 	@JoinColumn(name = "session_topic_record_id")
-	@JsonManagedReference
 	List<TopicRecordEntry> topicRecordEntries;
 
 	@OneToOne
