@@ -37,18 +37,19 @@ public class StudentProfileController {
 	}
 	
 	@GetMapping("/studentprofiles/{stuId}")
-	public ResponseEntity<StudentProfile> getDataById(@PathVariable int stuId){
-		return ResponseEntity.ok(studentProfileService.getStudentProfileById(stuId));
+	public ResponseEntity<StudentProfile> getDataById(@PathVariable Integer stuId){
+		return ResponseEntity.ok(studentProfileService.getStudentProfileByStuId(stuId));
 	}
 	
 	@GetMapping("/studentprofiles/filters")
 	public ResponseEntity<List<StudentProfile>> getDataByFilters(
 			@RequestParam(name = "stuId") Optional<Integer> stuId, 
-			@RequestParam(name = "stuNo", required = false) String stuNo,
+			@RequestParam(name = "stuPhoneNumber", required = false) String stuPhoneNumber,
 			@RequestParam(name = "parentName1", required = false) String parentName1, 
-			@RequestParam(name = "parentName2", required = false) String parentName2, 
-			@RequestParam(name = "email1", required = false) String email1) throws ParseException{
-		return ResponseEntity.ok(studentProfileService.getStudentProfileListByFilters(stuId, stuNo, parentName1, parentName2, email1));
+			@RequestParam(name = "email1", required = false) String email1,
+			@RequestParam(name = "parentPhoneNumber1", required = false) String parentPhoneNumber1,
+			@RequestParam(name = "parentName2", required = false) String parentName2) throws ParseException{
+		return ResponseEntity.ok(studentProfileService.getStudentProfileListByFilters(stuId, stuPhoneNumber, parentName1, email1, parentPhoneNumber1, parentName2));
 	}
 	
 	@GetMapping("/studentprofiles/filtersStr")
@@ -72,7 +73,7 @@ public class StudentProfileController {
 	}
 	
 	@DeleteMapping("/studentprofiles/{stuId}")
-	public ResponseEntity<String> deleteStudentProfileById(@PathVariable int stuId){
+	public ResponseEntity<String> deleteStudentProfileById(@PathVariable Integer stuId){
 		return studentProfileService.deleteStudentProfileById(stuId);
 	}
 	

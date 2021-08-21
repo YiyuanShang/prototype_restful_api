@@ -35,12 +35,10 @@ import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 public class StudentService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentService.class);
 	private final StudentRepository studentRepo;
-	private final StudentProfileRepository stuProfileRepo;
 	
 	
-	public StudentService(StudentRepository studentRepo, StudentProfileRepository stuProfileRepo) {
+	public StudentService(StudentRepository studentRepo) {
 		this.studentRepo = studentRepo;
-		this.stuProfileRepo = stuProfileRepo;
 	}
 	
 	public List<Student> getStudentList(){

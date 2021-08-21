@@ -14,9 +14,6 @@ public class StudentProfileNotFoundException extends NotFoundException {
 		super("Student profile " + stuId + " is not found!");
 	}
 	
-	public StudentProfileNotFoundException(StudentProfile studentProfile) {
-		super("Student profile " + studentProfile.getStuId() + " is not found!");
-	}
 	public StudentProfileNotFoundException(String message) {
 		super(message);
 	}

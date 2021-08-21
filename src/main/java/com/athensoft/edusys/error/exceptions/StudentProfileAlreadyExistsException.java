@@ -14,9 +14,6 @@ public class StudentProfileAlreadyExistsException extends AlreadyExistsException
 		super("Student profile of stduent " + stuId + " already exists!");
 	}
 	
-	public StudentProfileAlreadyExistsException(StudentProfile studentProfile) {
-		super("Student profile of student " + studentProfile.getStuId() + " already exists!");
-	}
 	
 	public StudentProfileAlreadyExistsException(String message) {
 		super(message);

@@ -25,25 +25,29 @@ public class StudentProfileService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentProfileService.class);
 	private final StudentProfileRepository stuProfileRepo;
 	
-	public StudentProfileService(StudentProfileRepository stuProfileRepo) {
+	private final StudentService stuService;
+	
+	public StudentProfileService(StudentProfileRepository stuProfileRepo, StudentService stuService) {
 		this.stuProfileRepo = stuProfileRepo;
+		this.stuService = stuService;
 	}
 	
 	public List<StudentProfile> getStudentProfileList(){
 		return stuProfileRepo.findAll();
 	}
 
-	public StudentProfile getStudentProfileById(int stuId) {
-		return stuProfileRepo.findById(stuId)
+	public StudentProfile getStudentProfileByStuId(Integer stuId) {
+		return stuProfileRepo.findByStudent_stuId(stuId)
 				.orElseThrow(() -> new StudentProfileNotFoundException(stuId));
 	}
 
 	public List<StudentProfile> getStudentProfileListByFilters(
 			Optional<Integer> stuId, 
-			String stuNo,
+			String stuPhoneNumber,
 			String parentName1, 
-			String parentName2,
-			String email1) {
+			String email1,
+			String parentPhoneNumber1,
+			String parentName2) {
 		
 		List<String> ignoredProperties = new ArrayList<>();
 		StudentProfile studentProfile = new StudentProfile();
@@ -52,10 +56,12 @@ public class StudentProfileService {
 		}else {
 			studentProfile.setStuId(stuId.get());
 		}
-		studentProfile.setStuNo(stuNo);
+		studentProfile.setStuPhoneNumber(stuPhoneNumber);
 		studentProfile.setParentName1(parentName1);
-		studentProfile.setParentName2(parentName2);
 		studentProfile.setEmail1(email1);
+		studentProfile.setParentPhoneNumber1(parentPhoneNumber1);
+		studentProfile.setParentName2(parentName2);
+		
 		
 		LOGGER.debug("searched student profile:" + studentProfile);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
@@ -72,20 +78,24 @@ public class StudentProfileService {
 	public List<StudentProfile> getStudentProfileListByFiltersStr() {
 		JSONObject obj = new JSONObject();
 		obj.put("stuId", "1");
-		obj.put("stuNo", "stu001");
+		obj.put("stuPhoneNumber", "514-123-4567");
 		obj.put("parentName1", "parent101");
-		obj.put("parentName2", "parent201");
 		obj.put("email1", "parent101@gmail.com");
+		obj.put("parentPhoneNumber1", "514-321-7654");
+		obj.put("parentName2", "parent201");
+		
 		
 		String filterStr = obj.toString();
 		JSONObject jobj = new JSONObject(filterStr);
 		
 		List<String> ignoredProperties = new ArrayList<>();
 		String stuIdStr = jobj.getString("stuId").trim();
-		String stuNo = jobj.getString("stuNo").trim();
+		String stuPhoneNumber = jobj.getString("stuPhoneNumber").trim();
 		String parentName1 = jobj.getString("parentName1").trim();
-		String parentName2 = jobj.getString("parentName2").trim();
 		String email1 = jobj.getString("email1").trim();
+		String parentPhoneNumber1 = jobj.getString("parentPhoneNumber1").trim();
+		String parentName2 = jobj.getString("parentName2").trim();
+		
 		
 		StudentProfile studentProfile = new StudentProfile();
 		if (GlobalValidationUtils.isEmptyStr(stuIdStr)) {
@@ -94,10 +104,10 @@ public class StudentProfileService {
 			studentProfile.setStuId(Integer.valueOf(stuIdStr));
 		}
 		
-		if (GlobalValidationUtils.isEmptyStr(stuNo)) {
-			ignoredProperties.add("stuNo");
+		if (GlobalValidationUtils.isEmptyStr(stuPhoneNumber)) {
+			ignoredProperties.add("stuPhoneNumber");
 		}else {
-			studentProfile.setStuNo(stuNo);
+			studentProfile.setStuPhoneNumber(stuPhoneNumber);
 		}
 		
 		if (GlobalValidationUtils.isEmptyStr(parentName1)) {
@@ -106,16 +116,22 @@ public class StudentProfileService {
 			studentProfile.setParentName1(parentName1);
 		}
 		
-		if (GlobalValidationUtils.isEmptyStr(parentName2)) {
-			ignoredProperties.add("parentName2");
-		}else {
-			studentProfile.setParentName2(parentName2);
-		}
-		
 		if (GlobalValidationUtils.isEmptyStr(email1)) {
 			ignoredProperties.add("email1");
 		}else {
 			studentProfile.setEmail1(email1);
+		}
+		
+		if (GlobalValidationUtils.isEmptyStr(parentPhoneNumber1)) {
+			ignoredProperties.add("parentPhoneNumber1");
+		}else {
+			studentProfile.setParentPhoneNumber1(parentPhoneNumber1);
+		}
+		
+		if (GlobalValidationUtils.isEmptyStr(parentName2)) {
+			ignoredProperties.add("parentName2");
+		}else {
+			studentProfile.setParentName2(parentName2);
 		}
 		
 		LOGGER.debug("searched student profile:" + studentProfile);
@@ -130,20 +146,20 @@ public class StudentProfileService {
 	}
 	
 	public ResponseEntity<StudentProfile> createStudentProfile(StudentProfile studentProfile){
-		checkStudentAlreadyExistsException(studentProfile);
+		checkStudentAlreadyExistsException(studentProfile.getStudent().getStuId());
 		
 		LOGGER.debug("creating student profile:" + studentProfile);
 		return new ResponseEntity<>(stuProfileRepo.save(studentProfile), HttpStatus.CREATED);
 	}
 	
 	public ResponseEntity<StudentProfile> updateStudentProfile(StudentProfile studentProfile){
-		checkStudentProfileNotFoundExcpetion(studentProfile);
+		checkStudentProfileNotFoundExcpetion(studentProfile.getStudent().getStuId());
 		
 		return new ResponseEntity<>(stuProfileRepo.save(studentProfile), HttpStatus.OK);
 	}
 
 	public ResponseEntity<String> deleteStudentProfile(StudentProfile studentProfile){
-		checkStudentProfileNotFoundExcpetion(studentProfile);
+		checkStudentProfileNotFoundExcpetion(studentProfile.getStudent().getStuId());
 		
 		stuProfileRepo.delete(studentProfile);
 		return ResponseEntity.ok("Delete student profile " + studentProfile + " successfully!");
@@ -152,14 +168,9 @@ public class StudentProfileService {
 	public ResponseEntity<String> deleteStudentProfileById(Integer stuId){
 		checkStudentProfileNotFoundExcpetion(stuId);
 		
-		stuProfileRepo.deleteById(stuId);
+		StudentProfile studentProfile = getStudentProfileByStuId(stuId);
+		stuProfileRepo.delete(studentProfile);
 		return ResponseEntity.ok("Delete student profile " + stuId + " successfully!");
-	}
-	
-	private void checkStudentProfileNotFoundExcpetion(StudentProfile studentProfile) {
-		if (! stuProfileRepo.existsById(studentProfile.getStuId())) {
-			throw new StudentProfileNotFoundException(studentProfile);
-		}
 	}
 	
 	private void checkStudentProfileNotFoundExcpetion(Integer stuId) {
@@ -168,11 +179,10 @@ public class StudentProfileService {
 		}
 	}
 	
-	private void checkStudentAlreadyExistsException(StudentProfile studentProfile) {
-		LOGGER.debug("checking whether student profile already exists:" + studentProfile);
-		int stuId = studentProfile.getStuId();
+	
+	private void checkStudentAlreadyExistsException(Integer stuId) {
 		if (stuProfileRepo.existsById(stuId)) {
-			throw new StudentProfileAlreadyExistsException(studentProfile);
+			throw new StudentProfileAlreadyExistsException(stuId);
 		}
 	}
 	

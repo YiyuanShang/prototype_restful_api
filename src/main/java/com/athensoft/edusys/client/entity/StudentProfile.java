@@ -19,38 +19,42 @@ import javax.persistence.Table;
 public class StudentProfile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer stuId = -1;
-
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	private Integer stuId;
+	
+	@OneToOne
 	@PrimaryKeyJoinColumn(name = "stu_id", referencedColumnName = "stu_id")
 	private Student student;
-
-	@Column(name = "stu_no")
-	private String stuNo;
+	
+	private String stuPhoneNumber;
 
 	@Column(name = "parentname_1")
 	private String parentName1;
 
-	@Column(name = "parentname_2")
-	private String parentName2;
-
 	@Column(name = "email_1")
 	private String email1;
+	
+	private String parentPhoneNumber1;
+
+	@Column(name = "parentname_2")
+	private String parentName2;
 
 	public StudentProfile() {
 	}
 
-	public StudentProfile(Student student, String parentName1, String parentName2, String email1) {
+	public StudentProfile(Student student, String stuPhoneNumber, String parentName1, String email1,
+			String parentPhoneNumber1, String parentName2) {
 		super();
 		this.stuId = student.getStuId();
-		this.stuNo = student.getStuNo();
 		this.student = student;
+		this.stuPhoneNumber = stuPhoneNumber;
 		this.parentName1 = parentName1;
-		this.parentName2 = parentName2;
 		this.email1 = email1;
+		this.parentPhoneNumber1 = parentPhoneNumber1;
+		this.parentName2 = parentName2;
 	}
 
-	public int getStuId() {
+	
+	public Integer getStuId() {
 		return stuId;
 	}
 
@@ -66,20 +70,20 @@ public class StudentProfile {
 		this.student = student;
 	}
 
+	public String getStuPhoneNumber() {
+		return stuPhoneNumber;
+	}
+
+	public void setStuPhoneNumber(String stuPhoneNumber) {
+		this.stuPhoneNumber = stuPhoneNumber;
+	}
+
 	public String getParentName1() {
 		return parentName1;
 	}
 
 	public void setParentName1(String parentName1) {
 		this.parentName1 = parentName1;
-	}
-
-	public String getParentName2() {
-		return parentName2;
-	}
-
-	public void setParentName2(String parentName2) {
-		this.parentName2 = parentName2;
 	}
 
 	public String getEmail1() {
@@ -90,20 +94,30 @@ public class StudentProfile {
 		this.email1 = email1;
 	}
 
-	public String getStuNo() {
-		return stuNo;
+	public String getParentPhoneNumber1() {
+		return parentPhoneNumber1;
 	}
 
-	public void setStuNo(String stuNo) {
-		this.stuNo = stuNo;
+	public void setParentPhoneNumber1(String parentPhoneNumber1) {
+		this.parentPhoneNumber1 = parentPhoneNumber1;
+	}
+
+	public String getParentName2() {
+		return parentName2;
+	}
+
+	public void setParentName2(String parentName2) {
+		this.parentName2 = parentName2;
 	}
 
 	@Override
 	public String toString() {
-		return "StudentProfile [stuId=" + stuId + ", student=" + student + ", stuNo=" + stuNo + ", parentName1="
-				+ parentName1 + ", parentName2=" + parentName2 + ", email1=" + email1 + "]";
+		return "StudentProfile [student=" + student + ", stuPhoneNumber=" + stuPhoneNumber + ", parentName1="
+				+ parentName1 + ", email1=" + email1 + ", parentPhoneNumber1=" + parentPhoneNumber1 + ", parentName2="
+				+ parentName2 + "]";
 	}
 
+	
 	
 
 }
