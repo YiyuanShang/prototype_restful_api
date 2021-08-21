@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.academic.entity.AssignmentRecord;
+import com.athensoft.edusys.academic.entity.SessionInstructorEntry;
 import com.athensoft.edusys.academic.entity.TopicRecord;
 import com.athensoft.edusys.academic.entity.TopicRecordEntry;
 import com.athensoft.edusys.academic.service.AcademicSessionService;
 import com.athensoft.edusys.academic.service.AssignmentRecordService;
+import com.athensoft.edusys.academic.service.SessionInstructorEntryService;
 import com.athensoft.edusys.academic.service.TopicRecordService;
 
 @RestController
@@ -29,11 +31,16 @@ public class AcademicSessionController {
 
 	private final TopicRecordService topicRecordService;
 	private final AssignmentRecordService assignmentRecordService;
+	private final SessionInstructorEntryService sessionInstructorEntryService;
 
-	public AcademicSessionController(AcademicSessionService acdSessionService, TopicRecordService topicRecordService, AssignmentRecordService assignmentRecordService) {
+	public AcademicSessionController(AcademicSessionService acdSessionService, 
+			TopicRecordService topicRecordService, 
+			AssignmentRecordService assignmentRecordService,
+			SessionInstructorEntryService sessionInstructorEntryService) {
 		this.acdSessionService = acdSessionService;
 		this.topicRecordService = topicRecordService;
 		this.assignmentRecordService = assignmentRecordService;
+		this.sessionInstructorEntryService = sessionInstructorEntryService;
 	}
 
 	@GetMapping("/acdSessions")
@@ -49,6 +56,11 @@ public class AcademicSessionController {
 	@GetMapping("/acdSessions/{sessionId}/topicRecord")
 	public ResponseEntity<TopicRecord> getDataTopicRecord(@PathVariable Integer sessionId) {
 		return ResponseEntity.ok(topicRecordService.getTopicRecordBySessionId(sessionId));
+	}
+	
+	@GetMapping("/acdSessions/{sessionId}/instructors")
+	public ResponseEntity<List<SessionInstructorEntry>> getDataListSessionInstructorEntry(@PathVariable Integer sessionId){
+		return ResponseEntity.ok(sessionInstructorEntryService.getSessionInstructorEntryListBySessionId(sessionId));
 	}
 
 	@PostMapping(value = "/acdSessions", consumes = "application/json")

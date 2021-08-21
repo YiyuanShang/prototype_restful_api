@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.athensoft.edusys.academic.entity.SessionInstructorEntry;
+import com.athensoft.edusys.academic.service.SessionInstructorEntryService;
 import com.athensoft.edusys.hr.entity.Employee;
 import com.athensoft.edusys.hr.service.EmployeeService;
 
@@ -25,8 +27,11 @@ import com.athensoft.edusys.hr.service.EmployeeService;
 public class EmployeeController {
 	private final EmployeeService empService;
 	
-	public EmployeeController(EmployeeService empService) {
+	private final SessionInstructorEntryService sessionInstructorEntryService;
+	
+	public EmployeeController(EmployeeService empService, SessionInstructorEntryService sessionInstructorEntryService) {
 		this.empService = empService;
+		this.sessionInstructorEntryService = sessionInstructorEntryService;
 	}
 	
 	@GetMapping("/employees")
@@ -35,7 +40,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/employees/{empId}")
-	public ResponseEntity<Employee> getDateById(@PathVariable int empId){
+	public ResponseEntity<Employee> getDateById(@PathVariable Integer empId){
 		return ResponseEntity.ok(empService.getEmployeeById(empId));
 	}
 	
@@ -58,6 +63,11 @@ public class EmployeeController {
 		return ResponseEntity.ok(empService.getEmployeeListByFiltersStr());
 	}
 	
+	@GetMapping("/employees/{empId}/sessions")
+	public ResponseEntity<List<SessionInstructorEntry>> getDataListSessionInstructorEntry(@PathVariable Integer empId){
+		return ResponseEntity.ok(sessionInstructorEntryService.getSessionInstructorEntryListByEmpId(empId));
+	}
+	
 	@PostMapping("/employees")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
 		return empService.createEmloyee(employee);
@@ -74,7 +84,7 @@ public class EmployeeController {
 	}
 	
 	@DeleteMapping("/employees/{empId}")
-	public ResponseEntity<String> deleteEmployeeById(@PathVariable int empId){
+	public ResponseEntity<String> deleteEmployeeById(@PathVariable Integer empId){
 		return empService.deleteEmployeeById(empId);
 	}
 }
