@@ -51,7 +51,8 @@ public class EmployeeService {
 			Optional<Integer> empType,
 			Date hireDate,
 			Date expiryDate,
-			Optional<Integer> roleType){
+			Optional<Integer> roleType,
+			String phoneNumber){
 		
 		List<String> ignoredProperties = new ArrayList<>();
 		Employee employee = new Employee();
@@ -77,6 +78,7 @@ public class EmployeeService {
 		employee.setEmail(email);
 		employee.setHireDate(hireDate);
 		employee.setExpiryDate(expiryDate);
+		employee.setPhoneNumber(phoneNumber);
 		
 		LOGGER.debug("searched employee:" + employee);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
@@ -99,6 +101,7 @@ public class EmployeeService {
 		obj.put("hireDate", "2018-01-01");
 		obj.put("expiryDate", "2019-12-31");
 		obj.put("roleType", "1");
+		obj.put("phoneNumber", "514-123-4567");
 		String filterStr = obj.toString();
 		JSONObject jobj = new JSONObject(filterStr);
 		
@@ -112,6 +115,7 @@ public class EmployeeService {
 		String hireDateStr = jobj.getString("hireDate").trim();
 		String expiryDateStr = jobj.getString("expiryDate").trim();
 		String roleTypeStr = jobj.getString("roleType").trim();
+		String phoneNumber = jobj.getString("phoneNumber").trim();
 		
 		Employee employee = new Employee();
 		if (GlobalValidationUtils.isEmptyStr(empIdStr)) {
@@ -158,11 +162,10 @@ public class EmployeeService {
 			employee.setHireDate(hireDate);
 		}
 		
-		if (GlobalValidationUtils.isEmptyStr(expiryDateStr)) {
-			ignoredProperties.add("expiryDate");
+		if (GlobalValidationUtils.isEmptyStr(phoneNumber)) {
+			ignoredProperties.add("phoneNumber");
 		}else {
-			Date expiryDate = new SimpleDateFormat("yyyy-MM-dd").parse(expiryDateStr);
-			employee.setExpiryDate(expiryDate);
+			employee.setPhoneNumber(phoneNumber);
 		}
 		
 //		if (GlobalValidationUtils.isEmptyStr(roleTypeStr)) {
@@ -172,6 +175,12 @@ public class EmployeeService {
 //			employee.setRoleType(roleType);
 //		}
 		
+		if (GlobalValidationUtils.isEmptyStr(expiryDateStr)) {
+			ignoredProperties.add("expiryDate");
+		}else {
+			Date expiryDate = new SimpleDateFormat("yyyy-MM-dd").parse(expiryDateStr);
+			employee.setExpiryDate(expiryDate);
+		}
 		LOGGER.debug("searched employee:" + employee);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll();
 		if (!ignoredProperties.isEmpty()) {

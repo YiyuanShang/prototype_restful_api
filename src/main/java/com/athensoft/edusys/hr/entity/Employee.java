@@ -51,11 +51,13 @@ public class Employee {
 //	
 //	@Enumerated(EnumType.ORDINAL)
 //	protected RoleType roleType;
+	
+	private String phoneNumber;
 
 	public Employee() {}
 	
 	public Employee(Integer empId, String empCode, String empFirstName, String empLastName, String email,
-			EmployeeType empType, Date hireDate, Date expiryDate) {
+			EmployeeType empType, Date hireDate, Date expiryDate, String phoneNumber) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
@@ -65,6 +67,7 @@ public class Employee {
 		this.empType = empType;
 		this.hireDate = hireDate;
 		this.expiryDate = expiryDate;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Integer getEmpId() {
@@ -131,12 +134,22 @@ public class Employee {
 		this.expiryDate = expiryDate;
 	}
 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", empCode=" + empCode + ", empFirstName=" + empFirstName + ", empLastName="
 				+ empLastName + ", email=" + email + ", empType=" + empType + ", hireDate=" + hireDate + ", expiryDate="
-				+ expiryDate + "]";
+				+ expiryDate + ", phoneNumber=" + phoneNumber + "]";
 	}
+
+	
 
 //	public RoleType getRoleType() {
 //		return roleType;

@@ -54,8 +54,9 @@ public class EmployeeController {
 			@RequestParam(name = "empType") Optional<Integer> empType,
 			@RequestParam(name = "hireDate", required = false) Date hireDate,
 			@RequestParam(name = "expiryDate", required = false) Date expiryDate,
-			@RequestParam(name = "roleType") Optional<Integer> roleType){
-		return ResponseEntity.ok(empService.getEmployeeListByFilters(empId, empCode, empFirstName, empLastName, email, empType, hireDate, expiryDate, roleType));
+			@RequestParam(name = "roleType") Optional<Integer> roleType,
+			@RequestParam(name = "phoneNumber", required = false) String phoneNumber){
+		return ResponseEntity.ok(empService.getEmployeeListByFilters(empId, empCode, empFirstName, empLastName, email, empType, hireDate, expiryDate, roleType, phoneNumber));
 	}
 
 	@GetMapping("/employees/filtersStr")
