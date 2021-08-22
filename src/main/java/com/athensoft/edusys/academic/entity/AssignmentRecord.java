@@ -38,6 +38,12 @@ public class AssignmentRecord {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "duedate")
 	private Date dueDate;
+	
+	@Column(name = "received_notice_number")
+	private Integer numReceivedNotice;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private AssignmentRecordStatus assgmtRecordStatus;
 
 //	@ManyToMany(targetEntity = Question.class)
 //	@JoinTable(name = "acd_rel_assgmt_question", 
@@ -45,26 +51,6 @@ public class AssignmentRecord {
 //    inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "question_id"))
 //	private List<Question> questions;
 
-	public AssignmentRecord() {
-	}
-
-	public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate) {
-		super();
-		this.assgmtRecordId = assgmtRecordId;
-		this.assgmtType = assgmtType;
-		this.issueDate = issueDate;
-		this.dueDate = dueDate;
-	}
-
-//	public AssignmentRecord(Integer assgmtRecordId, AssignmentType assgmtType, Date issueDate, Date dueDate,
-//			List<Question> questions) {
-//		super();
-//		this.assgmtRecordId = assgmtRecordId;
-//		this.assgmtType = assgmtType;
-//		this.issueDate = issueDate;
-//		this.dueDate = dueDate;
-//		this.questions = questions;
-//	}
 
 	public Integer getAssgmtRecordId() {
 		return assgmtRecordId;
@@ -98,11 +84,30 @@ public class AssignmentRecord {
 		this.dueDate = dueDate;
 	}
 
+	public Integer getNumReceivedNotice() {
+		return numReceivedNotice;
+	}
+
+	public void setNumReceivedNotice(Integer numReceivedNotice) {
+		this.numReceivedNotice = numReceivedNotice;
+	}
+
+	public AssignmentRecordStatus getAssgmtRecordStatus() {
+		return assgmtRecordStatus;
+	}
+
+	public void setAssgmtRecordStatus(AssignmentRecordStatus assgmtRecordStatus) {
+		this.assgmtRecordStatus = assgmtRecordStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "AssignmentRecord [assgmtRecordId=" + assgmtRecordId + ", assgmtType=" + assgmtType + ", issueDate="
-				+ issueDate + ", dueDate=" + dueDate + "]";
+				+ issueDate + ", dueDate=" + dueDate + ", numReceivedNotice=" + numReceivedNotice
+				+ ", assgmtRecordStatus=" + assgmtRecordStatus + "]";
 	}
+
+	
 
 //	public List<Question> getQuestions() {
 //		return questions;
@@ -112,10 +117,6 @@ public class AssignmentRecord {
 //		this.questions = questions;
 //	}
 //
-//	@Override
-//	public String toString() {
-//		return "AssignmentRecord [assgmtRecordId=" + assgmtRecordId + ", assgmtType=" + assgmtType + ", issueDate="
-//				+ issueDate + ", dueDate=" + dueDate + ", questions=" + questions + "]";
-//	}
+
 
 }

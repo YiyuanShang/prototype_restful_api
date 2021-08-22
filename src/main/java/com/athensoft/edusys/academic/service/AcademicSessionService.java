@@ -43,7 +43,7 @@ public class AcademicSessionService {
 		AcademicSession createdSession = acdSessionRepo.save(session);
 		
 		// create topic record
-//		createdSession.setTopicRecord(topicRecordService.createTopicRecord(createdSession));
+		createdSession.setTopicRecord(topicRecordService.createTopicRecord(createdSession));
 		
 		// create assignment record
 		createdSession.setAssignmentRecord(assgmtRecordService.createAssignmentRecord(createdSession));

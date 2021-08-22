@@ -13,6 +13,7 @@ import com.athensoft.edusys.academic.dao.TopicRecordRepository;
 import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.academic.entity.TopicRecord;
 import com.athensoft.edusys.academic.entity.TopicRecordEntry;
+import com.athensoft.edusys.academic.entity.TopicRecordStatus;
 import com.athensoft.edusys.error.exceptions.TopicAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.TopicRecordNotFoundException;
 
@@ -37,15 +38,12 @@ public class TopicRecordService {
 		
 		TopicRecord topicRecord = new TopicRecord();
 		topicRecord.setDeliveredSession(session);
+		topicRecord.setNumReceivedNotice(0);
+		topicRecord.setTopicRecordStatus(TopicRecordStatus.CREATED);
 		
 		LOGGER.debug("creating topic record:" + topicRecord);
 		topicRecord = topicRecordRepo.save(topicRecord);
 		LOGGER.debug("created topic record:" + topicRecord);
-		
-		
-//		session.setTopicRecord(topicRecord);
-//		LOGGER.debug("updating deliveredSession:" + session);
-//		sessionService.updateAcademicSession(session);
 		
 		return topicRecord;
 	}

@@ -18,7 +18,7 @@ public interface AssignmentRecordRepository extends JpaRepository<AssignmentReco
 
 	@Transactional
 	@Modifying(flushAutomatically = true, clearAutomatically = true)
-	@Query(value = "INSERT INTO acd_asgmt_record (session_id) VALUES(:sessionId) ", nativeQuery = true)
+	@Query(value = "INSERT INTO acd_asgmt_record (session_id, received_notice_number, assgmt_record_status) VALUES(:sessionId, 0, 0) ", nativeQuery = true)
 	int createAssignmentRecord(@Param("sessionId") Integer sessionId);
 	
 }

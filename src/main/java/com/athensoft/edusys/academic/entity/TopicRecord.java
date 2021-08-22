@@ -46,14 +46,11 @@ public class TopicRecord {
 	@JsonBackReference
 	AcademicSession deliveredSession;
 	
-	public TopicRecord() {}
-	public TopicRecord(Integer topicRecordId, List<TopicRecordEntry> topicRecordEntries,
-			AcademicSession deliveredSession) {
-		super();
-		this.topicRecordId = topicRecordId;
-		this.topicRecordEntries = topicRecordEntries;
-		this.deliveredSession = deliveredSession;
-	}
+	@Column(name = "received_notice_number")
+	private Integer numReceivedNotice;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private TopicRecordStatus topicRecordStatus;
 
 	public List<TopicRecordEntry> getTopicRecordEntries() {
 		return topicRecordEntries;
@@ -78,11 +75,31 @@ public class TopicRecord {
 	public void setTopicRecordId(Integer topicRecordId) {
 		this.topicRecordId = topicRecordId;
 	}
+	
+	
+	public Integer getNumReceivedNotice() {
+		return numReceivedNotice;
+	}
+
+	public void setNumReceivedNotice(Integer numReceivedNotice) {
+		this.numReceivedNotice = numReceivedNotice;
+	}
+
+	public TopicRecordStatus getTopicRecordStatus() {
+		return topicRecordStatus;
+	}
+
+	public void setTopicRecordStatus(TopicRecordStatus topicRecordStatus) {
+		this.topicRecordStatus = topicRecordStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "TopicRecord [topicRecordId=" + topicRecordId + ", topicRecordEntries=" + topicRecordEntries
-				+ ", sessionId=" + deliveredSession.getSessionId() + "]";
+				+ ", deliveredSession=" + deliveredSession.getSessionId() + ", numReceivedNotice=" + numReceivedNotice
+				+ ", topicRecordStatus=" + topicRecordStatus + "]";
 	}
+
 	
 	
 	

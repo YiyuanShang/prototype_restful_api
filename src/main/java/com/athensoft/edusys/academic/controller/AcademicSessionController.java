@@ -66,8 +66,7 @@ public class AcademicSessionController {
 	@PostMapping(value = "/acdSessions", consumes = "application/json")
 	public ResponseEntity<AcademicSession> createAcademicSession(@RequestBody AcademicSession session) {
 		LOGGER.debug("entering createAcademicSession session:" + session);
-		return null;
-//		return acdSessionService.createAcademicSession(session);
+		return acdSessionService.createAcademicSession(session);
 	}
 
 //	@PutMapping("/acdSessions/{sessionId}/topicRecord")
