@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.athensoft.edusys.academic.dao.AcademicSessionRepository;
 import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.academic.entity.TopicRecord;
+import com.athensoft.edusys.admin.service.DeliveryRecordService;
 import com.athensoft.edusys.error.exceptions.AcademicSessionAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.AcademicSessionNotFoundException;
 
@@ -21,11 +22,16 @@ public class AcademicSessionService {
 	
 	private final TopicRecordService topicRecordService;
 	private final AssignmentRecordService assgmtRecordService;
+	private final DeliveryRecordService deliveryRecordService;
 	
-	public AcademicSessionService(AcademicSessionRepository acdSessionRepo, TopicRecordService topicRecordService, AssignmentRecordService assgmtRecordService) {
+	public AcademicSessionService(AcademicSessionRepository acdSessionRepo, 
+			TopicRecordService topicRecordService, 
+			AssignmentRecordService assgmtRecordService, 
+			DeliveryRecordService deliveryRecordService) {
 		this.acdSessionRepo = acdSessionRepo;
 		this.topicRecordService = topicRecordService;
 		this.assgmtRecordService = assgmtRecordService;
+		this.deliveryRecordService = deliveryRecordService;
 	}
 	
 	public List<AcademicSession> getAcademicSessionList(){
@@ -47,6 +53,9 @@ public class AcademicSessionService {
 		
 		// create assignment record
 		createdSession.setAssignmentRecord(assgmtRecordService.createAssignmentRecord(createdSession));
+		
+		// create delivery record
+		createdSession.setDeliveryRecord(deliveryRecordService.createDeliveryRecord(createdSession));
 		
 		return new ResponseEntity<>(createdSession, HttpStatus.CREATED);
 	}

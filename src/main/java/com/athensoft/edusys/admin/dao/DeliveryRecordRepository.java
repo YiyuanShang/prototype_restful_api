@@ -8,4 +8,6 @@ import com.athensoft.edusys.admin.entity.DeliveryRecord;
 
 public interface DeliveryRecordRepository extends JpaRepository<DeliveryRecord, Integer>{
 	Optional<DeliveryRecord> findByDeliveredSession_sessionId(Integer sessionId);
+	
+	boolean existsByDeliveredSession_sessionId(Integer sessionId);
 }
