@@ -70,7 +70,7 @@ public class AcademicSessionController {
 	}
 
 //	@PutMapping("/acdSessions/{sessionId}/topicRecord")
-//	public ResponseEntity<TopicRecord> addTopicRecordToAcademicSession(@PathVariable Integer sessionId,
+//	public ResponseEntity<TopicRecord> updateTopicRecordInAcademicSession(@PathVariable Integer sessionId,
 //			@RequestBody List<TopicRecordEntry> topicRecordEntries) {
 //		LOGGER.debug("entering addTopicRecordToAcademicSession");
 //		return topicRecordService.updateTopicRecord(sessionId, topicRecordEntries);

@@ -26,6 +26,7 @@ import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.athensoft.edusys.admin.entity.AttendanceRecord;
 import com.athensoft.edusys.admin.entity.DeliveryRecord;
@@ -85,6 +86,7 @@ public class AcademicSession implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private Date endTime;
 
+	@Transient
 	private Float duration;
 
 	@Enumerated(EnumType.ORDINAL)

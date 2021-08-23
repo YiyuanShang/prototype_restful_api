@@ -1,5 +1,5 @@
 package com.athensoft.edusys.hr.entity;
 
-public enum EmployeeType {
+public enum EmploymentType {
 	UNKNOWN, COMMISSION, FULL_TIME, PART_TIME, CONTRACTOR_COMMISSION, CONTRACTOR_FULL_TIME, CONTRACTOR_PART_TIME;
 }

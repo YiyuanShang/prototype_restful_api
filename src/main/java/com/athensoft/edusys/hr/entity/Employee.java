@@ -11,53 +11,52 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 @Table(name = "hr_employee")
-@Inheritance
-@DiscriminatorColumn(name = "role_type")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "emp_id")
+	@Column(name = "emp_id", nullable = false)
 	protected Integer empId = -1;
-	
+
 	@Column(name = "emp_code", unique = true, nullable = false)
 	protected String empCode;
-	
+
 	@Column(name = "emp_firstname", nullable = false)
 	protected String empFirstName;
-	
+
 	@Column(name = "emp_lastname", nullable = false)
 	protected String empLastName;
-	
-	@Column(name = "email")
+
 	protected String email;
-	
+
 	@Enumerated(EnumType.ORDINAL)
-	protected EmployeeType empType;
-	
+	protected EmploymentType empType;
+
 	@Column(name = "hiredate")
 	@Temporal(TemporalType.DATE)
 	protected Date hireDate;
-	
+
 	@Column(name = "expirydate")
 	@Temporal(TemporalType.DATE)
 	protected Date expiryDate;
-//	
-//	@Enumerated(EnumType.ORDINAL)
-//	protected RoleType roleType;
-	
+
+	@Enumerated(EnumType.ORDINAL)
+	protected RoleType roleType;
+
 	private String phoneNumber;
 
-	public Employee() {}
-	
+	public Employee() {
+	}
+
 	public Employee(Integer empId, String empCode, String empFirstName, String empLastName, String email,
-			EmployeeType empType, Date hireDate, Date expiryDate, String phoneNumber) {
+			EmploymentType empType, Date hireDate, Date expiryDate, String phoneNumber) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
@@ -110,11 +109,11 @@ public class Employee {
 		this.email = email;
 	}
 
-	public EmployeeType getEmpType() {
+	public EmploymentType getEmpType() {
 		return empType;
 	}
 
-	public void setEmpType(EmployeeType empType) {
+	public void setEmpType(EmploymentType empType) {
 		this.empType = empType;
 	}
 
@@ -142,6 +141,14 @@ public class Employee {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public RoleType getRoleType() {
+		return roleType;
+	}
+
+	public void setRoleType(RoleType roleType) {
+		this.roleType = roleType;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", empCode=" + empCode + ", empFirstName=" + empFirstName + ", empLastName="
@@ -149,17 +156,4 @@ public class Employee {
 				+ expiryDate + ", phoneNumber=" + phoneNumber + "]";
 	}
 
-	
-
-//	public RoleType getRoleType() {
-//		return roleType;
-//	}
-//
-//	public void setRoleType(RoleType roleType) {
-//		this.roleType = roleType;
-//	}
-
-	
-	
-	
 }

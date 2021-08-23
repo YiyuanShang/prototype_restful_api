@@ -20,7 +20,7 @@ import com.athensoft.edusys.error.exceptions.EmployeeAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.EmployeeNotFoundException;
 import com.athensoft.edusys.hr.dao.EmployeeRepository;
 import com.athensoft.edusys.hr.entity.Employee;
-import com.athensoft.edusys.hr.entity.EmployeeType;
+import com.athensoft.edusys.hr.entity.EmploymentType;
 import com.athensoft.edusys.hr.entity.RoleType;
 import com.athensoft.edusys.utils.validation.GlobalValidationUtils;
 
@@ -64,7 +64,7 @@ public class EmployeeService {
 		if(empType.isEmpty()) {
 			ignoredProperties.add("empType");
 		}else {
-			employee.setEmpType(EmployeeType.values()[empType.get()]);
+			employee.setEmpType(EmploymentType.values()[empType.get()]);
 		}
 //		if(roleType.isEmpty()) {
 //			ignoredProperties.add("roleType");
@@ -151,7 +151,7 @@ public class EmployeeService {
 		if (GlobalValidationUtils.isEmptyStr(empTypeStr)) {
 			ignoredProperties.add("empType");
 		}else {
-			EmployeeType empType = EmployeeType.values()[Integer.valueOf(empTypeStr)];
+			EmploymentType empType = EmploymentType.values()[Integer.valueOf(empTypeStr)];
 			employee.setEmpType(empType);
 		}
 		
