@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -17,79 +20,55 @@ import javax.persistence.Table;
 
 import com.athensoft.edusys.academic.entity.AcademicSession;
 import com.athensoft.edusys.hr.entity.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Embeddable
-public class DeliveryRecordEntry implements Serializable{
-	private static final long serialVersionUID = 1053151989709424903L;
+@Entity
+@Table(name = "admin_delivery_record_entry")
+public class DeliveryRecordEntry {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer entryId = -1;
 	
-//	@OneToOne(targetEntity = AcademicSession.class)
-	@ManyToOne
-//	@MapsId("sessionId")
-	@JoinColumn(name = "session_id")
-	private AcademicSession session;
+	@Column(name = "delivery_record_id", nullable = false)
+	@JsonIgnore
+	private Integer deliveryRecordId;
 	
-	@ManyToOne
-//	@MapsId("empId")
-	@JoinColumn(name = "emp_id")
-//	@OneToOne(targetEntity = Employee.class)
-	private Employee instructor;
-	
-	
-	public DeliveryRecordEntry() {}
-	
-	
+	@Column(nullable = false)
+	private Integer empId;
 
-	public DeliveryRecordEntry(Employee instructor) {
-		super();
-		this.instructor = instructor;
+	public Integer getEntryId() {
+		return entryId;
 	}
 
-
-	public Employee getInstructor() {
-		return instructor;
+	public void setEntryId(Integer entryId) {
+		this.entryId = entryId;
 	}
 
-	public void setInstructor(Employee instructor) {
-		this.instructor = instructor;
+	public Integer getDeliveryRecordId() {
+		return deliveryRecordId;
 	}
 
-	
+	public void setDeliveryRecordId(Integer deliveryRecordId) {
+		this.deliveryRecordId = deliveryRecordId;
+	}
+
+	public Integer getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
 
 	@Override
 	public String toString() {
-		return "DeliveryRecordEntry [instructor=" + instructor + "]";
+		return "DeliveryRecordEntry [entryId=" + entryId + ", deliveryRecordId=" + deliveryRecordId + ", empId=" + empId
+				+ "]";
 	}
-
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((instructor == null) ? 0 : instructor.hashCode());
-		return result;
-	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DeliveryRecordEntry other = (DeliveryRecordEntry) obj;
-		if (instructor == null) {
-			if (other.instructor != null)
-				return false;
-		} else if (!instructor.equals(other.instructor))
-			return false;
-		return true;
-	}
-
-
+	
+	
+	
+	
 
 	
 	

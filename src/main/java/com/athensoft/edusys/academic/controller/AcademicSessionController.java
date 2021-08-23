@@ -22,6 +22,8 @@ import com.athensoft.edusys.academic.service.AcademicSessionService;
 import com.athensoft.edusys.academic.service.AssignmentRecordService;
 import com.athensoft.edusys.academic.service.SessionInstructorEntryService;
 import com.athensoft.edusys.academic.service.TopicRecordService;
+import com.athensoft.edusys.admin.entity.DeliveryRecord;
+import com.athensoft.edusys.admin.service.DeliveryRecordService;
 
 @RestController
 @RequestMapping("/edusys/academic")
@@ -31,15 +33,18 @@ public class AcademicSessionController {
 
 	private final TopicRecordService topicRecordService;
 	private final AssignmentRecordService assignmentRecordService;
+	private final DeliveryRecordService deliveryRecordService;
 	private final SessionInstructorEntryService sessionInstructorEntryService;
 
 	public AcademicSessionController(AcademicSessionService acdSessionService, 
 			TopicRecordService topicRecordService, 
 			AssignmentRecordService assignmentRecordService,
+			DeliveryRecordService deliveryRecordService,
 			SessionInstructorEntryService sessionInstructorEntryService) {
 		this.acdSessionService = acdSessionService;
 		this.topicRecordService = topicRecordService;
 		this.assignmentRecordService = assignmentRecordService;
+		this.deliveryRecordService = deliveryRecordService;
 		this.sessionInstructorEntryService = sessionInstructorEntryService;
 	}
 
@@ -51,6 +56,11 @@ public class AcademicSessionController {
 	@GetMapping("/acdSessions/{sessionId}")
 	public ResponseEntity<AcademicSession> getDataAcademicSession(@PathVariable Integer sessionId) {
 		return ResponseEntity.ok(acdSessionService.getAcademicSessionById(sessionId));
+	}
+	
+	@GetMapping("/acdSessions/{sessionId}/deliveryRecord")
+	public ResponseEntity<DeliveryRecord> getDataDeliveryRecord(@PathVariable Integer sessionId){
+		return ResponseEntity.ok(deliveryRecordService.getDeliveryRecordBySessionId(sessionId));
 	}
 
 	@GetMapping("/acdSessions/{sessionId}/topicRecord")

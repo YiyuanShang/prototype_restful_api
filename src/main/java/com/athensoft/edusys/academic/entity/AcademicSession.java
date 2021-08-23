@@ -57,13 +57,9 @@ public class AcademicSession implements Serializable {
 	@JoinColumn(name = "session_id")
 	private AssignmentRecord assignmentRecord;
 
-//	@OneToOne(targetEntity = DeliveryRecord.class)
-////	@AttributeOverrides({
-////        @AttributeOverride(name="deliveredSession", column=@Column(name="session_id", table="admin_delivery_record"))
-////    })
-//	@JoinTable(name = "admin_delivery_record")
-//	private DeliveryRecord deliveryRecord;
-//	
+	@OneToOne(targetEntity = DeliveryRecord.class, mappedBy = "deliveredSession")
+	private DeliveryRecord deliveryRecord;
+	
 //	@OneToOne(targetEntity = AttendanceRecord.class)
 //	@JoinTable(name = "admin_attend_record")
 //	private AttendanceRecord attendanceRecord;
@@ -149,13 +145,13 @@ public class AcademicSession implements Serializable {
 		this.assignmentRecord = assignmentRecord;
 	}
 
-//	public DeliveryRecord getDeliveryRecord() {
-//		return deliveryRecord;
-//	}
-//
-//	public void setDeliveryRecord(DeliveryRecord deliveryRecord) {
-//		this.deliveryRecord = deliveryRecord;
-//	}
+	public DeliveryRecord getDeliveryRecord() {
+		return deliveryRecord;
+	}
+
+	public void setDeliveryRecord(DeliveryRecord deliveryRecord) {
+		this.deliveryRecord = deliveryRecord;
+	}
 //
 //	public AttendanceRecord getAttendanceRecord() {
 //		return attendanceRecord;
@@ -225,9 +221,12 @@ public class AcademicSession implements Serializable {
 	@Override
 	public String toString() {
 		return "AcademicSession [sessionId=" + sessionId + ", groupNo=" + groupNo + ", sessionSeqNo=" + sessionSeqNo
-				+ ", assignmentRecord=" + assignmentRecord + ", topicRecord=" + topicRecord + ", deliveryDate="
-				+ deliveryDate + ", startTime=" + startTime + ", endTime=" + endTime + ", duration=" + duration
-				+ ", sessionStatus=" + sessionStatus + ", plannedInstructors=" + plannedInstructors + "]";
+				+ ", assignmentRecord=" + assignmentRecord + ", deliveryRecord=" + deliveryRecord + ", topicRecord="
+				+ topicRecord + ", deliveryDate=" + deliveryDate + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", duration=" + duration + ", sessionStatus=" + sessionStatus + ", plannedInstructors="
+				+ plannedInstructors + "]";
 	}
+
+	
 
 }
