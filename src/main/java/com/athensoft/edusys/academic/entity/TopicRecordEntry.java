@@ -19,7 +19,7 @@ import javax.persistence.Transient;
 
 import org.springframework.data.jpa.repository.Query;
 
-import com.athensoft.edusys.product.entity.Topic;
+import com.athensoft.edusys.product.entity.Module;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -39,15 +39,12 @@ public class TopicRecordEntry {
 	@Enumerated(EnumType.ORDINAL)	
 	private TopicStatus topicStatus;
 
+//	@Column(nullable = false)
+//	private Integer moduleId;
+	
 	@Column(nullable = false)
-	private Integer topicId;
+	private Integer chapterId;
 	
-	
-//	@Transient
-//	@ManyToOne(targetEntity = Topic.class)
-//	@JoinColumn(name = "topic_id")
-//	private Topic topic;
-
 	
 	public Integer getEntryId() {
 		return entryId;
@@ -73,29 +70,41 @@ public class TopicRecordEntry {
 		this.topicStatus = topicStatus;
 	}
 
-//	public Topic getTopic() {
-//		
-//		return topic;
-//	}
-//
-//	public void setTopic(Topic topic) {
-//		this.topic = topic;
-//	}
-	
-
-	public Integer getTopicId() {
-		return topicId;
+	public TopicStatus getTopicStatus() {
+		return topicStatus;
 	}
 
-	public void setTopicId(Integer topicId) {
-		this.topicId = topicId;
+	public void setTopicStatus(TopicStatus topicStatus) {
+		this.topicStatus = topicStatus;
+	}
+
+//	public Integer getModuleId() {
+//		return moduleId;
+//	}
+//
+//	public void setModuleId(Integer moduleId) {
+//		this.moduleId = moduleId;
+//	}
+
+	public Integer getChapterId() {
+		return chapterId;
+	}
+
+	public void setChapterId(Integer chapterId) {
+		this.chapterId = chapterId;
 	}
 
 	@Override
 	public String toString() {
 		return "TopicRecordEntry [entryId=" + entryId + ", topicRecordId=" + topicRecordId + ", topicStatus="
-				+ topicStatus + ", topicId=" + topicId + "]";
+				+ topicStatus + ", chapterId=" + chapterId + "]";
 	}
+
+
+
+
+	
+
 
 	
 	
