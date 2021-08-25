@@ -7,28 +7,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "prod_course")
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "course_id")
 	private Integer courseId = -1;
-	
+
 	@Column(nullable = false)
 	private String courseCode;
-	
+
 	@Column(name = "course_shortname")
 	private String courseShortName;
-	
+
 	private String courseName;
-	
+
 	private String courseDesc;
 
-	public Course() {}
-	
+	@OneToMany
+	@JoinTable(name = "prod_rel_course_module", joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"), inverseJoinColumns = @JoinColumn(name = "module_id", referencedColumnName = "module_id"))
+	private List<Module> modules;
+
+	public Course() {
+	}
+
 	public Course(Integer courseId, String courseCode, String courseShortName, String courseName, String courseDesc) {
 		super();
 		this.courseId = courseId;
@@ -78,17 +86,20 @@ public class Course {
 		this.courseDesc = courseDesc;
 	}
 
+	public List<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
+	}
+
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseCode=" + courseCode + ", courseShortName=" + courseShortName
-				+ ", courseName=" + courseName + ", courseDesc=" + courseDesc + "]";
+				+ ", courseName=" + courseName + ", courseDesc=" + courseDesc + ", modules=" + modules + "]";
 	}
-	
-//	private List<Topic> topics;
-//	
-//	private List<Question> questions;
-	
-	
+
 	
 
 }

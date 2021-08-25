@@ -60,8 +60,7 @@ public class AcademicSession implements Serializable {
 	@OneToOne(targetEntity = DeliveryRecord.class, mappedBy = "deliveredSession")
 	private DeliveryRecord deliveryRecord;
 	
-//	@OneToOne(targetEntity = AttendanceRecord.class)
-//	@JoinTable(name = "admin_attend_record")
+//	@OneToOne(targetEntity = AttendanceRecord.class, mappedBy = "deliveredSession")
 //	private AttendanceRecord attendanceRecord;
 
 	@OneToOne(targetEntity = TopicRecord.class, mappedBy = "deliveredSession")
@@ -93,25 +92,6 @@ public class AcademicSession implements Serializable {
 	@JoinTable(name = "acd_rel_session_instructor", joinColumns = @JoinColumn(name = "session_id", referencedColumnName = "session_id"), inverseJoinColumns = @JoinColumn(name = "emp_id", referencedColumnName = "emp_id"))
 	private List<Instructor> plannedInstructors;
 
-	public AcademicSession() {
-	}
-
-	public AcademicSession(Integer sessionId, String groupNo, Integer sessionSeqNo, AssignmentRecord assignmentRecord,
-			TopicRecord topicRecord, Date deliveryDate, Date startTime, Date endTime, Float duration,
-			SessionStatus sessionStatus, List<Instructor> plannedInstructors) {
-		super();
-		this.sessionId = sessionId;
-		this.groupNo = groupNo;
-		this.sessionSeqNo = sessionSeqNo;
-		this.assignmentRecord = assignmentRecord;
-		this.topicRecord = topicRecord;
-		this.deliveryDate = deliveryDate;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.duration = duration;
-		this.sessionStatus = sessionStatus;
-		this.plannedInstructors = plannedInstructors;
-	}
 
 	public Integer getSessionId() {
 		return sessionId;
@@ -152,7 +132,7 @@ public class AcademicSession implements Serializable {
 	public void setDeliveryRecord(DeliveryRecord deliveryRecord) {
 		this.deliveryRecord = deliveryRecord;
 	}
-//
+
 //	public AttendanceRecord getAttendanceRecord() {
 //		return attendanceRecord;
 //	}
@@ -160,7 +140,7 @@ public class AcademicSession implements Serializable {
 //	public void setAttendanceRecord(AttendanceRecord attendanceRecord) {
 //		this.attendanceRecord = attendanceRecord;
 //	}
-//
+
 	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
@@ -226,6 +206,10 @@ public class AcademicSession implements Serializable {
 				+ ", duration=" + duration + ", sessionStatus=" + sessionStatus + ", plannedInstructors="
 				+ plannedInstructors + "]";
 	}
+
+	
+
+	
 
 	
 

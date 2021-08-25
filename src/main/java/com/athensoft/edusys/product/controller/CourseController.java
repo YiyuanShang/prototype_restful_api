@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.athensoft.edusys.product.entity.Course;
 import com.athensoft.edusys.product.service.CourseService;
+import com.athensoft.edusys.product.entity.Module;
 
 @RestController
 @RequestMapping("/edusys/product")
@@ -37,6 +38,11 @@ public class CourseController {
 	@GetMapping("/courses/{courseId}")
 	public ResponseEntity<Course> getDataCourseById(@PathVariable Integer courseId){
 		return ResponseEntity.ok(courseService.getCourseById(courseId));
+	}
+	
+	@GetMapping("/courses/{courseId}/modules")
+	public ResponseEntity<List<Module>> getDataListModule(@PathVariable Integer courseId){
+		return ResponseEntity.ok(courseService.getModuleListByCourseId(courseId));
 	}
 	
 	@PostMapping("/courses")

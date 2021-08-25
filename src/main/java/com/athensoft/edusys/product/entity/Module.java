@@ -19,6 +19,7 @@ import javax.persistence.Table;
 public class Module {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "module_id")
 	private Integer moduleId = -1;
 
 	private String moduleCode;
@@ -28,11 +29,11 @@ public class Module {
 	private String moduleDesc;
 
 	@OneToMany
-	@JoinTable(name = "prod_rel_module_question")
+	@JoinTable(name = "prod_rel_module_question", joinColumns = @JoinColumn(name = "module_id", referencedColumnName = "module_id"), inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "question_id"))
 	private List<Question> questions;
 
 	@OneToMany
-	@JoinTable(name = "prod_chapter")
+	@JoinTable(name = "prod_chapter", joinColumns = @JoinColumn(name = "module_id", referencedColumnName = "module_id"), inverseJoinColumns = @JoinColumn(name = "chapter_id", referencedColumnName = "chapter_id"))
 	private List<Chapter> chapters;
 	
 	public Module() {

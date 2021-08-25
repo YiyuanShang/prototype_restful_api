@@ -10,6 +10,7 @@ import com.athensoft.edusys.error.exceptions.CourseAlreadyExistsException;
 import com.athensoft.edusys.error.exceptions.CourseNotFoundException;
 import com.athensoft.edusys.product.dao.CourseRepository;
 import com.athensoft.edusys.product.entity.Course;
+import com.athensoft.edusys.product.entity.Module;
 
 @Service
 public class CourseService {
@@ -28,6 +29,10 @@ public class CourseService {
 				.orElseThrow(() -> new CourseNotFoundException(courseId));
 	}
 	
+	public List<Module> getModuleListByCourseId(Integer courseId) {
+		return getCourseById(courseId).getModules();
+	}
+
 	public ResponseEntity<Course> createCourse(Course course){
 		checkCourseAlreadyExistsException(course.getCourseId());
 
