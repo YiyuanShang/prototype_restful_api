@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class DeliveryRecordEntry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "entry_id")
 	private Integer entryId = -1;
 	
 	@Column(name = "delivery_record_id", nullable = false)
@@ -35,6 +36,13 @@ public class DeliveryRecordEntry {
 	
 	@Column(nullable = false)
 	private Integer empId;
+
+	public DeliveryRecordEntry() {};
+	public DeliveryRecordEntry(Integer deliveryRecordId, Integer empId) {
+		super();
+		this.deliveryRecordId = deliveryRecordId;
+		this.empId = empId;
+	}
 
 	public Integer getEntryId() {
 		return entryId;

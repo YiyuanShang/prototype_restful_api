@@ -68,6 +68,11 @@ public class AcademicSessionController {
 		return ResponseEntity.ok(topicRecordService.getTopicRecordBySessionId(sessionId));
 	}
 	
+	@GetMapping("/acdSessions/{sessionId}/assignmentRecord")
+	public ResponseEntity<AssignmentRecord> getDataAssignmentRecord(@PathVariable Integer sessionId) {
+		return ResponseEntity.ok(assignmentRecordService.getAssignmentRecordBySessionId(sessionId));
+	}
+	
 	@GetMapping("/acdSessions/{sessionId}/instructors")
 	public ResponseEntity<List<SessionInstructorEntry>> getDataListSessionInstructorEntry(@PathVariable Integer sessionId){
 		return ResponseEntity.ok(sessionInstructorEntryService.getSessionInstructorEntryListBySessionId(sessionId));
@@ -77,6 +82,12 @@ public class AcademicSessionController {
 	public ResponseEntity<AcademicSession> createAcademicSession(@RequestBody AcademicSession session) {
 		LOGGER.debug("entering createAcademicSession session:" + session);
 		return acdSessionService.createAcademicSession(session);
+	}
+	
+	@PostMapping("/acdSessions/{sessionId}/deliveryRecord")
+	public ResponseEntity<DeliveryRecord> addDeliveryRecordToAcademicSession(@PathVariable Integer sessionId, @RequestBody List<Integer> empIdList){
+		LOGGER.debug("entering addDeliveryRecordToAcademicSession sessionId:" + sessionId + "\t empIdList:" + empIdList);
+		return ResponseEntity.ok(acdSessionService.addDeliveryRecordToAcademicSession(sessionId, empIdList));
 	}
 
 //	@PutMapping("/acdSessions/{sessionId}/topicRecord")

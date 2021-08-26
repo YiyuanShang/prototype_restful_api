@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -38,7 +39,9 @@ public class DeliveryRecord {
 	private Integer deliveryRecordId = -1;
 	
 	@OneToMany(targetEntity = DeliveryRecordEntry.class)
-	@JoinColumn(name = "delivery_record_id")
+	@JoinTable(name = "admin_delivery_record_entry", 
+	joinColumns = @JoinColumn(name = "delivery_record_id", referencedColumnName = "delivery_record_id"),
+    inverseJoinColumns = @JoinColumn(name = "entry_id", referencedColumnName = "entry_id"))
 	private List<DeliveryRecordEntry> deliveryRecordEntries = new ArrayList<>();
 
 	@OneToOne
@@ -78,6 +81,12 @@ public class DeliveryRecord {
 
 	public void setDeliveredSession(AcademicSession deliveredSession) {
 		this.deliveredSession = deliveredSession;
+	}
+
+	@Override
+	public String toString() {
+		return "DeliveryRecord [deliveryRecordId=" + deliveryRecordId + ", deliveryRecordEntries="
+				+ deliveryRecordEntries + ", deliveredSession=" + deliveredSession.getSessionId() + "]";
 	}
 
 	

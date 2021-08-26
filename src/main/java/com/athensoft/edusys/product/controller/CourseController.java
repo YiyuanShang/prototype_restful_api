@@ -45,6 +45,18 @@ public class CourseController {
 		return ResponseEntity.ok(courseService.getModuleListByCourseId(courseId));
 	}
 	
+	@PutMapping("/courses/{courseId}/modules/{moduleId}")
+	public ResponseEntity<Course> addModuleToCourse(@PathVariable(name = "courseId") Integer courseId,
+			@PathVariable(name = "moduleId") Integer moduleId){
+		return courseService.addModuleToCourse(courseId, moduleId);
+	}
+	
+	@DeleteMapping("/courses/{courseId}/modules/{moduleId}")
+	public ResponseEntity<Course> removeModuleFromCourse(@PathVariable(name = "courseId") Integer courseId,
+			@PathVariable(name = "moduleId") Integer moduleId){
+		return courseService.removeModuleFromCourse(courseId, moduleId);
+	}
+	
 	@PostMapping("/courses")
 	public ResponseEntity<Course> createCourse(@RequestBody Course course){
 		return courseService.createCourse(course);

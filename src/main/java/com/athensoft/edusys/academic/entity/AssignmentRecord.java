@@ -21,7 +21,7 @@ import com.athensoft.edusys.product.entity.Question;
 
 
 @Entity
-@Table(name = "acd_asgmt_record")
+@Table(name = "acd_assgmt_record")
 public class AssignmentRecord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,11 +45,11 @@ public class AssignmentRecord {
 	@Enumerated(EnumType.ORDINAL)
 	private AssignmentRecordStatus assgmtRecordStatus;
 
-//	@ManyToMany(targetEntity = Question.class)
-//	@JoinTable(name = "acd_rel_assgmt_question", 
-//	joinColumns = @JoinColumn(name = "assgmt_record_id", referencedColumnName = "assgmt_record_id"),
-//    inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "question_id"))
-//	private List<Question> questions;
+	@ManyToMany(targetEntity = Question.class)
+	@JoinTable(name = "acd_rel_assgmt_question", 
+	joinColumns = @JoinColumn(name = "assgmt_record_id", referencedColumnName = "assgmt_record_id"),
+    inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "question_id"))
+	private List<Question> questions;
 
 
 	public Integer getAssgmtRecordId() {
@@ -100,23 +100,23 @@ public class AssignmentRecord {
 		this.assgmtRecordStatus = assgmtRecordStatus;
 	}
 
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
 	@Override
 	public String toString() {
 		return "AssignmentRecord [assgmtRecordId=" + assgmtRecordId + ", assgmtType=" + assgmtType + ", issueDate="
 				+ issueDate + ", dueDate=" + dueDate + ", numReceivedNotice=" + numReceivedNotice
-				+ ", assgmtRecordStatus=" + assgmtRecordStatus + "]";
+				+ ", assgmtRecordStatus=" + assgmtRecordStatus + ", questions=" + questions + "]";
 	}
 
 	
 
-//	public List<Question> getQuestions() {
-//		return questions;
-//	}
-//
-//	public void setQuestions(List<Question> questions) {
-//		this.questions = questions;
-//	}
-//
 
 
 }

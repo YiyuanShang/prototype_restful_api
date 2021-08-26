@@ -13,12 +13,12 @@ import com.athensoft.edusys.academic.entity.AssignmentRecord;
 import com.athensoft.edusys.academic.entity.AssignmentType;
 
 public interface AssignmentRecordRepository extends JpaRepository<AssignmentRecord, Integer>{
-	@Query(value = "SELECT * FROM acd_asgmt_record WHERE session_id = :sessionId", nativeQuery = true)
+	@Query(value = "SELECT * FROM acd_assgmt_record WHERE session_id = :sessionId", nativeQuery = true)
 	Optional<AssignmentRecord> findBySessionId(@Param("sessionId")Integer sessionId);
 
 	@Transactional
 	@Modifying(flushAutomatically = true, clearAutomatically = true)
-	@Query(value = "INSERT INTO acd_asgmt_record (session_id, received_notice_number, assgmt_record_status) VALUES(:sessionId, 0, 0) ", nativeQuery = true)
+	@Query(value = "INSERT INTO acd_assgmt_record (session_id, received_notice_number, assgmt_record_status) VALUES(:sessionId, 0, 0) ", nativeQuery = true)
 	int createAssignmentRecord(@Param("sessionId") Integer sessionId);
 	
 }

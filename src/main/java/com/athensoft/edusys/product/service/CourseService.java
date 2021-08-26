@@ -14,10 +14,13 @@ import com.athensoft.edusys.product.entity.Module;
 
 @Service
 public class CourseService {
-	private CourseRepository courseRepo;
+	private final CourseRepository courseRepo;
 	
-	public CourseService(CourseRepository courseRepo) {
+	private final ModuleService moduleService;
+	
+	public CourseService(CourseRepository courseRepo, ModuleService moduleService) {
 		this.courseRepo = courseRepo;
+		this.moduleService = moduleService;
 	}
 	
 	public List<Course> getCourseList(){
@@ -58,6 +61,22 @@ public class CourseService {
 		return ResponseEntity.ok(deletedCourse);
 	}
 	
+	public ResponseEntity<Course> addModuleToCourse(Integer courseId, Integer moduleId) {
+		Course course = getCourseById(courseId);
+		Module module = moduleService.getModuleById(moduleId);
+		course.getModules().add(module);
+		
+		return updateCourse(course);
+	}
+	
+	public ResponseEntity<Course> removeModuleFromCourse(Integer courseId, Integer moduleId){
+		Course course = getCourseById(courseId);
+		Module module = moduleService.getModuleById(moduleId);
+		course.getModules().remove(module);
+		
+		return updateCourse(course);
+	}
+
 	private void checkCourseAlreadyExistsException(Integer courseId) {
 		if (courseRepo.existsById(courseId)) {
 			throw new CourseAlreadyExistsException(courseId);
