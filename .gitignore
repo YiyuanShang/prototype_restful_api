@@ -38,3 +38,6 @@ build/
 /info/
 /warn/
 /error/
+
+# static resources#
+/src/main/resources/static/
