@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.LocaleResolver;
 
-import com.athensoft.tacedu.i18n.util.LanguageCode;
+import com.athensoft.tacedu.i18n.util.LangUtil;
 
 
 public class UrlPathLocaleResolver implements LocaleResolver {
@@ -17,23 +17,8 @@ public class UrlPathLocaleResolver implements LocaleResolver {
 
 	@Override
 	public Locale resolveLocale(HttpServletRequest request) {
-		String url = request.getRequestURI();
-		
-		String prefixEn = request.getServletContext().getContextPath() + "/" + LanguageCode.en + "/";
-        String prefixFr = request.getServletContext().getContextPath() + "/" + LanguageCode.fr + "/";
-        String prefixZh = request.getServletContext().getContextPath() + "/" + LanguageCode.zh + "/";
-		
-        Locale locale = getDefaultLocale();
-        System.out.println("locale before:" + locale);
-        System.out.println("processed by " + this.getClass());
-        
-        if(url.startsWith(prefixEn)) {
-        	locale = Locale.ENGLISH;
-        }else if (url.startsWith(prefixFr)) {
-        	locale = Locale.FRENCH;
-        }else if (url.startsWith(prefixZh)) {
-        	locale = Locale.CHINESE;
-        }
+		Locale locale = getDefaultLocale();
+		locale = LangUtil.findLocaleFromRequest(request);
         System.out.println("locale after:" + locale + "\n");
 		return locale;
 	}

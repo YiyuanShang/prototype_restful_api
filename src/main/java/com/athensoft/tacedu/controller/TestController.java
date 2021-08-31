@@ -11,4 +11,5 @@ public class TestController {
 	public String gotoIndexCoporate(@PathVariable(required=false) String lang) {
 		return "index-corporate";
 	}
+	
 }

@@ -20,9 +20,10 @@ public class UrlLocaleInterceptor implements HandlerInterceptor {
 			throw new IllegalStateException("No LocaleResolver found: not in a DispatcherServlet request");
 		}
 		System.out.println(localeResolver.getClass().getName());
+		
 		// Get locale from LocaleResolver
 		Locale locale = localeResolver.resolveLocale(request);
-		localeResolver.setLocale(request, response, locale);
+//		localeResolver.setLocale(request, response, locale);
 
 		return true;
 	}

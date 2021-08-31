@@ -6,15 +6,15 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">	
 
-		<title>Porto - Responsive HTML5 Template 6.0.0</title>	
+		<title th:text="#{title}"></title>
 
 		<meta th:name="keywords" content="HTML5 Template" />
 		<meta th:name="description" content="Porto - Responsive HTML5 Template">
 		<meta th:name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" th:href="@{img/favicon.ico}" type="image/x-icon" />
-		<link rel="apple-touch-icon" th:href="@{img/apple-touch-icon.png}">
+		<link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon" />
+		<link rel="apple-touch-icon" th:href="@{/img/apple-touch-icon.png}">
 
 		<!-- Mobile Metas -->
 		<meta th:name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -23,36 +23,36 @@
 		<link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light}" rel="stylesheet" type="text/css">
 
 		<!-- Vendor CSS -->
-		<link rel="stylesheet" th:href="@{vendor/bootstrap/css/bootstrap.min.css}">
-		<link rel="stylesheet" th:href="@{vendor/font-awesome/css/font-awesome.min.css}">
-		<link rel="stylesheet" th:href="@{vendor/animate/animate.min.css}">
-		<link rel="stylesheet" th:href="@{vendor/simple-line-icons/css/simple-line-icons.min.css}">
-		<link rel="stylesheet" th:href="@{vendor/owl.carousel/assets/owl.carousel.min.css}">
-		<link rel="stylesheet" th:href="@{vendor/owl.carousel/assets/owl.theme.default.min.css}">
-		<link rel="stylesheet" th:href="@{vendor/magnific-popup/magnific-popup.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/animate/animate.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/simple-line-icons/css/simple-line-icons.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/owl.carousel/assets/owl.carousel.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/owl.carousel/assets/owl.theme.default.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/magnific-popup/magnific-popup.min.css}">
 
 		<!-- Theme CSS -->
-		<link rel="stylesheet" th:href="@{css/theme.css}">
-		<link rel="stylesheet" th:href="@{css/theme-elements.css}">
-		<link rel="stylesheet" th:href="@{css/theme-blog.css}">
-		<link rel="stylesheet" th:href="@{css/theme-shop.css}">
+		<link rel="stylesheet" th:href="@{/css/theme.css}">
+		<link rel="stylesheet" th:href="@{/css/theme-elements.css}">
+		<link rel="stylesheet" th:href="@{/css/theme-blog.css}">
+		<link rel="stylesheet" th:href="@{/css/theme-shop.css}">
 
 		<!-- Current Page CSS -->
-		<link rel="stylesheet" th:href="@{vendor/rs-plugin/css/settings.css}">
-		<link rel="stylesheet" th:href="@{vendor/rs-plugin/css/layers.css}">
-		<link rel="stylesheet" th:href="@{vendor/rs-plugin/css/navigation.css}">
+		<link rel="stylesheet" th:href="@{/vendor/rs-plugin/css/settings.css}">
+		<link rel="stylesheet" th:href="@{/vendor/rs-plugin/css/layers.css}">
+		<link rel="stylesheet" th:href="@{/vendor/rs-plugin/css/navigation.css}">
 		
 		<!-- Demo CSS -->
 
 
 		<!-- Skin CSS -->
-		<link rel="stylesheet" th:href="@{css/skins/default.css}"> 
+		<link rel="stylesheet" th:href="@{/css/skins/default.css}"> 
 
 		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" th:href="@{css/custom.css}">
+		<link rel="stylesheet" th:href="@{/css/custom.css}">
 
 		<!-- Head Libs -->
-		<script th:src="@{vendor/modernizr/modernizr.min.js}"></script>
+		<script th:src="@{/vendor/modernizr/modernizr.min.js}"></script>
 
 	</head>
 	<body>
@@ -66,7 +66,7 @@
 								<div class="header-row">
 									<div class="header-logo">
 										<a th:href="@{index.html}">
-											<img alt="Porto" width="111" height="54" data-sticky-width="82" data-sticky-height="40" data-sticky-top="33" th:src="@{img/logo.png}">
+											<img alt="Porto" width="111" height="54" data-sticky-width="82" data-sticky-height="40" data-sticky-top="33" th:src="@{/img/logo.png}">
 										</a>
 									</div>
 								</div>
@@ -115,31 +115,31 @@
 															<li class="dropdown-submenu">
 																<a class="dropdown-item" th:href="@{index-classic.html}">Classic</a>
 																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item" th:href="@{index-classic.html}" th:data-thumb-preview="@{img/previews/preview-classic.jpg}">Classic - Original</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-classic-color.html}" th:data-thumb-preview="@{img/previews/preview-classic-color.jpg}">Classic - Color</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-classic-light.html}" th:data-thumb-preview="@{img/previews/preview-classic-light.jpg}">Classic - Light</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-classic-video.html}" th:data-thumb-preview="@{img/previews/preview-classic-video.jpg}">Classic - Video</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-classic-video-light.html}" th:data-thumb-preview="@{img/previews/preview-classic-video-light.jpg}">Classic - Video - Light</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-classic.html}" th:data-thumb-preview="@{/img/previews/preview-classic.jpg}">Classic - Original</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-classic-color.html}" th:data-thumb-preview="@{/img/previews/preview-classic-color.jpg}">Classic - Color</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-classic-light.html}" th:data-thumb-preview="@{/img/previews/preview-classic-light.jpg}">Classic - Light</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-classic-video.html}" th:data-thumb-preview="@{/img/previews/preview-classic-video.jpg}">Classic - Video</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-classic-video-light.html}" th:data-thumb-preview="@{/img/previews/preview-classic-video-light.jpg}">Classic - Video - Light</a></li>
 																</ul>
 															</li>
 															<li class="dropdown-submenu">
 																<a class="dropdown-item" th:href="@{index-corporate.html}">Corporate <span class="tip tip-dark">hot</span></a>
 																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item" th:href="@{index-corporate.html}" th:data-thumb-preview="@{img/previews/preview-corporate.jpg}">Corporate - Version 1</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-2.html}" th:data-thumb-preview="@{img/previews/preview-corporate-version2.jpg}">Corporate - Version 2</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-3.html}" th:data-thumb-preview="@{img/previews/preview-corporate-version3.jpg}">Corporate - Version 3</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-4.html}" th:data-thumb-preview="@{img/previews/preview-corporate-version4.jpg}">Corporate - Version 4</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-5.html}" th:data-thumb-preview="@{img/previews/preview-corporate-version5.jpg}">Corporate - Version 5</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-6.html}" th:data-thumb-preview="@{img/previews/preview-corporate-version6.jpg}">Corporate - Version 6</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-7.html}" th:data-thumb-preview="@{img/previews/preview-corporate-version7.jpg}">Corporate - Version 7</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-8.html}" th:data-thumb-preview="@{img/previews/preview-corporate-version8.jpg}">Corporate - Version 8</a></li>
-																	<li><a class="dropdown-item" th:href="@{index-corporate-hosting.html}" th:data-thumb-preview="@{img/previews/preview-corporate-hosting.jpg}">Corporate - Hosting</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate.html}" th:data-thumb-preview="@{/img/previews/preview-corporate.jpg}">Corporate - Version 1</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-2.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-version2.jpg}">Corporate - Version 2</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-3.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-version3.jpg}">Corporate - Version 3</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-4.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-version4.jpg}">Corporate - Version 4</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-5.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-version5.jpg}">Corporate - Version 5</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-6.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-version6.jpg}">Corporate - Version 6</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-7.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-version7.jpg}">Corporate - Version 7</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-8.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-version8.jpg}">Corporate - Version 8</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-corporate-hosting.html}" th:data-thumb-preview="@{/img/previews/preview-corporate-hosting.jpg}">Corporate - Hosting</a></li>
 																</ul>
 															</li>
 															<li class="dropdown-submenu">
 																<a class="dropdown-item" href="#">One Page</a>
 																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item" th:href="@{index-one-page.html}" th:data-thumb-preview="@{img/previews/preview-one-page.jpg}">One Page Original</a></li>
+																	<li><a class="dropdown-item" th:href="@{index-one-page.html}" th:data-thumb-preview="@{/img/previews/preview-one-page.jpg}">One Page Original</a></li>
 																</ul>
 															</li>
 														</ul>
@@ -542,7 +542,7 @@
 					<div id="revolutionSlider" class="slider rev_slider" data-plugin-revolution-slider data-plugin-options="{'delay': 9000, 'gridwidth': 800, 'gridheight': 677, 'responsiveLevels': [4096,1200,992,500]}">
 						<ul>
 							<li data-transition="fade">
-								<img th:src="@{img/slides/slide-bg-4.jpg}"  
+								<img th:src="@{/img/slides/slide-bg-4.jpg}"  
 									alt=""
 									data-bgposition="center center" 
 									data-bgfit="cover" 
@@ -554,7 +554,7 @@
 									data-y="center" data-voffset="-95"
 									data-start="1000"
 									style="z-index: 5"
-									data-transform_in="x:[-300%];opacity:0;s:500;"><img th:src="@{img/slides/slide-title-border.png}" alt=""></div>
+									data-transform_in="x:[-300%];opacity:0;s:500;"><img th:src="@{/img/slides/slide-title-border.png}" alt=""></div>
 
 								<div class="tp-caption top-label"
 									data-x="center" data-hoffset="0"
@@ -568,7 +568,7 @@
 									data-y="center" data-voffset="-95"
 									data-start="1000"
 									style="z-index: 5"
-									data-transform_in="x:[300%];opacity:0;s:500;"><img th:src="@{img/slides/slide-title-border.png}" alt=""></div>
+									data-transform_in="x:[300%];opacity:0;s:500;"><img th:src="@{/img/slides/slide-title-border.png}" alt=""></div>
 
 								<div class="tp-caption main-label"
 									data-x="center" data-hoffset="0"
@@ -605,7 +605,7 @@
 							</li>
 							<li data-transition="fade">
 
-								<img th:src="@{img/slides/slide-bg-3.jpg}"  
+								<img th:src="@{/img/slides/slide-bg-3.jpg}"  
 									alt=""
 									data-bgposition="center center" 
 									data-bgfit="cover" 
@@ -681,7 +681,7 @@
 					<div class="row text-center">
 						<div class="col">
 							<div style="margin: 45px 0px -30px; overflow: hidden;">
-								<img th:src="@{img/dark-and-light.jpg}" class="img-fluid appear-animation" data-appear-animation="fadeInUp" alt="dark and light">
+								<img th:src="@{/img/dark-and-light.jpg}" class="img-fluid appear-animation" data-appear-animation="fadeInUp" alt="dark and light">
 							</div>
 						</div>
 					</div>
@@ -795,7 +795,7 @@
 
 					<div class="row">
 						<div class="col-lg-4">
-							<img class="img-fluid mt-5 appear-animation" th:src="@{img/layout-styles.png}" alt="layout styles" data-appear-animation="fadeInLeft">
+							<img class="img-fluid mt-5 appear-animation" th:src="@{/img/layout-styles.png}" alt="layout styles" data-appear-animation="fadeInLeft">
 						</div>
 						<div class="col-lg-7 col-lg-offset-1">
 							<h2 class="mt-5"><strong>Layout</strong> Styles &amp; Variants</h2>
@@ -821,7 +821,7 @@
 							</p>
 						</div>
 						<div class="col-lg-4 col-lg-offset-1 mt-5">
-							<img class="img-fluid appear-animation" th:src="@{img/style-switcher.png}" alt="style switcher" data-appear-animation="fadeInRight">
+							<img class="img-fluid appear-animation" th:src="@{/img/style-switcher.png}" alt="style switcher" data-appear-animation="fadeInRight">
 						</div>
 					</div>
 
@@ -846,7 +846,7 @@
 							<a th:href="@{portfolio-single-small-slider.html}">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img th:src="@{img/projects/project.jpg}" class="img-fluid" alt="">
+										<img th:src="@{/img/projects/project.jpg}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">Project Title</span>
 											<span class="thumb-info-type">Project Type</span>
@@ -864,7 +864,7 @@
 							<a th:href="@{portfolio-single-small-slider.html}">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img th:src="@{img/projects/project-2.jpg}" class="img-fluid" alt="">
+										<img th:src="@{/img/projects/project-2.jpg}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">Project Title</span>
 											<span class="thumb-info-type">Project Type</span>
@@ -882,7 +882,7 @@
 							<a th:href="@{portfolio-single-small-slider.html}">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img th:src="@{img/projects/project-4.jpg}" class="img-fluid" alt="">
+										<img th:src="@{/img/projects/project-4.jpg}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">Project Title</span>
 											<span class="thumb-info-type">Project Type</span>
@@ -900,7 +900,7 @@
 							<a th:href="@{portfolio-single-small-slider.html}">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img th:src="@{img/projects/project-5.jpg}" class="img-fluid" alt="">
+										<img th:src="@{/img/projects/project-5.jpg}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">Project Title</span>
 											<span class="thumb-info-type">Project Type</span>
@@ -918,7 +918,7 @@
 							<a th:href="@{portfolio-single-small-slider.html}">
 								<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
 									<span class="thumb-info-wrapper">
-										<img th:src="@{img/projects/project-6.jpg}" class="img-fluid" alt="">
+										<img th:src="@{/img/projects/project-6.jpg}" class="img-fluid" alt="">
 										<span class="thumb-info-title">
 											<span class="thumb-info-inner">Project Title</span>
 											<span class="thumb-info-type">Project Type</span>
@@ -933,7 +933,7 @@
 					</div>
 				</div>
 
-				<section class="parallax section section-text-light section-parallax section-center mt-0" data-plugin-parallax data-plugin-options="{'speed': 1.5}" th:data-image-src="@{img/parallax-2.jpg}">
+				<section class="parallax section section-text-light section-parallax section-center mt-0" data-plugin-parallax data-plugin-options="{'speed': 1.5}" th:data-image-src="@{/img/parallax-2.jpg}">
 					<div class="container">
 						<div class="row justify-content-center">
 							<div class="col-lg-10">
@@ -942,7 +942,7 @@
 										<div class="col">
 											<div class="testimonial testimonial-style-2 testimonial-with-quotes mb-0">
 												<div class="testimonial-author">
-													<img th:src="@{img/clients/client-1.jpg}" class="img-fluid rounded-circle" alt="">
+													<img th:src="@{/img/clients/client-1.jpg}" class="img-fluid rounded-circle" alt="">
 												</div>
 												<blockquote>
 													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget risus porta, tincidunt turpis at, interdum tortor. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce ante tellus, convallis non consectetur sed, pharetra nec ex.</p>
@@ -957,7 +957,7 @@
 										<div class="col">
 											<div class="testimonial testimonial-style-2 testimonial-with-quotes mb-0">
 												<div class="testimonial-author">
-													<img th:src="@{img/clients/client-1.jpg}" class="img-fluid rounded-circle" alt="">
+													<img th:src="@{/img/clients/client-1.jpg}" class="img-fluid rounded-circle" alt="">
 												</div>
 												<blockquote>
 													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget risus porta, tincidunt turpis at, interdum tortor. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -995,28 +995,28 @@
 					<div class="row text-center mt-5">
 						<div class="owl-carousel owl-theme" data-plugin-options="{'items': 6, 'autoplay': true, 'autoplayTimeout': 3000}">
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-1.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-1.png}" alt="">
 							</div>
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-2.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-2.png}" alt="">
 							</div>
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-3.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-3.png}" alt="">
 							</div>
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-4.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-4.png}" alt="">
 							</div>
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-5.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-5.png}" alt="">
 							</div>
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-6.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-6.png}" alt="">
 							</div>
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-4.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-4.png}" alt="">
 							</div>
 							<div>
-								<img class="img-fluid" th:src="@{img/logos/logo-2.png}" alt="">
+								<img class="img-fluid" th:src="@{/img/logos/logo-2.png}" alt="">
 							</div>
 						</div>
 					</div>
@@ -1100,7 +1100,7 @@
 						<div class="row">
 							<div class="col-lg-1">
 								<a th:href="@{index.html}" class="logo">
-									<img alt="Porto Website Template" class="img-fluid" th:src="@{img/logo-footer.png}">
+									<img alt="Porto Website Template" class="img-fluid" th:src="@{/img/logo-footer.png}">
 								</a>
 							</div>
 							<div class="col-lg-7">
@@ -1122,33 +1122,33 @@
 		</div>
 
 		<!-- Vendor -->
-		<script th:src="@{vendor/jquery/jquery.min.js}"></script>
-		<script th:src="@{vendor/jquery.appear/jquery.appear.min.js}"></script>
-		<script th:src="@{vendor/jquery.easing/jquery.easing.min.js}"></script>
-		<script th:src="@{vendor/jquery-cookie/jquery-cookie.min.js}"></script>
-		<script th:src="@{vendor/popper/umd/popper.min.js}"></script>
-		<script th:src="@{vendor/bootstrap/js/bootstrap.min.js}"></script>
-		<script th:src="@{vendor/common/common.min.js}"></script>
-		<script th:src="@{vendor/jquery.validation/jquery.validation.min.js}"></script>
-		<script th:src="@{vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js}"></script>
-		<script th:src="@{vendor/jquery.gmap/jquery.gmap.min.js}"></script>
-		<script th:src="@{vendor/jquery.lazyload/jquery.lazyload.min.js}"></script>
-		<script th:src="@{vendor/isotope/jquery.isotope.min.js}"></script>
-		<script th:src="@{vendor/owl.carousel/owl.carousel.min.js}"></script>
-		<script th:src="@{vendor/magnific-popup/jquery.magnific-popup.min.js}"></script>
-		<script th:src="@{vendor/vide/vide.min.js}"></script>
+		<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+		<script th:src="@{/vendor/jquery.appear/jquery.appear.min.js}"></script>
+		<script th:src="@{/vendor/jquery.easing/jquery.easing.min.js}"></script>
+		<script th:src="@{/vendor/jquery-cookie/jquery-cookie.min.js}"></script>
+		<script th:src="@{/vendor/popper/umd/popper.min.js}"></script>
+		<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/vendor/common/common.min.js}"></script>
+		<script th:src="@{/vendor/jquery.validation/jquery.validation.min.js}"></script>
+		<script th:src="@{/vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js}"></script>
+		<script th:src="@{/vendor/jquery.gmap/jquery.gmap.min.js}"></script>
+		<script th:src="@{/vendor/jquery.lazyload/jquery.lazyload.min.js}"></script>
+		<script th:src="@{/vendor/isotope/jquery.isotope.min.js}"></script>
+		<script th:src="@{/vendor/owl.carousel/owl.carousel.min.js}"></script>
+		<script th:src="@{/vendor/magnific-popup/jquery.magnific-popup.min.js}"></script>
+		<script th:src="@{/vendor/vide/vide.min.js}"></script>
 		
 		<!-- Theme Base, Components and Settings -->
-		<script th:src="@{js/theme.js}"></script>
+		<script th:src="@{/js/theme.js}"></script>
 		
 		<!-- Current Page Vendor and Views -->
-		<script th:src="@{vendor/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>		<script th:src="@{vendor/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+		<script th:src="@{/vendor/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>		<script th:src="@{/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
 		
 		<!-- Theme Custom -->
-		<script th:src="@{js/custom.js}"></script>
+		<script th:src="@{/js/custom.js}"></script>
 		
 		<!-- Theme Initialization Files -->
-		<script th:src="@{js/theme.init.js}"></script>
+		<script th:src="@{/js/theme.init.js}"></script>
 
 		<!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.
 		<script>

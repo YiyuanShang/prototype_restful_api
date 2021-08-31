@@ -22,29 +22,41 @@ import com.athensoft.tacedu.i18n.util.LanguageCode;
  */
 @Configuration
 public class UrlPathConfig implements WebMvcConfigurer{
-	@Bean(name = "localeResolver")
-	public LocaleResolver sessionLocaleResolver() {
-		UrlPathSessionLocaleResolver resolver = new UrlPathSessionLocaleResolver();
-		resolver.setDefaultLocale(Locale.ENGLISH);
-		return resolver;
-	}
+//	@Bean(name = "localeResolver")
+//	public LocaleResolver sessionLocaleResolver() {
+//		UrlPathSessionLocaleResolver resolver = new UrlPathSessionLocaleResolver();
+//		resolver.setDefaultLocale(Locale.ENGLISH);
+//		return resolver;
+//	}
 	
-	@Bean(name = "localeResolver")
-	public LocaleResolver urlPathLocaleResolver() {
-		UrlPathLocaleResolver resolver = new UrlPathLocaleResolver();
-		resolver.setDefaultLocale(Locale.ENGLISH);
-		return resolver;
-	}
+//	@Bean(name = "localeResolver")
+//	public LocaleResolver urlPathLocaleResolver() {
+//		UrlPathLocaleResolver resolver = new UrlPathLocaleResolver();
+//		resolver.setDefaultLocale(Locale.ENGLISH);
+//		return resolver;
+//	}
 
 		
+//	@Bean(name = "localeResolver")
+//	public LocaleResolver cookieLocaleResolver() {
+//		UrlPathCookieLocaleResolver resolver = new UrlPathCookieLocaleResolver();
+//		resolver.setDefaultLocale(Locale.ENGLISH);
+//		return resolver;
+//	}
+	
 	@Bean(name = "localeResolver")
-	public LocaleResolver cookieLocaleResolver() {
-		UrlPathCookieLocaleResolver resolver = new UrlPathCookieLocaleResolver();
-		resolver.setDefaultLocale(Locale.ENGLISH);
+	public LocaleResolver acceptHeaderLocaleResolver() {
+		UrlPathAcceptHeaderLocaleResolver resolver = new UrlPathAcceptHeaderLocaleResolver();
+		
+		// set supported locales
+		List<LanguageCode> languageCodes = Arrays.asList(LanguageCode.values());
+		List<Locale> locales = new ArrayList<>();
+		languageCodes.forEach(langCode -> locales.add(new Locale(langCode.toString())));
+		System.out.println("setting supported locales");
+		resolver.setSupportedLocales(locales);
+		
 		return resolver;
 	}
-	
-	
 
 	@Override
 	public void addInterceptors(InterceptorRegistry interceptorRegistry) {
