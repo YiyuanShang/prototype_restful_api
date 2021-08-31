@@ -52,7 +52,6 @@ public class UrlPathConfig implements WebMvcConfigurer{
 		List<LanguageCode> languageCodes = Arrays.asList(LanguageCode.values());
 		List<Locale> locales = new ArrayList<>();
 		languageCodes.forEach(langCode -> locales.add(new Locale(langCode.toString())));
-		System.out.println("setting supported locales");
 		resolver.setSupportedLocales(locales);
 		
 		return resolver;
@@ -67,8 +66,7 @@ public class UrlPathConfig implements WebMvcConfigurer{
 
 		// process each enumeration value to correct path pattern
 		enumValues.forEach(enumValue -> processedEnumValues.add("/" + enumValue.toString() + "/*"));
-		System.out.println("processed enum values:" + processedEnumValues);
-		
+
 		interceptorRegistry.addInterceptor(localeInterceptor).addPathPatterns(processedEnumValues);
 
 	}

@@ -5,11 +5,15 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 public class UrlLocaleInterceptor implements HandlerInterceptor {
+	private final Logger LOGGER = LoggerFactory.getLogger(UrlLocaleInterceptor.class);
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -19,10 +23,10 @@ public class UrlLocaleInterceptor implements HandlerInterceptor {
 		if (localeResolver == null) {
 			throw new IllegalStateException("No LocaleResolver found: not in a DispatcherServlet request");
 		}
-		System.out.println(localeResolver.getClass().getName());
+//		LOGGER.debug(localeResolver.getClass().getName());
 		
 		// Get locale from LocaleResolver
-		Locale locale = localeResolver.resolveLocale(request);
+//		Locale locale = localeResolver.resolveLocale(request);
 //		localeResolver.setLocale(request, response, locale);
 
 		return true;
