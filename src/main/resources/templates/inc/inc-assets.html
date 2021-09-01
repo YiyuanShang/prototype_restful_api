@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<!-- put vendor_css fragement inside body or head -->
+	<th:block th:fragment="vendor_css">
+		<link rel="stylesheet"
+			th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+		<link rel="stylesheet"
+			th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
+		<link rel="stylesheet" th:href="@{/vendor/animate/animate.min.css}">
+		<link rel="stylesheet"
+			th:href="@{/vendor/simple-line-icons/css/simple-line-icons.min.css}">
+		<link rel="stylesheet"
+			th:href="@{/vendor/owl.carousel/assets/owl.carousel.min.css}">
+		<link rel="stylesheet"
+			th:href="@{/vendor/owl.carousel/assets/owl.theme.default.min.css}">
+		<link rel="stylesheet"
+			th:href="@{/vendor/magnific-popup/magnific-popup.min.css}">
+	</th:block>
+	
+	<th:block th:fragment="javascripts">
+		<!-- Vendor -->
+		<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+		<script th:src="@{/vendor/jquery.appear/jquery.appear.min.js}"></script>
+		<script th:src="@{/vendor/jquery.easing/jquery.easing.min.js}"></script>
+		<script th:src="@{/vendor/jquery-cookie/jquery-cookie.min.js}"></script>
+		<script th:src="@{/vendor/popper/umd/popper.min.js}"></script>
+		<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/vendor/common/common.min.js}"></script>
+		<script th:src="@{/vendor/jquery.validation/jquery.validation.min.js}"></script>
+		<script
+			th:src="@{/vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js}"></script>
+		<script th:src="@{/vendor/jquery.gmap/jquery.gmap.min.js}"></script>
+		<script th:src="@{/vendor/jquery.lazyload/jquery.lazyload.min.js}"></script>
+		<script th:src="@{/vendor/isotope/jquery.isotope.min.js}"></script>
+		<script th:src="@{/vendor/owl.carousel/owl.carousel.min.js}"></script>
+		<script
+			th:src="@{/vendor/magnific-popup/jquery.magnific-popup.min.js}"></script>
+		<script th:src="@{/vendor/vide/vide.min.js}"></script>
+
+		<!-- Theme Base, Components and Settings -->
+		<script th:src="@{/js/theme.js}"></script>
+
+		<!-- Current Page Vendor and Views -->
+		<script
+			th:src="@{/vendor/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>
+		<script
+			th:src="@{/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+
+		<!-- Theme Custom -->
+		<script th:src="@{/js/custom.js}"></script>
+
+		<!-- Theme Initialization Files -->
+		<script th:src="@{/js/theme.init.js}"></script>
+	</th:block>
+
+</body>
+</html>
