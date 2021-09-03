@@ -69,10 +69,14 @@
 	</dependencies>
 
 	<build>
+		<finalName>tacedugroup</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.athensoft.tacedu.TaceduApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
