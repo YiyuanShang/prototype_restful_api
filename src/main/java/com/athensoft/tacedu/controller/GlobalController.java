@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class GlobalController {
 	@GetMapping("/")
-	public String gotoIndex() {
+	public String gotoLanding() {
 		return "coming-soon";
 	}
 	
-	@GetMapping("/home")
-	public String gotoHome() {
-		return "homepage";
+	@GetMapping("/index")
+	public String gotoIndex() {
+		return "index";
 	}
 	
 	@GetMapping("/about")
