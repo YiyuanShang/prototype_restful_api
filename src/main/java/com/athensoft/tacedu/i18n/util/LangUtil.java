@@ -5,6 +5,11 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 public class LangUtil {
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public static Locale findLocaleFromRequest(HttpServletRequest request) {
 		Locale locale =  null;
 		String url = request.getRequestURI();

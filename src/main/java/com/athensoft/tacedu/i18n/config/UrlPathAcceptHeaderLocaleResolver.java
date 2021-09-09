@@ -18,6 +18,20 @@ import com.athensoft.tacedu.i18n.util.LangUtil;
 public class UrlPathAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver{
 	private final Logger LOGGER = LoggerFactory.getLogger(UrlPathAcceptHeaderLocaleResolver.class);
 	
+	/**
+	* get locale object by locale info:
+	* of default locale set by program,
+	* from request header in http request object from client
+	* from request URL with specified language info
+	*
+	* priority order of locale to apply from highest to lowest:
+	* default locale
+	* locale by request header
+	* locale by request URL
+	*
+	* @param request
+	* @return
+	*/
 	@Override
 	public Locale resolveLocale(HttpServletRequest request) {
 		Locale defaultLocale = getDefaultLocale();
