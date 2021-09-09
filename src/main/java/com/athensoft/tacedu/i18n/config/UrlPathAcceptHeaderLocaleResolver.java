@@ -21,18 +21,22 @@ public class UrlPathAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolve
 	@Override
 	public Locale resolveLocale(HttpServletRequest request) {
 		Locale defaultLocale = getDefaultLocale();
+		LOGGER.debug("defaultLocale:" + defaultLocale);
+		
 		if (defaultLocale != null && request.getHeader("Accept-Language") == null) {
 			LOGGER.debug("return defaultLocale:" + defaultLocale);
 			return defaultLocale;
 		}
 		Locale requestLocale = request.getLocale();
 		List<Locale> supportedLocales = getSupportedLocales();
-		LOGGER.debug("supportedLocales:" + supportedLocales);
+//		LOGGER.debug("supportedLocales:" + supportedLocales);
 		
 		if (supportedLocales.isEmpty() || supportedLocales.contains(requestLocale)) {
 			LOGGER.debug("return requestLocale:" + requestLocale);
 			return requestLocale;
 		}
+		
+		// modified by Marie
 		Locale supportedLocale = LangUtil.findLocaleFromRequest(request);
 		if (supportedLocale != null) {
 			LOGGER.debug("return supportedLocale:" + supportedLocale);

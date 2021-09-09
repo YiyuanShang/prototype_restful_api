@@ -2,6 +2,7 @@ package com.athensoft.tacedu.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class GlobalController {
@@ -10,8 +11,8 @@ public class GlobalController {
 		return "coming-soon";
 	}
 	
-	@GetMapping("/index")
-	public String gotoIndex() {
+	@GetMapping({"/index", "/{lang}/index"})
+	public String gotoIndex(@PathVariable(required=false) String lang) {
 		return "index";
 	}
 	

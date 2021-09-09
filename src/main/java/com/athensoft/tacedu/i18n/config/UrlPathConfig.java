@@ -47,6 +47,7 @@ public class UrlPathConfig implements WebMvcConfigurer{
 	@Bean(name = "localeResolver")
 	public LocaleResolver acceptHeaderLocaleResolver() {
 		UrlPathAcceptHeaderLocaleResolver resolver = new UrlPathAcceptHeaderLocaleResolver();
+		resolver.setDefaultLocale(Locale.ENGLISH);
 		
 		// set supported locales
 		List<LanguageCode> languageCodes = Arrays.asList(LanguageCode.values());
