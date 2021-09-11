@@ -38,7 +38,7 @@ public class UrlPathAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolve
 		LOGGER.debug("defaultLocale:" + defaultLocale);
 		
 		if (defaultLocale != null && request.getHeader("Accept-Language") == null) {
-			LOGGER.debug("return defaultLocale:" + defaultLocale);
+//			LOGGER.debug("return defaultLocale:" + defaultLocale);
 			return defaultLocale;
 		}
 		Locale requestLocale = request.getLocale();
@@ -46,14 +46,14 @@ public class UrlPathAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolve
 //		LOGGER.debug("supportedLocales:" + supportedLocales);
 		
 		if (supportedLocales.isEmpty() || supportedLocales.contains(requestLocale)) {
-			LOGGER.debug("return requestLocale:" + requestLocale);
+//			LOGGER.debug("return requestLocale:" + requestLocale);
 			return requestLocale;
 		}
 		
 		// modified by Marie
 		Locale supportedLocale = LangUtil.findLocaleFromRequest(request);
 		if (supportedLocale != null) {
-			LOGGER.debug("return supportedLocale:" + supportedLocale);
+//			LOGGER.debug("return supportedLocale:" + supportedLocale);
 			return supportedLocale;
 		}
 		return (defaultLocale != null ? defaultLocale : requestLocale);

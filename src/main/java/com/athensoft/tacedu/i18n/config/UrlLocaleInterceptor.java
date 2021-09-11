@@ -25,7 +25,7 @@ public class UrlLocaleInterceptor implements HandlerInterceptor {
 			LOGGER.error(errorMessage);
 			throw new IllegalStateException(errorMessage);
 		}
-		LOGGER.debug(localeResolver.getClass().getName());
+//		LOGGER.debug(localeResolver.getClass().getName());
 		
 		// Get locale from LocaleResolver
 //		Locale locale = localeResolver.resolveLocale(request);
