@@ -35,7 +35,7 @@ public class UrlPathAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolve
 	@Override
 	public Locale resolveLocale(HttpServletRequest request) {
 		Locale defaultLocale = getDefaultLocale();
-		LOGGER.debug("defaultLocale:" + defaultLocale);
+//		LOGGER.debug("defaultLocale:" + defaultLocale);
 		
 		if (defaultLocale != null && request.getHeader("Accept-Language") == null) {
 //			LOGGER.debug("return defaultLocale:" + defaultLocale);
