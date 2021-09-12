@@ -15,6 +15,8 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import com.athensoft.tacedu.i18n.util.LanguageCode;
 
+import ch.qos.logback.classic.Logger;
+
 
 /**
  * configuration for URL path based i18n support
@@ -52,7 +54,9 @@ public class UrlPathConfig implements WebMvcConfigurer{
 		// set supported locales
 		List<LanguageCode> languageCodes = Arrays.asList(LanguageCode.values());
 		List<Locale> locales = new ArrayList<>();
-		languageCodes.forEach(langCode -> locales.add(new Locale(langCode.toString())));
+		for(LanguageCode languageCode : languageCodes) {
+			locales.add(new Locale(languageCode.getLangCode(), languageCode.getCountryCode()));
+		}
 		resolver.setSupportedLocales(locales);
 		
 		return resolver;

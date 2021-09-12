@@ -14,50 +14,54 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import com.athensoft.tacedu.i18n.util.LangUtil;
 
-
-public class UrlPathAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver{
+public class UrlPathAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver {
 	private final Logger LOGGER = LoggerFactory.getLogger(UrlPathAcceptHeaderLocaleResolver.class);
-	
+
 	/**
-	* get locale object by locale info:
-	* of default locale set by program,
-	* from request header in http request object from client
-	* from request URL with specified language info
-	*
-	* priority order of locale to apply from highest to lowest:
-	* default locale
-	* locale by request header
-	* locale by request URL
-	*
-	* @param request
-	* @return
-	*/
+	 * get locale object by locale info: of default locale set by program, from
+	 * request header in http request object from client from request URL with
+	 * specified language info
+	 *
+	 * priority order of locale to apply from highest to lowest: 
+	 * locale by request URL
+	 * locale by request header 
+	 * default locale
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@Override
 	public Locale resolveLocale(HttpServletRequest request) {
-		Locale defaultLocale = getDefaultLocale();
-//		LOGGER.debug("defaultLocale:" + defaultLocale);
-		
-		if (defaultLocale != null && request.getHeader("Accept-Language") == null) {
-//			LOGGER.debug("return defaultLocale:" + defaultLocale);
-			return defaultLocale;
-		}
-		Locale requestLocale = request.getLocale();
-		List<Locale> supportedLocales = getSupportedLocales();
-//		LOGGER.debug("supportedLocales:" + supportedLocales);
-		
-		if (supportedLocales.isEmpty() || supportedLocales.contains(requestLocale)) {
-//			LOGGER.debug("return requestLocale:" + requestLocale);
-			return requestLocale;
-		}
-		
+		// get locale by request URL
 		// modified by Marie
 		Locale supportedLocale = LangUtil.findLocaleFromRequest(request);
 		if (supportedLocale != null) {
-//			LOGGER.debug("return supportedLocale:" + supportedLocale);
+//			LOGGER.debug("return supportedLocale in url:" + supportedLocale);
 			return supportedLocale;
 		}
+		
+		// get locale by request header 
+		Locale requestLocale = request.getLocale();
+		List<Locale> supportedLocales = getSupportedLocales();
+//		LOGGER.debug("supportedLocales:" + supportedLocales);
+//		LOGGER.debug("requestLocale:" + requestLocale);
+		
+		if (!supportedLocales.isEmpty() && supportedLocales.contains(requestLocale) && request.getHeader("Accept-Language") != null) {
+//			LOGGER.debug("return requestLocale:" + requestLocale);
+			return requestLocale;
+		}
+
+		// get locale by default locale
+		Locale defaultLocale = getDefaultLocale();
+
+		if (defaultLocale != null) {
+//			LOGGER.debug("return defaultLocale:" + defaultLocale);
+			return defaultLocale;
+		}
+
+//		LOGGER.debug("return defaultLocale final:" + defaultLocale);
 		return (defaultLocale != null ? defaultLocale : requestLocale);
+
 	}
-	
-	
+
 }
